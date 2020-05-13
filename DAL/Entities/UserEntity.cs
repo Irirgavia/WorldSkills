@@ -14,6 +14,7 @@
         public UserEntity(
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,
@@ -26,6 +27,7 @@
             Login = login;
             Password = password;
             Surname = surname;
+            Role = role;
             Name = name;
             Patronymic = patronymic;
             Birthday = birthday;
@@ -39,6 +41,7 @@
         public int Id { get; private set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public string Login { get; set; }
 
         [Required]
