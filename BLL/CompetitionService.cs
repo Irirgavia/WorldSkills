@@ -21,6 +21,139 @@
 
         public ObjectMapper ObjectMapper { get; }
 
+        public AddressDTO GetAddressById(int id)
+        {
+            return ObjectMapper.ToBLO(this.unitOfWork.AddressRepository.GetAddressById(id));
+        }
+
+        public ICollection<AddressDTO> GetAllAddressByPlace(string country, string city = null, string street = null, string house = null)
+        {
+            return ObjectMapper.ToBLOList(
+                this.unitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house));
+        }
+
+        public ICollection<AddressDTO> GetAllAddress()
+        {
+            return ObjectMapper.ToBLOList(this.unitOfWork.AddressRepository.GetAll());
+        }
+
+        public void CreateAddress(string country, string city, string street, string house, string notes)
+        {
+            this.unitOfWork.AddressRepository.CreateAddress(country, city, street, house, notes);
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void DeleteAddress(int id)
+        {
+            this.unitOfWork.AddressRepository.DeleteAddress(id);
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void UpdateAddress(AddressDTO address)
+        {
+            this.unitOfWork.AddressRepository.UpdateAddress(
+                address.Id,
+                address.Country,
+                address.City,
+                address.Street,
+                address.House,
+                address.Notes);
+
+            this.unitOfWork.SaveChanges();
+        }
+
+        public AnswerDTO GetAnswer(int id)
+        {
+            return ObjectMapper.ToBLO(this.unitOfWork.AnswerRepository.GetAnswerById(id));
+        }
+
+        public ICollection<AnswerDTO> GetAnswersByTask(int id)
+        {
+            return ObjectMapper.ToBLOList(this.unitOfWork.AnswerRepository.GetAnswersByIdTask(id));
+        }
+
+        public void CreateAnswer(int participantId, int taskId, string projectLink, string notes)
+        {
+            var participant = this.unitOfWork.ParticipantRepository.GetParticipantById(participantId);
+            var task = this.unitOfWork.TaskRepository.GetTaskById(taskId);
+
+            this.unitOfWork.ResultRepository.CreateResult();
+            var result = this.unitOfWork.ResultRepository.GetResultById(this.unitOfWork.ResultRepository.GetAll().Count());
+
+            this.unitOfWork.AnswerRepository.CreateAnswer(participant, result, task, projectLink, notes);
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void DeleteAnswer(int id)
+        {
+            this.unitOfWork.AnswerRepository.DeleteAnswer(id);
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void UpdateAnswer(AnswerDTO answer)
+        {
+            this.unitOfWork.AnswerRepository.UpdateAnswer(
+                answer.Id,
+                answer.ProjectLink,
+                answer.Notes);
+
+            this.unitOfWork.SaveChanges();
+        }
+
+        public ICollection<CompetitionDTO> GetAllCompetitions()
+        {
+            return ObjectMapper.ToBLOList(this.unitOfWork.CompetitionRepository.GetAll());
+        }
+
+        public ICollection<CompetitionDTO> GetCompetitions(string skill)
+        {
+            return ObjectMapper.ToBLOList(this.unitOfWork.CompetitionRepository.GetCompetitions(skill));
+        }
+
+        public ICollection<CompetitionDTO> GetCompetitions(DateTime begin, DateTime end)
+        {
+            return ObjectMapper.ToBLOList(this.unitOfWork.CompetitionRepository.GetCompetitions(begin, end));
+        }
+
+        public CompetitionDTO GetCompetition(int id)
+        {
+            return ObjectMapper.ToBLO(this.unitOfWork.CompetitionRepository.GetCompetitionById(id));
+        }
+
+        public void CreateCompetition(
+            string skillName,
+            DateTime begin,
+            DateTime end)
+        {
+            var skill = this.unitOfWork.SkillRepository.GetSkillByName(skillName);
+            this.unitOfWork.CompetitionRepository.CreateCompetition(skill, begin, end, new List<StageEntity>());
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void DeleteCompetition(int id)
+        {
+            this.unitOfWork.CompetitionRepository.DeleteCompetition(id);
+            this.unitOfWork.SaveChanges();
+        }
+
+        public void UpdateCompetition(CompetitionDTO competition)
+        {
+            foreach (var stage in competition.Stages)
+            {
+                UpdateStage(stage);
+            }
+
+            var competitionEntity = this.unitOfWork.CompetitionRepository.GetCompetitionById(competition.Id);
+            var stages = this.unitOfWork.StageRepository.GetStagesByCompetition(competitionEntity).ToArray();
+            this.unitOfWork.CompetitionRepository.UpdateCompetition(
+                competition.Id,
+                competition.DateTimeBegin,
+                competition.DateTimeEnd,
+                stages);
+
+            this.unitOfWork.SaveChanges();
+        }
+
         public ICollection<SkillDTO> GetAllSkills()
         {
             return ObjectMapper.ToBLOList(unitOfWork.SkillRepository.GetAll());
@@ -37,73 +170,10 @@
             this.unitOfWork.SaveChanges();
         }
 
-        public void CreateCompetition(
-            SkillDTO skill, 
-            DateTime begin, 
-            DateTime end, 
-            ICollection<StageDTO> stages)
+        public ICollection<StageDTO> GetStagesByCompetition(int id)
         {
-            var stagesEntities = new List<StageEntity>();
-            foreach (var stage in stages)
-            {
-                stagesEntities.Add(ObjectMapper.ToDLO(stage));
-            }
-
-            this.unitOfWork.CompetitionRepository.CreateCompetition(ObjectMapper.ToDLO(skill), begin, end, stagesEntities);
-            this.unitOfWork.SaveChanges();
-        }
-
-        public ICollection<CompetitionDTO> GetAllCompetitions()
-        {
-            return ObjectMapper.ToBLOList(this.unitOfWork.CompetitionRepository.GetAll());
-        }
-
-        public CompetitionDTO GetCompetition(int id)
-        {
-            return ObjectMapper.ToBLO(this.unitOfWork.CompetitionRepository.GetCompetitionById(id));
-        }
-
-        public void CreateStage(
-            CompetitionDTO competition, 
-            TypeStage typeStage,
-            ICollection<TaskDTO> tasks,
-            ICollection<ParticipantDTO> participants,
-            ICollection<JudgeDTO> judges,
-            ICollection<AdministratorDTO> administrators)
-        {
-            var tasksEntities = new List<TaskEntity>();
-            foreach (var task in tasks)
-            {
-                tasksEntities.Add(ObjectMapper.ToDLO(task));
-            }
-
-            var participantsEntities = new List<ParticipantEntity>();
-            foreach (var participant in participants)
-            {
-                participantsEntities.Add(ObjectMapper.ToDLO(participant));
-            }
-
-            var judgesEntities = new List<JudgeEntity>();
-            foreach (var judge in judges)
-            {
-                judgesEntities.Add(ObjectMapper.ToDLO(judge));
-            }
-
-            var administratorsEntities = new List<AdministratorEntity>();
-            foreach (var administrator in administrators)
-            {
-                administratorsEntities.Add(ObjectMapper.ToDLO(administrator));
-            }
-
-            this.unitOfWork.StageRepository.CreateStage(
-                ObjectMapper.ToDLO(competition),
-                typeStage,
-                tasksEntities,
-                participantsEntities,
-                judgesEntities,
-                administratorsEntities);
-
-            this.unitOfWork.SaveChanges();
+            var competition = this.unitOfWork.CompetitionRepository.GetCompetitionById(id);
+            return ObjectMapper.ToBLOList(this.unitOfWork.StageRepository.GetStagesByCompetition(competition));
         }
 
         public ICollection<StageDTO> GetAllStages()
@@ -111,45 +181,32 @@
             return ObjectMapper.ToBLOList(this.unitOfWork.StageRepository.GetAll());
         }
 
-
-        public void CreateUser(
-            string login,
-            string password,
-            string surname,
-            string name,
-            string patronymic,
-            DateTime birthday,
-            string photo,
-            string mail,
-            string telephone,
-            string awards)
+        public void CreateStage(
+            int competitionId, 
+            TypeStage typeStage,
+            ICollection<TaskDTO> tasks,
+            ICollection<ParticipantDTO> participants,
+            ICollection<JudgeDTO> judges,
+            ICollection<AdministratorDTO> administrators)
         {
-            this.unitOfWork.UserRepository.CreateUser(login, password, surname, name, patronymic, birthday, photo, mail, telephone, awards);
+            var competition = this.unitOfWork.CompetitionRepository.GetCompetitionById(competitionId);
+
+            this.unitOfWork.StageRepository.CreateStage(
+                competition,
+                typeStage,
+                ObjectMapper.ToDLOList(tasks),
+                ObjectMapper.ToDLOList(participants),
+                ObjectMapper.ToDLOList(judges),
+                ObjectMapper.ToDLOList(administrators));
 
             this.unitOfWork.SaveChanges();
         }
 
-        public ICollection<UserDTO> GetAllUsers()
+        public void UpdateStage(StageDTO stage)
         {
-            return ObjectMapper.ToBLOList(this.unitOfWork.UserRepository.GetAll());
-        }
-
-        public void CreateAdministrator(UserDTO user, ICollection<StageDTO> stages)
-        {
-            var stagesEntity = new List<StageEntity>();
-            foreach (var stage in stages)
-            {
-                stagesEntity.Add(ObjectMapper.ToDLO(stage));
-            }
-
-            this.unitOfWork.AdministratorRepository.CreateAdministrator(ObjectMapper.ToDLO(user), stagesEntity);
+            //this.unitOfWork.StageRepository.UpdateStage();
 
             this.unitOfWork.SaveChanges();
-        }
-
-        public ICollection<AdministratorDTO> GetAllAdministrators()
-        {
-            return ObjectMapper.ToBLOList(this.unitOfWork.AdministratorRepository.GetAll());
         }
 
         public void Dispose()
