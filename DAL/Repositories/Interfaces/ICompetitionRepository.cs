@@ -9,11 +9,11 @@
     {
         CompetitionEntity GetCompetitionById(int id);
 
-        IEnumerable<CompetitionEntity> GetCompetitionsByDate(
+        IEnumerable<CompetitionEntity> GetCompetitions(
             DateTime begin, 
             DateTime end);
 
-        IEnumerable<CompetitionEntity> GetCompetitionsBySkill(SkillEntity skill);
+        IEnumerable<CompetitionEntity> GetCompetitions(string skill);
 
         void CreateCompetition(
             SkillEntity skill,

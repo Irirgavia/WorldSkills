@@ -19,14 +19,14 @@
             return Context.Competitions.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<CompetitionEntity> GetCompetitionsByDate(DateTime begin, DateTime end)
+        public IEnumerable<CompetitionEntity> GetCompetitions(DateTime begin, DateTime end)
         {
             return Context.Competitions.Where(x => x.DateTimeBegin == begin && x.DateTimeEnd == end);
         }
 
-        public IEnumerable<CompetitionEntity> GetCompetitionsBySkill(SkillEntity skill)
+        public IEnumerable<CompetitionEntity> GetCompetitions(string skill)
         {
-            return Context.Competitions.Where(x => x.Skill == skill);
+            return Context.Competitions.Where(x => x.Skill.Name.Equals(skill));
         }
 
         public void CreateCompetition(SkillEntity skill, DateTime begin, DateTime end, ICollection<StageEntity> stages)
