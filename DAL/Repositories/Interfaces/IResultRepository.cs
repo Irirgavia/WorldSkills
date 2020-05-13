@@ -10,6 +10,8 @@
 
         IEnumerable<ResultEntity> GetResultsByMark(float mark);
 
+        void CreateResult();
+
         void CreateResult(
             float mark,
             string notes);

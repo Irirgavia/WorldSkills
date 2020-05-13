@@ -4,8 +4,9 @@
 
     public class ResultEntity : IIdentifier
     {
-        public ResultEntity()
+        public ResultEntity(float mark = 0)
         {
+            Mark = mark;
         }
 
         public ResultEntity(

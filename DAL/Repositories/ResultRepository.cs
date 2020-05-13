@@ -23,6 +23,11 @@
             return Context.Results.Where(x => x.Mark.Equals(mark));
         }
 
+        public void CreateResult()
+        {
+            Context.Results.Add(new ResultEntity());
+        }
+
         public void CreateResult(float mark, string notes)
         {
             Context.Results.Add(new ResultEntity(mark, notes));
