@@ -42,6 +42,7 @@
 
         [Required]
         [Index(IsUnique = true)]
+        [MaxLength(50)]
         public string Login { get; set; }
 
         [Required]
@@ -51,15 +52,22 @@
         public Role Role { get; set; }
 
         [Required]
+        [Index("IX_FullNameAndBirthday", 1)]
+        [MaxLength(50)]
         public string Surname { get; set; }
 
         [Required]
+        [Index("IX_FullNameAndBirthday", 2)]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [Required]
+        [Index("IX_FullNameAndBirthday", 3)]
+        [MaxLength(50)]
         public string Patronymic { get; set; }
 
         [Required]
+        [Index("IX_FullNameAndBirthday", 4)]
         public DateTime Birthday { get; set; }
 
         [Required]

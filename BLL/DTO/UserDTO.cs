@@ -2,6 +2,8 @@
 {
     using System;
 
+    using DAL.Entities;
+
     public class UserDTO
     {
         public UserDTO()
@@ -11,6 +13,7 @@
         public UserDTO(
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,
@@ -22,6 +25,7 @@
         {
             Login = login;
             Password = password;
+            Role = role;
             Surname = surname;
             Name = name;
             Patronymic = patronymic;
@@ -37,6 +41,8 @@
         public string Login { get; set; }
 
         public string Password { get; set; }
+
+        public Role Role { get; set; }
 
         public string Surname { get; set; }
 
