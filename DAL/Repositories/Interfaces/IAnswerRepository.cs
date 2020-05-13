@@ -22,8 +22,6 @@
 
         void UpdateAnswer(
             int id,
-            ParticipantEntity participant,
-            ResultEntity result,
             string projectLink,
             string notes);
     }

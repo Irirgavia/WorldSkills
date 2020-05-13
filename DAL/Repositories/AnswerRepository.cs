@@ -45,16 +45,12 @@
 
         public void UpdateAnswer(
             int id,
-            ParticipantEntity participant,
-            ResultEntity result,
             string projectLink,
             string notes)
         {
             var answer = this.GetAnswerById(id);
             if (answer != null)
             {
-                answer.Participant = participant;
-                answer.Result = result;
                 answer.ProjectLink = projectLink;
                 answer.Notes = notes;
             }
