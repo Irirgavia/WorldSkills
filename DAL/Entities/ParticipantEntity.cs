@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class ParticipantEntity : IIdentifier
     {
@@ -29,6 +30,7 @@
         public int Id { get; private set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public UserEntity User { get; set; }
 
         public TrainerEntity Trainer { get; set; }

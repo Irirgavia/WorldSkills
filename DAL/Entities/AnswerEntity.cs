@@ -25,6 +25,7 @@
         public ParticipantEntity Participant { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public ResultEntity Result { get; set; }
 
         [Required]

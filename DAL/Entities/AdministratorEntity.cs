@@ -21,6 +21,7 @@
         public int Id { get; private set; }
 
         [Required]
+        [Index(IsUnique = true)]
         public UserEntity User { get; set; }
 
         [Required]

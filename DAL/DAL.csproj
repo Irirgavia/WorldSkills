@@ -61,6 +61,7 @@
     <Compile Include="Entities\JudgeEntity.cs" />
     <Compile Include="Entities\ParticipantEntity.cs" />
     <Compile Include="Entities\ResultEntity.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SkillEntity.cs" />
     <Compile Include="Entities\StageEntity.cs" />
     <Compile Include="Entities\TaskEntity.cs" />

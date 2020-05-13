@@ -13,6 +13,7 @@
         void CreateUser(
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,
@@ -28,6 +29,7 @@
             int id,
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,

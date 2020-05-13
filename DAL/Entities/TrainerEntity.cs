@@ -22,6 +22,7 @@
         [Key]
         public int Id { get; private set; }
 
+        [Index(IsUnique = true)]
         public UserEntity User { get; set; }
 
         [Required]

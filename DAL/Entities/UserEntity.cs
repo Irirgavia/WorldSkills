@@ -45,6 +45,9 @@
         public string Password { get; set; }
 
         [Required]
+        public Role Role { get; set; }
+
+        [Required]
         public string Surname { get; set; }
 
         [Required]

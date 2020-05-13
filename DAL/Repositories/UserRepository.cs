@@ -26,6 +26,7 @@
         public void CreateUser(
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,
@@ -36,7 +37,7 @@
             string awards)
         {
             Context.Users.Add(
-                new UserEntity(login, password, surname, name, patronymic, birthday, photo, mail, telephone, awards));
+                new UserEntity(login, password, role, surname, name, patronymic, birthday, photo, mail, telephone, awards));
         }
 
         public void DeleteUser(int id)
@@ -52,6 +53,7 @@
             int id,
             string login,
             string password,
+            Role role,
             string surname,
             string name,
             string patronymic,
@@ -66,6 +68,7 @@
             {
                 user.Login = login;
                 user.Password = password;
+                user.Role = role;
                 user.Surname = surname;
                 user.Name = name;
                 user.Patronymic = patronymic;
