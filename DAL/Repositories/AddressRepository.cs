@@ -18,9 +18,33 @@
             return Context.Addresses.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<AddressEntity> GetAddressesByCountry(string country)
+        public IEnumerable<AddressEntity> GetAddressesByPlace(string country, string city = null, string street = null, string house = null)
         {
-            return Context.Addresses.Where(x => x.Country == country);
+            if (city != null && street != null && house != null)
+            {
+                return Context.Addresses.Where(
+                    x => x.Country.Equals(country) 
+                         && x.City.Equals(city) 
+                         && x.Street.Equals(street)
+                         && x.House.Equals(house));
+            }
+
+            if (city != null && street != null)
+            {
+                return Context.Addresses.Where(
+                    x => x.Country.Equals(country)
+                         && x.City.Equals(city)
+                         && x.Street.Equals(street));
+            }
+
+            if (city != null)
+            {
+                return Context.Addresses.Where(
+                    x => x.Country.Equals(country)
+                         && x.City.Equals(city));
+            }
+
+            return Context.Addresses.Where(x => x.Country.Equals(country));
         }
 
         public void CreateAddress(string country, string city, string street, string house, string notes)

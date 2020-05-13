@@ -8,7 +8,7 @@
     {
         AddressEntity GetAddressById(int id);
 
-        IEnumerable<AddressEntity> GetAddressesByCountry(string country);
+        IEnumerable<AddressEntity> GetAddressesByPlace(string country, string city, string street, string house);
 
         void CreateAddress(
             string country, 
