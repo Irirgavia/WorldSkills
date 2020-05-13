@@ -8,6 +8,7 @@
     using BLL.DTO;
 
     using DAL.Entities;
+    using DAL.Repositories;
 
     public class ObjectMapper
     {
@@ -309,6 +310,138 @@
         public UserEntity ToDLO(UserDTO user)
         {
             return this.mapper.Map<UserDTO, UserEntity>(user);
+        }
+
+        public ICollection<AddressEntity> ToDLOList(IEnumerable<AddressDTO> collection)
+        {
+            var items = new List<AddressEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<AdministratorEntity> ToDLOList(IEnumerable<AdministratorDTO> collection)
+        {
+            var items = new List<AdministratorEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<AnswerEntity> ToDLOList(IEnumerable<AnswerDTO> collection)
+        {
+            var items = new List<AnswerEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<CompetitionEntity> ToDLOList(IEnumerable<CompetitionDTO> collection)
+        {
+            var items = new List<CompetitionEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<JudgeEntity> ToDLOList(IEnumerable<JudgeDTO> collection)
+        {
+            var items = new List<JudgeEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<ParticipantEntity> ToDLOList(IEnumerable<ParticipantDTO> collection)
+        {
+            var items = new List<ParticipantEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<ResultEntity> ToDLOList(IEnumerable<ResultDTO> collection)
+        {
+            var items = new List<ResultEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<SkillEntity> ToDLOList(IEnumerable<SkillDTO> collection)
+        {
+            var items = new List<SkillEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<StageEntity> ToDLOList(IEnumerable<StageDTO> collection)
+        {
+            var items = new List<StageEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<TaskEntity> ToDLOList(IEnumerable<TaskDTO> collection)
+        {
+            var items = new List<TaskEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<TrainerEntity> ToDLOList(IEnumerable<TrainerDTO> collection)
+        {
+            var items = new List<TrainerEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
+        }
+
+        public ICollection<UserEntity> ToDLOList(IEnumerable<UserDTO> collection)
+        {
+            var items = new List<UserEntity>();
+            foreach (var item in collection)
+            {
+                items.Add(this.ToDLO(item));
+            }
+
+            return items;
         }
     }
 }
