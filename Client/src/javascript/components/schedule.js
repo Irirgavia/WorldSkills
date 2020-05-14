@@ -4,9 +4,9 @@ export default class Schedule extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        error: null,
+        error   : null,
         isLoaded: false,
-        items: []
+        items   : []
       };
     }
   
@@ -17,7 +17,7 @@ export default class Schedule extends React.Component {
           (result) => {
             this.setState({
               isLoaded: true,
-              items: result.items
+              items   : result.items
             });
           },
           (error) => {
@@ -37,22 +37,22 @@ export default class Schedule extends React.Component {
             return <div>Загрузка...</div>;
         } else {
             return (
-                <table border="1">
-                    <caption>Результаты</caption>
+                <table border = "1">
+                    <caption>Расписание</caption>
                     <tr>
-                        <th>Дата</th>
-                        <th>Победитель</th>
-                        <th>Баллы</th>
                         <th>Профессия</th>
                         <th>Этап</th>
+                        <th>Дата начала</th>
+                        <th>Дата конца</th>
+                        <th>Адрес</th>
                     </tr>
                     {items.map(item => (
                         <tr>
-                            <td>{item.date}</td>
-                            <td>{item.winner}</td>
-                            <td>{item.marks}</td>
                             <td>{item.skill}</td>
                             <td>{item.stage}</td>
+                            <td>{item.databegin}</td>
+                            <td>{item.dataend}</td>
+                            <td>{item.address}</td>
                         </tr>
                     ))}
                 </table>
