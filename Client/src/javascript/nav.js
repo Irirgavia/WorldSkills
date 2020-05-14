@@ -6,6 +6,8 @@ export default class Nav extends React.Component{
         return <div>
                 <Link to="/">Главная</Link> 
                 <Link to="/about">О конкурсе</Link>
+                <Link to="/about/history">История</Link>
+                <Link to="/about/rules">Правила</Link>
                 <Link to="/schedule">График</Link>
                 <Link to="/results">Результаты</Link>
                 <Link to="/contacts">Контакты</Link>
