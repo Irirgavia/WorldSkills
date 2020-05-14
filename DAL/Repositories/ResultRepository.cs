@@ -18,9 +18,14 @@
             return Context.Results.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<ResultEntity> GetResultsByMark(float mark)
+        public ResultEntity GetResultByIdAnswer(int id)
         {
-            return Context.Results.Where(x => x.Mark.Equals(mark));
+            return Context.Results.FirstOrDefault(x => x.Answer.Id == id);
+        }
+
+        public IEnumerable<ResultEntity> GetResultsByMark(float begin, float end)
+        {
+            return Context.Results.Where(x => x.Mark >= begin && x.Mark <= end);
         }
 
         public void CreateResult()

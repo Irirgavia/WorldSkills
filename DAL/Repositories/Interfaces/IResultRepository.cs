@@ -8,7 +8,9 @@
     {
         ResultEntity GetResultById(int id);
 
-        IEnumerable<ResultEntity> GetResultsByMark(float mark);
+        ResultEntity GetResultByIdAnswer(int id);
+
+        IEnumerable<ResultEntity> GetResultsByMark(float begin, float end);
 
         void CreateResult();
 
