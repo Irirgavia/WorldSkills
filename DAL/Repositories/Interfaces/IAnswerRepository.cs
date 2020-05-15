@@ -7,6 +7,5 @@
 
     public interface IAnswerRepository : IGenericRepository<AnswerEntity>
     {
-        IEnumerable<AnswerEntity> GetAnswersByIdTask(int id);
     }
 }

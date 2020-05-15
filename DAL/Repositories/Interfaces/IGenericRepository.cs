@@ -12,6 +12,10 @@
 
         IEnumerable<TEntity> GetAll();
 
+        IEnumerable<TEntity> GetList(Func<TEntity, bool> predicate);
+
+        TEntity Get(Func<TEntity, bool> predicate);
+
         void Remove(TEntity item);
 
         void Update(TEntity item);

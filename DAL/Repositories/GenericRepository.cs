@@ -1,5 +1,6 @@
 ﻿namespace DAL.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
@@ -24,6 +25,17 @@
         public IEnumerable<TEntity> GetAll()
         {
             return dbSet.AsNoTracking().ToList();
+        }
+
+        public IEnumerable<TEntity> GetList(Func<TEntity, bool> predicate)
+        {
+            return this.dbSet.AsNoTracking().Where(predicate).ToList();
+        }
+
+
+        public TEntity Get(Func<TEntity, bool> predicate)
+        {
+            return this.dbSet.AsNoTracking().FirstOrDefault(predicate);
         }
 
         public TEntity FindById(int id)

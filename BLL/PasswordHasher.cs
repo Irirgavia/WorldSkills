@@ -3,7 +3,7 @@
     using System;
     using System.Security.Cryptography;
 
-    public class PasswordHasher
+    public static class PasswordHasher
     {
         private const int SaltSize = 16;
 
