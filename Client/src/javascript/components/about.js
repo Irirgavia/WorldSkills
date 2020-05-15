@@ -1,11 +1,12 @@
 import React from 'react';
+import {Link, BrowserRouter}  from 'react-router-dom';
  
 export default class About extends React.Component{
     render(){
         return <nav id = "navbar-about">
         <ul>
-            <li><a href = "/about/history">История</a></li>
-            <li><a href = "/about/rules">Правила</a></li>
+            <li><Link to="/about/history">История</Link></li>
+            <li><Link to="/about/rules">Правила</Link></li>
         </ul>
     </nav>;
     }
