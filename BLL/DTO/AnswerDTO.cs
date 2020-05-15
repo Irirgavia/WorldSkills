@@ -7,12 +7,12 @@
         }
 
         public AnswerDTO(
-            ParticipantDTO participant, 
+            int participant, 
             ResultDTO result, 
             string projectLink,
             string notes)
         {
-            Participant = participant;
+            ParticipantId = participant;
             Result = result;
             ProjectLink = projectLink;
             Notes = notes;
@@ -20,7 +20,7 @@
 
         public int Id { get; private set; }
 
-        public ParticipantDTO Participant { get; set; }
+        public int ParticipantId { get; set; }
 
         public ResultDTO Result { get; set; }
 

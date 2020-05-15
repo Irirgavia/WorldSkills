@@ -14,7 +14,7 @@
         }
 
         public TaskDTO(
-            StageDTO stage,
+            int stage,
             DateTime dateTime,
             TimeSpan time,
             AddressDTO address,
@@ -22,7 +22,7 @@
             string requirement,
             ICollection<AnswerDTO> answers)
         {
-            Stage = stage;
+            StageId = stage;
             DateTime = dateTime;
             Time = time;
             Address = address;
@@ -33,7 +33,7 @@
 
         public int Id { get; private set; }
 
-        public StageDTO Stage { get; set; }
+        public int StageId { get; set; }
 
         public DateTime DateTime { get; set; }
 

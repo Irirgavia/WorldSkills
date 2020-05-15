@@ -7,6 +7,7 @@
         }
 
         public ResultDTO(
+            PrizeType prizeType,
             float mark,
             string notes)
         {
@@ -15,6 +16,10 @@
         }
 
         public int Id { get; private set; }
+
+        public PrizeType PrizeType { get; set; }
+
+        public int Answer { get; private set; }
 
         public float Mark { get; set; }
 

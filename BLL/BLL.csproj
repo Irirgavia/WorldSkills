@@ -53,6 +53,7 @@
     <Compile Include="DTO\CompetitionDTO.cs" />
     <Compile Include="DTO\JudgeDTO.cs" />
     <Compile Include="DTO\ParticipantDTO.cs" />
+    <Compile Include="DTO\PrizeType.cs" />
     <Compile Include="DTO\ResultDTO.cs" />
     <Compile Include="DTO\SkillDTO.cs" />
     <Compile Include="DTO\StageDTO.cs" />

@@ -6,34 +6,34 @@
     {
         public ParticipantDTO()
         {
-            Answers = new List<AnswerDTO>();
-            Stages = new List<StageDTO>();
+            AnswersId = new List<int>();
+            StagesId = new List<int>();
         }
 
         public ParticipantDTO(
             UserDTO user,
-            TrainerDTO trainer,
+            int trainer,
             AddressDTO address,
-            ICollection<AnswerDTO> answers,
-            ICollection<StageDTO> stages)
+            ICollection<int> answers,
+            ICollection<int> stages)
         {
             User = user;
             Trainer = trainer;
             Address = address;
-            Answers = answers;
-            Stages = stages;
+            AnswersId = answers;
+            StagesId = stages;
         }
 
         public int Id { get; private set; }
 
         public UserDTO User { get; set; }
 
-        public TrainerDTO Trainer { get; set; }
+        public int Trainer { get; set; }
 
         public AddressDTO Address { get; set; }
 
-        public ICollection<AnswerDTO> Answers { get; }
+        public ICollection<int> AnswersId { get; }
 
-        public ICollection<StageDTO> Stages { get; }
+        public ICollection<int> StagesId { get; }
     }
 }
