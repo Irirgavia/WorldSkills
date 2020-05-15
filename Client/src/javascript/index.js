@@ -19,6 +19,8 @@ import Schedule from './components/schedule.js';
 import Results from './components/results.js';
 import Contacts from './components/contacts.js';
 import Profile from './components/profile.js';
+import History from './components/aboutpath/history.js';
+import Rules from './components/aboutpath/rules.js';
 //import NotFound from './components/notfound.js';
  
 ReactDOM.render(
@@ -28,6 +30,8 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Main} />
                 <Route path="/about" component={About} />
+                <Route path="/about/history" component={History} />
+                <Route path="/about/rules" component={Rules} />
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/results" component={Results} />
                 <Route path="/contacts" component={Contacts} />
