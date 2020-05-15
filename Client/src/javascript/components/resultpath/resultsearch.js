@@ -1,62 +1,48 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { getResults } from '../../actions/actions.jsx'
 
-export default class ResultsSearchForYear extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        error: null,
-        isLoaded: false,
-        items: []
-      };
+class ResultsSearch extends React.Component {
+
+    componentDidMount() {
+        this.props.getPosts(0);
     }
-  
-    componentDidMount(year) {
-      fetch("https://localhost:3000/results?year=${year}")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items: result.items
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
-    }
-  
+
     render() {
-        const { error, isLoaded, items } = this.state;
-        if (error) {
-            return <div>Ошибка: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Загрузка...</div>;
-        } else {
-            return (
-                <table border="1">
-                    <caption>Результаты</caption>
-                    <tr>
-                        <th>Дата</th>
-                        <th>Победитель</th>
-                        <th>Баллы</th>
-                        <th>Профессия</th>
-                        <th>Этап</th>
-                    </tr>
-                    {items.map(item => (
-                        <tr>
-                            <td>{item.date}</td>
-                            <td>{item.winner}</td>
-                            <td>{item.marks}</td>
-                            <td>{item.skill}</td>
-                            <td>{item.stage}</td>
-                        </tr>
-                    ))}
-                </table>
-            );
-        }
+      <table border="1">
+        <caption>Результаты</caption>
+        <tr>
+          <th>Дата</th>
+          <th>Победитель</th>
+          <th>Баллы</th>
+          <th>Профессия</th>
+          <th>Этап</th>
+        </tr>
+        {this.props.posts.records.map(item => (
+          <tr>
+            <td>{item.date}</td>
+            <td>{item.winner}</td>
+            <td>{item.marks}</td>
+            <td>{item.skill}</td>
+            <td>{item.stage}</td>
+          </tr>
+          ))}
+        </table>
+    };
+};
+
+let mapProps = (state) => {
+    return {
+        posts: state.data,
+        error: state.error
     }
 }
+
+let mapDispatch = (dispatch) => {
+    return {
+        getResults: (skill, stage, year) => dispatch(getResults(skill, stage, year))
+    }
+}
+
+export default connect(mapProps, mapDispatch)(ResultsSearch) 
