@@ -19,7 +19,13 @@ body:before {
   background: linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.8));
 }
 
-nav {
+footer {
+  position: absolute;
+  bottom: 50px;
+  justify-content: center;
+}
+
+nav.navbar {
   text-align: center;
   padding: 40px 0 0;
 }
@@ -36,7 +42,7 @@ nav a {
   color: #222;
 }
 
-.topmenu > li {
+.navbar > ul > li {
   display: inline-block;
   position: relative;
 }
@@ -104,4 +110,9 @@ nav a {
 
 .submenu a:hover {
   background: #e8e8e8;
+}
+
+.buttommenu > li {
+  margin-left: 10px;
+  margin-right: 10px;
 }
