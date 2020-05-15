@@ -60,6 +60,7 @@
     <Compile Include="Entities\IIdentifier.cs" />
     <Compile Include="Entities\JudgeEntity.cs" />
     <Compile Include="Entities\ParticipantEntity.cs" />
+    <Compile Include="Entities\PrizeType.cs" />
     <Compile Include="Entities\ResultEntity.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SkillEntity.cs" />

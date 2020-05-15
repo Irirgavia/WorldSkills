@@ -27,7 +27,7 @@
         public int Id { get; private set; }
 
         [Required]
-        public SkillEntity Skill { get; private set; }
+        public virtual SkillEntity Skill { get; private set; }
 
         [Required]
         public DateTime DateTimeBegin { get; set; }
@@ -36,6 +36,6 @@
         public DateTime DateTimeEnd { get; set; }
 
         [Required]
-        public ICollection<StageEntity> Stages { get; private set; }
+        public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

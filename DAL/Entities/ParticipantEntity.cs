@@ -31,17 +31,17 @@
 
         [Required]
         [Index(IsUnique = true)]
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
-        public TrainerEntity Trainer { get; set; }
-
-        [Required]
-        public AddressEntity Address { get; set; }
+        public virtual TrainerEntity Trainer { get; set; }
 
         [Required]
-        public ICollection<AnswerEntity> Answers { get; private set; }
+        public virtual AddressEntity Address { get; set; }
 
         [Required]
-        public ICollection<StageEntity> Stages { get; private set; }
+        public virtual ICollection<AnswerEntity> Answers { get; private set; }
+
+        [Required]
+        public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

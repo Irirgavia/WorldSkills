@@ -7,13 +7,16 @@
     {
         public ResultEntity(float mark = 0)
         {
+            PrizeType = PrizeType.NonAwardWinning;
             Mark = mark;
         }
 
         public ResultEntity(
+            PrizeType prizeType,
             float mark, 
             string notes)
         {
+            PrizeType = prizeType;
             Mark = mark;
             Notes = notes;
         }
@@ -23,7 +26,10 @@
 
         [Required]
         [Index(IsUnique = true)]
-        public AnswerEntity Answer { get; private set; }
+        public virtual AnswerEntity Answer { get; private set; }
+
+        [Required]
+        public PrizeType PrizeType { get; set; }
 
         [Required]
         public float Mark { get; set; }

@@ -24,9 +24,9 @@
 
         [Required]
         [Index(IsUnique = true)]
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         [Required]
-        public ICollection<StageEntity> Stages { get; private set; }
+        public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

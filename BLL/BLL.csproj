@@ -58,6 +58,7 @@
     <Compile Include="DTO\StageDTO.cs" />
     <Compile Include="DTO\TaskDTO.cs" />
     <Compile Include="DTO\TrainerDTO.cs" />
+    <Compile Include="DTO\TypeStage.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="PasswordHasher.cs" />

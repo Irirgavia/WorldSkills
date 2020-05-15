@@ -33,21 +33,21 @@
         public int Id { get; private set; }
 
         [Required]
-        public CompetitionEntity Competition { get; private set; }
+        public virtual CompetitionEntity Competition { get; private set; }
 
         [Required]
         public TypeStage TypeStage { get; private set; }
 
         [Required]
-        public ICollection<TaskEntity> Tasks { get; private set; }
+        public virtual ICollection<TaskEntity> Tasks { get; private set; }
 
         [Required]
-        public ICollection<ParticipantEntity> Participants { get; private set; }
+        public virtual ICollection<ParticipantEntity> Participants { get; private set; }
 
         [Required]
-        public ICollection<JudgeEntity> Judges { get; private set; }
+        public virtual ICollection<JudgeEntity> Judges { get; private set; }
 
         [Required]
-        public ICollection<AdministratorEntity> Administrators { get; private set; }
+        public virtual ICollection<AdministratorEntity> Administrators { get; private set; }
     }
 }

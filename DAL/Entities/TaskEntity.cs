@@ -34,7 +34,7 @@
         public int Id { get; private set; }
 
         [Required]
-        public StageEntity Stage { get; set; }
+        public virtual StageEntity Stage { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }
@@ -42,7 +42,7 @@
         [Required]
         public TimeSpan Time { get; set; }
 
-        public AddressEntity Address { get; set; }
+        public virtual AddressEntity Address { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -51,6 +51,6 @@
         public string Requirement { get; set; }
 
         [Required]
-        public ICollection<AnswerEntity> Answers { get; private set; }
+        public virtual ICollection<AnswerEntity> Answers { get; private set; }
     }
 }

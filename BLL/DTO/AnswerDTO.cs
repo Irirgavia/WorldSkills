@@ -9,13 +9,11 @@
         public AnswerDTO(
             ParticipantDTO participant, 
             ResultDTO result, 
-            TaskDTO task,
             string projectLink,
             string notes)
         {
             Participant = participant;
             Result = result;
-            Task = task;
             ProjectLink = projectLink;
             Notes = notes;
         }
@@ -25,8 +23,6 @@
         public ParticipantDTO Participant { get; set; }
 
         public ResultDTO Result { get; set; }
-
-        public TaskDTO Task { get; }
 
         public string ProjectLink { get; set; }
 

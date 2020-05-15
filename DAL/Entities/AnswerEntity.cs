@@ -22,14 +22,13 @@
         public int Id { get; private set; }
 
         [Required]
-        public ParticipantEntity Participant { get; private set; }
+        public virtual ParticipantEntity Participant { get; private set; }
 
-        [Required]
         [Index(IsUnique = true)]
-        public ResultEntity Result { get; private set; }
+        public virtual ResultEntity Result { get; set; }
 
         [Required]
-        public TaskEntity Task { get; private set; }
+        public virtual TaskEntity Task { get; private set; }
 
         public string ProjectLink { get; set; }
 

@@ -23,9 +23,9 @@
         public int Id { get; private set; }
 
         [Index(IsUnique = true)]
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         [Required]
-        public ICollection<ParticipantEntity> Participants { get; private set; }
+        public virtual ICollection<ParticipantEntity> Participants { get; private set; }
     }
 }
