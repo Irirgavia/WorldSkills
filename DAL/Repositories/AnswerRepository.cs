@@ -12,11 +12,5 @@
             : base(context)
         {
         }
-
-        public IEnumerable<AnswerEntity> GetAnswersByIdTask(int id)
-        {
-            var task = Context.Tasks.AsNoTracking().FirstOrDefault(x => x.Id == id);
-            return Context.Answers.AsNoTracking().Where(x => x.Task == task);
-        }
     }
 }
