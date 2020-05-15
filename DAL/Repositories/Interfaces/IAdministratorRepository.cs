@@ -6,12 +6,6 @@
 
     public interface IAdministratorRepository : IGenericRepository<AdministratorEntity>
     {
-        AdministratorEntity GetAdministratorById(int id);
-
-        void CreateAdministrator(UserEntity user, ICollection<StageEntity> stages);
-
-        void DeleteAdministrator(int id);
-
-        void UpdateAdministrator(int id, UserEntity user, ICollection<StageEntity> stages);
+        
     }
 }

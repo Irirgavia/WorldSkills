@@ -16,6 +16,6 @@
 
         void Update(TEntity item);
 
-        int CreateOrUpdate(TEntity entity, Func<TEntity, bool> predicate);
+        void CreateOrUpdate(TEntity item);
     }
 }

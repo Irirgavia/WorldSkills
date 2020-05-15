@@ -13,47 +13,10 @@
         {
         }
 
-        public AnswerEntity GetAnswerById(int id)
-        {
-            return Context.Answers.FirstOrDefault(x => x.Id == id);
-        }
-
         public IEnumerable<AnswerEntity> GetAnswersByIdTask(int id)
         {
-            var task = Context.Tasks.FirstOrDefault(x => x.Id == id);
-            return Context.Answers.Where(X => X.Task == task);
-        }
-
-        public void CreateAnswer(
-            ParticipantEntity participant,
-            ResultEntity result,
-            TaskEntity task,
-            string projectLink,
-            string notes)
-        {
-            Context.Answers.Add(new AnswerEntity(participant, result, task, projectLink, notes));
-        }
-
-        public void DeleteAnswer(int id)
-        {
-            var answer = this.GetAnswerById(id);
-            if (answer != null)
-            {
-                Context.Answers.Remove(answer);
-            }
-        }
-
-        public void UpdateAnswer(
-            int id,
-            string projectLink,
-            string notes)
-        {
-            var answer = this.GetAnswerById(id);
-            if (answer != null)
-            {
-                answer.ProjectLink = projectLink;
-                answer.Notes = notes;
-            }
+            var task = Context.Tasks.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            return Context.Answers.AsNoTracking().Where(x => x.Task == task);
         }
     }
 }

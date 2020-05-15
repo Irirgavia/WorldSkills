@@ -1,6 +1,5 @@
 ﻿namespace DAL.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
@@ -44,25 +43,14 @@
 
         public void Remove(TEntity item)
         {
-            dbSet.Remove(item);
+            Context.Entry(item).State = EntityState.Deleted;
         }
 
-        public int CreateOrUpdate(TEntity entity, Func<TEntity, bool> predicate)
+        public void CreateOrUpdate(TEntity item)
         {
-            int id;
-
-            var foundedItem = dbSet.FirstOrDefault(predicate);
-            if (foundedItem != null)
-            {
-                id = ((IIdentifier)foundedItem).Id;
-            }
-            else
-            {
-                Create(entity);
-                id = ((IIdentifier)entity).Id;
-            }
-
-            return id;
+            Context.Entry(item).State = ((IIdentifier)item).Id == 0 ?
+                                            EntityState.Added : 
+                                            EntityState.Modified;
         }
     }
 }

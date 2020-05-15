@@ -14,48 +14,19 @@
         {
         }
 
-        public CompetitionEntity GetCompetitionById(int id)
+        public IEnumerable<CompetitionEntity> GetActualCompetitions(DateTime currentTime)
         {
-            return Context.Competitions.FirstOrDefault(x => x.Id == id);
+            return Context.Competitions.AsNoTracking().Where(x => x.DateTimeEnd >= currentTime);
         }
 
         public IEnumerable<CompetitionEntity> GetCompetitions(DateTime begin, DateTime end)
         {
-            return Context.Competitions.Where(x => x.DateTimeBegin == begin && x.DateTimeEnd == end);
+            return Context.Competitions.AsNoTracking().Where(x => x.DateTimeBegin >= begin && x.DateTimeEnd <= end);
         }
 
-        public IEnumerable<CompetitionEntity> GetCompetitions(string skill)
+        public IEnumerable<CompetitionEntity> GetCompetitionsBySkill(string skill)
         {
-            return Context.Competitions.Where(x => x.Skill.Name.Equals(skill));
-        }
-
-        public void CreateCompetition(SkillEntity skill, DateTime begin, DateTime end, ICollection<StageEntity> stages)
-        {
-            Context.Competitions.Add(new CompetitionEntity(skill, begin, end, stages));
-        }
-
-        public void DeleteCompetition(int id)
-        {
-            var competition = this.GetCompetitionById(id);
-            if (competition != null)
-            {
-                Context.Competitions.Remove(competition);
-            }
-        }
-
-        public void UpdateCompetition(int id, DateTime begin, DateTime end, ICollection<StageEntity> stages)
-        {
-            var competition = this.GetCompetitionById(id);
-            if (competition != null)
-            {
-                competition.DateTimeBegin = begin;
-                competition.DateTimeEnd = end;
-                competition.Stages.Clear();
-                foreach (var stage in stages)
-                {
-                    competition.Stages.Add(stage);
-                }
-            }
+            return Context.Competitions.AsNoTracking().Where(x => x.Skill.Name.Equals(skill));
         }
     }
 }

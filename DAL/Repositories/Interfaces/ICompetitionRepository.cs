@@ -7,26 +7,12 @@
 
     public interface ICompetitionRepository : IGenericRepository<CompetitionEntity>
     {
-        CompetitionEntity GetCompetitionById(int id);
+        IEnumerable<CompetitionEntity> GetActualCompetitions(DateTime currenTime);
 
         IEnumerable<CompetitionEntity> GetCompetitions(
             DateTime begin, 
             DateTime end);
 
-        IEnumerable<CompetitionEntity> GetCompetitions(string skill);
-
-        void CreateCompetition(
-            SkillEntity skill,
-            DateTime begin,
-            DateTime end, 
-            ICollection<StageEntity> stages);
-
-        void DeleteCompetition(int id);
-
-        void UpdateCompetition(
-            int id,
-            DateTime begin,
-            DateTime end,
-            ICollection<StageEntity> stages);
+        IEnumerable<CompetitionEntity> GetCompetitionsBySkill(string skill);
     }
 }

@@ -7,22 +7,6 @@
 
     public interface IAnswerRepository : IGenericRepository<AnswerEntity>
     {
-        AnswerEntity GetAnswerById(int id);
-
         IEnumerable<AnswerEntity> GetAnswersByIdTask(int id);
-
-        void CreateAnswer(
-            ParticipantEntity participant,
-            ResultEntity result,
-            TaskEntity task,
-            string projectLink,
-            string notes);
-
-        void DeleteAnswer(int id);
-
-        void UpdateAnswer(
-            int id,
-            string projectLink,
-            string notes);
     }
 }
