@@ -5,14 +5,16 @@
     <base href="/" />
     <meta charset="utf-8">
     <title>WorldSkills</title>
-    
+    <script type="text/javascript">
+        constants = "https://localhost:3000";
+    </script>
     <link rel="stylesheet" href="public/bundle.css">
 </head>
 
 <body>
     <header>
         <h1 id="logo">Международный конкурс "WorldSkills" на базе ГрГУ им. Я. Купалы</h1>
-        <nav id="navbar-header">
+        <nav id="navbar-header" class="navbar">
             <ul class="topmenu">
                 <li><a href="/">Главная</a></li>
                 <li><a href="/about" class="down">О конкурсе</a>
@@ -25,10 +27,12 @@
                 <li><a href = "/results">Результаты</a></li>
                 <li><a href = "/contacts">Контакты</a></li>
             </ul>
-        </nav>
-        <nav>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyPuXOouBLsxRCG3tiQTruitJjgcmV3Zlv17RZMSDIRXjEtQ/viewform?usp=sf_link">Регистрация на участие</a>
-            <a href="/signin">Вход</a>
+            <ul>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdyPuXOouBLsxRCG3tiQTruitJjgcmV3Zlv17RZMSDIRXjEtQ/viewform?usp=sf_link">Регистрация на участие</a></li>
+                <li id="profilemenu" class="down"><a href="/signin" id="accountlink">Вход</a>
+                    
+                </li>
+            </ul>
         </nav>
     </header>
     
@@ -37,12 +41,14 @@
     </div>
     
     <footer>
-        <nav id="navbar-footer">
-            <a href="/">Главная</a>
-            <a href="/about">О конкурсе</a>
-            <a href="/shedule">График проведения</a>
-            <a href="/results">Результаты</a>
-            <a href="/contacts">Контакты</a>
+        <nav id="navbar-footer" class="navbar">
+            <ul class="buttommenu">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/about" class="down">О конкурсе</a></li>
+                <li><a href = "/shedule">График проведения</a></li>
+                <li><a href = "/results">Результаты</a></li>
+                <li><a href = "/contacts">Контакты</a></li>
+            </ul>
         </nav>
     </footer>
     <script src="public/bundle.js"></script>
