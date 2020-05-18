@@ -4,13 +4,13 @@
 
     using DAL.Repositories.Interfaces;
 
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private CompetitionContext context;
 
-        public UnitOfWork()
+        public UnitOfWork(string connectionString)
         {
-            this.context = new CompetitionContext();
+            this.context = new CompetitionContext(connectionString);
         }
 
         public IAddressRepository AddressRepository => new AddressRepository(context);
