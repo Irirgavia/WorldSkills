@@ -33,7 +33,9 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
+        public int StageId { get; set; }
+
+        [ForeignKey("StageId")]
         public virtual StageEntity Stage { get; set; }
 
         [Required]
@@ -42,6 +44,9 @@
         [Required]
         public TimeSpan Time { get; set; }
 
+        /*public int AddressId { get; set; }
+
+        [ForeignKey("AddressId")]*/
         public virtual AddressEntity Address { get; set; }
 
         [Required]
@@ -50,7 +55,6 @@
         [Required]
         public string Requirement { get; set; }
 
-        [Required]
-        public virtual ICollection<AnswerEntity> Answers { get; private set; }
+        public virtual ICollection<AnswerEntity> Answers { get; set; }
     }
 }

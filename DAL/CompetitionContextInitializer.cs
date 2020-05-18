@@ -9,7 +9,7 @@
     {
         protected override void Seed(CompetitionContext db)
         {
-            db.SaveChanges();
+            //db.SaveChanges();
         }
     }
 }

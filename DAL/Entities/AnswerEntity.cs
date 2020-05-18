@@ -21,14 +21,21 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
-        public virtual ParticipantEntity Participant { get; private set; }
+        public int ParticipantId { get; set; }
+
+        [ForeignKey("ParticipantId")]
+        public virtual ParticipantEntity Participant { get; set; }
+
+        //public int? ResultId { get; set; }
 
         [Index(IsUnique = true)]
+        //[ForeignKey("ResultId")]
         public virtual ResultEntity Result { get; set; }
 
-        [Required]
-        public virtual TaskEntity Task { get; private set; }
+        public int TaskId { get; set; }
+
+        [ForeignKey("TaskId")]
+        public virtual TaskEntity Task { get; set; }
 
         public string ProjectLink { get; set; }
 
