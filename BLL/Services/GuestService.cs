@@ -7,14 +7,15 @@
 
     using DAL.Entities;
     using DAL.Repositories;
+    using DAL.Repositories.Interfaces;
 
     public class GuestService : IDisposable
     {
-        private UnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
-        public GuestService()
+        public GuestService(string connection)
         {
-            this.unitOfWork = new UnitOfWork();
+            this.unitOfWork = new UnitOfWork(connection);
         }
 
         public UserDTO GetUser(string login, string password)

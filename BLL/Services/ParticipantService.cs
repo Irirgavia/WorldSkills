@@ -1,71 +1,86 @@
 ﻿namespace BLL.Services
 {
+    using BLL.DTO;
+    using DAL.Entities;
+    using DAL.Repositories;
+    using DAL.Repositories.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using BLL.DTO;
-
-    using DAL.Entities;
-    using DAL.Repositories;
-
     using TypeStage = DAL.Entities.TypeStage;
 
     public class ParticipantService : IDisposable
     {
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ParticipantService()
+        public ParticipantService(string connection)
         {
-            this.unitOfWork = new UnitOfWork();
+            this.unitOfWork = new UnitOfWork(connection);
         }
 
-        public ParticipantDTO RegistrationNewParticipantOnActualCompetition(string skill, UserDTO user, AddressDTO address)
+        public ParticipantDTO RegistrationNewParticipantOnActualCompetition(int idCompetition, UserDTO user, AddressDTO address)
         {
             try
             {
-                var competiton =
-                    this.unitOfWork.CompetitionRepository.GetList(
-                        c => c.DateTimeEnd >= DateTime.Now && c.Skill.Name.Equals(skill)).FirstOrDefault();
-
                 var townStage = this.unitOfWork.StageRepository
-                    .GetList(s => competiton != null && s.Competition.Id == competiton.Id).FirstOrDefault(s => s.TypeStage == TypeStage.Town);
+                            .GetList(s => s.CompetitionId == idCompetition && s.TypeStage == TypeStage.Town)
+                            .FirstOrDefault();
 
-                this.unitOfWork.AddressRepository.CreateOrUpdate(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+                this.unitOfWork.AddressRepository.Create(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
                 var addressEntity = this.unitOfWork.AddressRepository.GetAddressesByPlace(
                     address.Country,
                     address.City,
                     address.Street,
                     address.House).FirstOrDefault();
 
+                this.unitOfWork.SaveChanges();
+
                 this.unitOfWork.UserRepository.Create(ObjectMapper<UserDTO, UserEntity>.Map(user));
+                this.unitOfWork.SaveChanges();
                 var userEntity = this.unitOfWork.UserRepository.Get(u => u.Login.Equals(user.Login));
+
                 this.unitOfWork.ParticipantRepository.Create(
                     new ParticipantEntity(
                         userEntity,
-                        new TrainerEntity(),
+                        null,
                         addressEntity,
                         new List<AnswerEntity>(),
                         new List<StageEntity>() { townStage }));
 
-                var participant = this.unitOfWork.ParticipantRepository.Get(p => p.User.Login.Equals(user.Login));
-
-                townStage.Participants.Add(participant);
+                this.unitOfWork.SaveChanges();
+                var participant = this.unitOfWork.ParticipantRepository.Get(p => p.UserEntity.Login.Equals(user.Login));
             }
             catch (Exception e)
             {
                 return null;
             }
 
-            this.unitOfWork.SaveChanges();
             return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
-                this.unitOfWork.ParticipantRepository.Get(p => p.User.Login.Equals(user.Login)));
+                this.unitOfWork.ParticipantRepository.Get(p => p.UserEntity.Login.Equals(user.Login)));
+        }
+
+        public void CreateParticipant(UserDTO user, AddressDTO address)
+        {
+            this.unitOfWork.UserRepository.Create(ObjectMapper<UserDTO, UserEntity>.Map(user));
+            var userEF = this.unitOfWork.UserRepository.Get(u => u.Login.Equals(user.Login));
+            this.unitOfWork.SaveChanges();
+            this.unitOfWork.AddressRepository.Create(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+
+            var addressEntity = this.unitOfWork.AddressRepository.GetAddressesByPlace(
+                address.Country,
+                address.City,
+                address.Street,
+                address.House).FirstOrDefault();
+
+            this.unitOfWork.ParticipantRepository.Create(
+                new ParticipantEntity(userEF, null, addressEntity, new List<AnswerEntity>(), new List<StageEntity>()));
+            this.unitOfWork.SaveChanges();
         }
 
         public ParticipantDTO GetParticipant(UserDTO user)
         {
             return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
-                this.unitOfWork.ParticipantRepository.Get(p => p.User.Id == user.Id));
+                this.unitOfWork.ParticipantRepository.Get(p => p.UserEntity.Id == user.Id));
         }
 
         public void UpdateParticipant(ParticipantDTO participant)
@@ -89,9 +104,9 @@
                 this.unitOfWork.AnswerRepository.Get(a => a.Participant.Id == participant.Id));
         }
 
-        public void CreateOrUpdateAnswer(AnswerDTO answer)
+        public void CreateAnswer(AnswerDTO answer)
         {
-            this.unitOfWork.AnswerRepository.CreateOrUpdate(ObjectMapper<AnswerDTO, AnswerEntity>.Map(answer));
+            this.unitOfWork.AnswerRepository.Create(ObjectMapper<AnswerDTO, AnswerEntity>.Map(answer));
             this.unitOfWork.SaveChanges();
         }
 

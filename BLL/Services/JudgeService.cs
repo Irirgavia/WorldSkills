@@ -3,14 +3,15 @@
     using System;
 
     using DAL.Repositories;
+    using DAL.Repositories.Interfaces;
 
     public class JudgeService : IDisposable
     {
-        private UnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
-        public JudgeService()
+        public JudgeService(string connection)
         {
-            this.unitOfWork = new UnitOfWork();
+            this.unitOfWork = new UnitOfWork(connection);
         }
 
         public void Dispose()
