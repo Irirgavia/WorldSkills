@@ -17,7 +17,7 @@
         {
             if (city != null && street != null && house != null)
             {
-                return Context.Addresses.Where(
+                return Context.Addresses.AsNoTracking().Where(
                     x => x.Country.Equals(country) 
                          && x.City.Equals(city) 
                          && x.Street.Equals(street)
@@ -26,7 +26,7 @@
 
             if (city != null && street != null)
             {
-                return Context.Addresses.Where(
+                return Context.Addresses.AsNoTracking().Where(
                     x => x.Country.Equals(country)
                          && x.City.Equals(city)
                          && x.Street.Equals(street));
@@ -34,12 +34,12 @@
 
             if (city != null)
             {
-                return Context.Addresses.Where(
+                return Context.Addresses.AsNoTracking().Where(
                     x => x.Country.Equals(country)
                          && x.City.Equals(city));
             }
 
-            return Context.Addresses.Where(x => x.Country.Equals(country));
+            return Context.Addresses.AsNoTracking().Where(x => x.Country.Equals(country));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace DAL.Entities
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,8 +19,10 @@
         public int Id { get; private set; }
 
         [Required]
-        [Index(IsUnique = true)]
         [MaxLength(50)]
+        //[Index(IsUnique = true)]
         public string Name { get; set; }
+
+        public virtual ICollection<CompetitionEntity> Competitions { get; set; }
     }
 }

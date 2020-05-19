@@ -32,22 +32,20 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
+        public int CompetitionId { get; set; }
+
+        [ForeignKey("CompetitionId")]
         public virtual CompetitionEntity Competition { get; private set; }
 
         [Required]
         public TypeStage TypeStage { get; private set; }
 
-        [Required]
         public virtual ICollection<TaskEntity> Tasks { get; private set; }
 
-        [Required]
         public virtual ICollection<ParticipantEntity> Participants { get; private set; }
 
-        [Required]
         public virtual ICollection<JudgeEntity> Judges { get; private set; }
 
-        [Required]
         public virtual ICollection<AdministratorEntity> Administrators { get; private set; }
     }
 }

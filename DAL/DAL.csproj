@@ -87,6 +87,7 @@
     <Compile Include="Repositories\Interfaces\IStageRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITaskRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITrainerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\JudgeRepository.cs" />
     <Compile Include="Repositories\ParticipantRepository.cs" />

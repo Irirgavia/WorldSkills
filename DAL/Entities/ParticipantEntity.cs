@@ -19,7 +19,7 @@
             ICollection<AnswerEntity> answers,
             ICollection<StageEntity> stages)
         {
-            User = user;
+            this.UserEntity = user;
             Trainer = trainer;
             Address = address;
             Answers = answers;
@@ -29,19 +29,24 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
-        [Index(IsUnique = true)]
-        public virtual UserEntity User { get; set; }
+        public int UserEntityId { get; set; }
 
+        [Index(IsUnique = true)]
+        [ForeignKey("UserEntityId")]
+        public virtual UserEntity UserEntity { get; set; }
+
+        public int? TrainerId { get; set; }
+
+        [ForeignKey("TrainerId")]
         public virtual TrainerEntity Trainer { get; set; }
 
-        [Required]
+        public int AddressId { get; set; }
+
+        [ForeignKey("AddressId")]
         public virtual AddressEntity Address { get; set; }
 
-        [Required]
         public virtual ICollection<AnswerEntity> Answers { get; private set; }
 
-        [Required]
         public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

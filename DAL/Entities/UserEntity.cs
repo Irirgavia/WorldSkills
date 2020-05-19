@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data;
+    using System.Runtime.InteropServices;
 
     public class UserEntity : IIdentifier
     {
@@ -41,7 +42,7 @@
         public int Id { get; private set; }
 
         [Required]
-        [Index(IsUnique = true)]
+        //[Index(IsUnique = true)]
         [MaxLength(50)]
         public string Login { get; set; }
 
@@ -50,7 +51,27 @@
 
         [Required]
         public Role Role { get; set; }
+        /*
+        public int? AdministratorId { get; set; }
 
+        [ForeignKey("AdministratorId")]
+        public virtual AdministratorEntity AdministratorEntity { get; set; }
+
+        public int? JudgeId { get; set; }
+
+        [ForeignKey("JudgeId")]
+        public virtual JudgeEntity JudgeEntity { get; set; }
+
+        public int? ParticipantId { get; set; }
+
+        [ForeignKey("ParticipantId")]
+        public virtual ParticipantEntity ParticipantEntity { get; set; }
+
+        public int? TrainerId { get; set; }
+
+        [ForeignKey("TrainerId")]
+        public virtual TrainerEntity TrainerEntity { get; set; }
+        */
         [Required]
         [Index("IX_FullNameAndBirthday", 1)]
         [MaxLength(50)]

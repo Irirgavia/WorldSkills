@@ -24,9 +24,11 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
+        /*public int AnswerId { get; set; }
+
         [Index(IsUnique = true)]
-        public virtual AnswerEntity Answer { get; private set; }
+        [ForeignKey("AnswerId")]
+        public virtual AnswerEntity Answer { get; set; }*/
 
         [Required]
         public PrizeType PrizeType { get; set; }

@@ -22,11 +22,12 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
+        public int UserId { get; set; }
+
         [Index(IsUnique = true)]
+        [ForeignKey("UserId")]
         public virtual UserEntity User { get; set; }
 
-        [Required]
         public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

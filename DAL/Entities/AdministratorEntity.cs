@@ -13,7 +13,7 @@
 
         public AdministratorEntity(UserEntity user, ICollection<StageEntity> stages)
         {
-            User = user;
+            this.User = user;
             Stages = stages;
         }
 
@@ -21,10 +21,13 @@
         public int Id { get; private set; }
 
         [Required]
-        [Index(IsUnique = true)]
-        public virtual UserEntity User { get; set; }
+        public int UserId { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
+        [ForeignKey("UserId")]
+        public virtual UserEntity User { get; set; }
+
         public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

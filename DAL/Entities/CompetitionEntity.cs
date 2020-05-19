@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class CompetitionEntity : IIdentifier
     {
         public CompetitionEntity()
         {
-            Stages = new List<StageEntity>();
         }
 
         public CompetitionEntity(
@@ -26,8 +26,10 @@
         [Key]
         public int Id { get; private set; }
 
-        [Required]
-        public virtual SkillEntity Skill { get; private set; }
+        public int SkillId { get; set; }
+
+        [ForeignKey("SkillId")]
+        public virtual SkillEntity Skill { get; set; }
 
         [Required]
         public DateTime DateTimeBegin { get; set; }
@@ -35,7 +37,6 @@
         [Required]
         public DateTime DateTimeEnd { get; set; }
 
-        [Required]
-        public virtual ICollection<StageEntity> Stages { get; private set; }
+        public virtual ICollection<StageEntity> Stages { get; set; }
     }
 }
