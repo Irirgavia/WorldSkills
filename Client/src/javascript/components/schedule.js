@@ -38,15 +38,6 @@ export default class Schedule extends React.Component {
         } else {
             return (
                 <div>
-                  Test!
-                  {
-                  console.log(items),
-                    console.log(Array.isArray(items))}
-                    {
-                      items.map((item) => (
-                        console.log(item.skill)
-                    ))
-                    }
                   <table border="1">
                     <caption>Результаты</caption>
                     <tr>
@@ -59,11 +50,11 @@ export default class Schedule extends React.Component {
                     {
                     items.map((item) => (
                         <tr>
-                            <td>{item.skill}</td>
-                            <td>{item.stage}</td>
-                            <td>{item.datebegin}</td>
-                            <td>{item.dateend}</td>
-                            <td>{item.address}</td>
+                            <td>{item.Skill}</td>
+                            <td>{item.Stage}</td>
+                            <td>{item.DateOfBegin}</td>
+                            <td>{item.DateOfEnd}</td>
+                            <td>{item.Address}</td>
                         </tr>
                     ))}
                 </table>

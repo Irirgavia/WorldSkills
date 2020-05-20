@@ -14,7 +14,7 @@ export default function mainReducer(state = initialState, action) {
             return { ...state, error: action.error }
         
         case SCHEDULE_SUCCESS:
-            return { ...state, data: action.competitionResults, error: '' }
+            return { ...state, data: action.schedule, error: '' }
 
         case SCHEDULE_ERROR:
             return { ...state, error: action.error }
