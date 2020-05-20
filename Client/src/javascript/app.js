@@ -8,6 +8,7 @@ import Rules from './components/aboutpath/rules.js';
 import About from './components/about.js';
 import Schedule from './components/schedule.js';
 import Results from './components/results.js';
+import ResultSearch from './components/resultpath/resultsearch.js';
 import Contacts from './components/contacts.js';
 import Profile from './components/profile.js';
 import Signin from './components/signin.js';
@@ -30,7 +31,8 @@ ReactDOM.render(
                 <Route path="/about/rules" component={Rules} />
                 <Route exact path="/about" component={About} />
                 <Route path="/schedule" component={Schedule} />
-                <Route path="/results" component={Results} />
+                <Route exact path="/results" component={Results} />
+                <Route path="/results/search" component={ResultSearch} />
                 <Route path="/contacts" component={Contacts} />
                 <Route exact path="/profile" component={Profile} />
                 <Route path="/signin" component={Signin} />
