@@ -23,6 +23,8 @@
 
         public int Id { get; private set; }
 
+        public int? SkillId { get; set; }
+
         public virtual SkillDTO Skill { get; set; }
 
         public DateTime DateTimeBegin { get; set; }

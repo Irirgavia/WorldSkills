@@ -9,6 +9,7 @@
     {
         public CompetitionEntity()
         {
+            Stages = new List<StageEntity>();
         }
 
         public CompetitionEntity(
@@ -26,7 +27,7 @@
         [Key]
         public int Id { get; private set; }
 
-        public int SkillId { get; set; }
+        public int? SkillId { get; set; }
 
         [ForeignKey("SkillId")]
         public virtual SkillEntity Skill { get; set; }

@@ -32,7 +32,7 @@
         [Key]
         public int Id { get; private set; }
 
-        public int CompetitionId { get; set; }
+        public int? CompetitionId { get; set; }
 
         [ForeignKey("CompetitionId")]
         public virtual CompetitionEntity Competition { get; private set; }
