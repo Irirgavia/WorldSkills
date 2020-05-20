@@ -4,20 +4,20 @@ export default class Schedule extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        error   : null,
+        error: null,
         isLoaded: false,
-        items   : []
+        items: []
       };
     }
-  
-    componentDidMount() {
-      fetch("https://localhost:3000/schedule")
+
+    componentDidMount(year) {
+      fetch("http://localhost:49263/api/schedule")
         .then(res => res.json())
         .then(
           (result) => {
             this.setState({
               isLoaded: true,
-              items   : result.items
+              items: result
             });
           },
           (error) => {
@@ -28,7 +28,7 @@ export default class Schedule extends React.Component {
           }
         )
     }
-  
+        
     render() {
         const { error, isLoaded, items } = this.state;
         if (error) {
@@ -37,8 +37,18 @@ export default class Schedule extends React.Component {
             return <div>Загрузка...</div>;
         } else {
             return (
-                <table border = "1">
-                    <caption>Расписание</caption>
+                <div>
+                  Test!
+                  {
+                  console.log(items),
+                    console.log(Array.isArray(items))}
+                    {
+                      items.map((item) => (
+                        console.log(item.skill)
+                    ))
+                    }
+                  <table border="1">
+                    <caption>Результаты</caption>
                     <tr>
                         <th>Профессия</th>
                         <th>Этап</th>
@@ -46,17 +56,75 @@ export default class Schedule extends React.Component {
                         <th>Дата конца</th>
                         <th>Адрес</th>
                     </tr>
-                    {items.map(item => (
+                    {
+                    items.map((item) => (
                         <tr>
                             <td>{item.skill}</td>
                             <td>{item.stage}</td>
-                            <td>{item.databegin}</td>
-                            <td>{item.dataend}</td>
+                            <td>{item.datebegin}</td>
+                            <td>{item.dateend}</td>
                             <td>{item.address}</td>
                         </tr>
                     ))}
                 </table>
+                </div>
             );
         }
+      }
     }
+
+
+
+
+
+
+/*import React from 'react';
+import { connect } from 'react-redux';
+import { getSchedule } from '../actions/actions'
+
+export default class Schedule extends React.Component {
+  /*componentDidMount() {
+    this.props.getSchedule();
+}*/
+/*
+render() {
+  return <div>
+    <h1>hi</h1>
+    <table border = "1">
+    <caption>Расписание</caption>
+    <tr>
+      <th>Профессия</th>
+      <th>Этап</th>
+      <th>Дата начала</th>
+      <th>Дата конца</th>
+      <th>Адрес</th>
+    </tr>
+    {
+    this.props.schedule.map(item => (
+    <tr>
+      <td>{item.skill}</td>
+      <td>{item.stage}</td>
+      <td>{item.databegin}</td>
+      <td>{item.dataend}</td>
+      <td>{item.address}</td>
+    </tr>
+    ))}
+    </table>;
+    </div>
+  }
+}*/
+
+/*let mapProps = (state) => {
+  return {
+      schedule: state.data,
+      error: state.error
+  }
 }
+
+let mapDispatch = (dispatch) => {
+  return {
+      getSchedule: () => dispatch(getSchedule())
+  }
+}
+
+export default connect(mapProps, mapDispatch)(Schedule) */

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { getResults } from '../../actions/actions.jsx'
+import { getResults } from '../../actions/actions.js'
 
 class ResultsSearch extends React.Component {
 
     componentDidMount() {
-        this.props.getPosts(0);
+        this.props.getResults(0);
     }
 
     render() {
@@ -19,7 +19,7 @@ class ResultsSearch extends React.Component {
           <th>Профессия</th>
           <th>Этап</th>
         </tr>
-        {this.props.posts.records.map(item => (
+        {this.props.competitionResults.records.map(item => (
           <tr>
             <td>{item.date}</td>
             <td>{item.winner}</td>
@@ -34,7 +34,7 @@ class ResultsSearch extends React.Component {
 
 let mapProps = (state) => {
     return {
-        posts: state.data,
+        competitionResults: state.data,
         error: state.error
     }
 }

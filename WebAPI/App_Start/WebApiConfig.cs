@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebApiContrib.Formatting.Jsonp;
+using System.Web.Http.Cors;
 
 namespace WebAPI
 {
@@ -9,9 +11,11 @@ namespace WebAPI
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("http://localhost:7700", "*", "*");
             // Web API configuration and services
-
+            config.EnableCors(cors);
             // Web API routes
+            GlobalConfiguration.Configuration.AddJsonpFormatter();
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -19,6 +23,7 @@ namespace WebAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

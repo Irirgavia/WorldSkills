@@ -1,4 +1,17 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import ResultSearch from './resultpath/resultsearch.js';
+
+function onClick(){
+    var skill =  document.getElementById("skill").value;
+    var stage =  document.getElementById("stage").value;
+    var year =  document.getElementById("year").value;
+
+    ReactDOM.render(
+        <ResultSearch />,
+        getElementById("results")
+    )
+}
 
 export default class Results extends React.Component {
     render() {
@@ -16,7 +29,7 @@ export default class Results extends React.Component {
                     <td><input  type = "text" id = "skill" name = "skill" /></td>
                     <td><input  type = "text" id = "stage" name = "stage" /></td>
                     <td><input  type = "text" id = "year" name = "year" /></td>
-                    <td><button id = "search" onClick = "">Искать</button></td>
+                    <td><button id = "search" onClick = "onClick()">Искать</button></td>
                     <td><button id = "download" onClick = "" disabled>Скачать</button></td>
                 </tr>
             </table>

@@ -15,16 +15,16 @@ export const loadUser = (login, requiredFields = []) => (dispatch, getState) => 
   return dispatch(fetchUser(login))
 }*/
 
-import {RESULTS_SUCCESS, RESULTS_ERROR} from '../constants/constants.js'
+import {RESULTS_SUCCESS, RESULTS_ERROR, SCHEDULE_SUCCESS, SCHEDULE_ERROR} from '../constants/constants.js'
 
-export function receivePosts(data) {
+export function receiveCompetitionResults(data) {
   return {
       type: RESULTS_SUCCESS,
-      posts: data
+      competitionResults: data
   }
 }
 
-export function errorReceive(err) {
+export function errorReceiveCompetitionResults(err) {
   return {
       type: RESULTS_ERROR,
       error: err
@@ -39,12 +39,43 @@ export function getResults(skill, stage, year) {
           .then((response) => {
               return response.json()
           }).then((data) => {
-              dispatch(receivePosts(data))
+              dispatch(receiveCompetitionResults(data))
           }).catch((ex) => {
-              dispatch(errorReceive(err))
+              dispatch(errorReceiveCompetitionResults(err))
           });
   }
 }
+
+
+export function receiveSchedule(data) {
+  return {
+      type: SCHEDULE_SUCCESS,
+      schedule: data
+  }
+}
+
+export function errorReceiveSchedule(err) {
+  return {
+      type: SCHEDULE_ERROR,
+      error: err
+  }
+}
+
+//fetch("https://localhost:3000/schedule")
+export function getSchedule() {
+  return (dispatch) => {
+      let queryTrailer = '/schedule';
+      fetch(/*constants.getPage + queryTrailer*/"http://localhost:49263/api/schedule")
+          .then((response) => {
+              return response.json()
+          }).then((data) => {
+              dispatch(receiveCompetitionResults(data))
+          }).catch((ex) => {
+              dispatch(errorReceiveCompetitionResults(err))
+          });
+  }
+}
+
 
 
 /*
