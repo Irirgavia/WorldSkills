@@ -22,6 +22,8 @@
         {
             try
             {
+                var participant = this.unitOfWork.CompetitionRepository.Get(c => c.Id == idCompetition);
+
                 var townStage = this.unitOfWork.StageRepository
                             .GetList(s => s.CompetitionId == idCompetition && s.TypeStage == TypeStage.Town)
                             .FirstOrDefault();
