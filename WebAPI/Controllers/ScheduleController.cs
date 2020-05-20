@@ -1,32 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-
-namespace WebAPI.Controllers
+﻿namespace WebAPI.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using Models;
+
     public class ScheduleController : ApiController
     {
-        public IEnumerable<MyObj> Get()
+        public IHttpActionResult Get()
         {
-            ICollection<MyObj> myObjs = new List<MyObj>();
-            MyObj myObj1 = new MyObj() { skill = "skill1", stage = "stage1", datebegin = "12.03.2019", dateend = "20.09.2019", address = "address1" };
-            MyObj myObj2 = new MyObj() { skill = "skill2", stage = "stage2", datebegin = "14.03.2019", dateend = "22.09.2019", address = "address2" };
-            myObjs.Add(myObj1);
-            myObjs.Add(myObj2);
-            return myObjs;
-            //return new string[] { "skill", "stage", "12.03.2019", "20.09.2019", "address"};
+            ICollection<ScheduleElement> scheduleElements = new List<ScheduleElement>();
+            
+            return Json(Test());
         }
 
-        public class MyObj
+        private IEnumerable<ScheduleElement> Test()
         {
-            public string skill;
-            public string stage;
-            public string datebegin;
-            public string dateend;
-            public string address;
+            ICollection<ScheduleElement> scheduleElements = new List<ScheduleElement>();
+            var scheduleElement1 = new ScheduleElement()
+            {
+                Skill = "skill1",
+                Stage = "stage1",
+                DateOfBegin = new DateTime(2019, 03, 12),
+                DateOfEnd = new DateTime(2019, 09, 20),
+                Address = "address1"
+            };
+            var scheduleElement2 = new ScheduleElement()
+            {
+                Skill = "skill2",
+                Stage = "stage2",
+                DateOfBegin = new DateTime(2019, 03, 14),
+                DateOfEnd = new DateTime(2019, 09, 22),
+                Address = "address2"
+            };
+            scheduleElements.Add(scheduleElement1);
+            scheduleElements.Add(scheduleElement2);
+            return scheduleElements;
         }
     }
 }
