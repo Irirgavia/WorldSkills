@@ -17,6 +17,8 @@
 
         public int Id { get; private set; }
 
+        public int UserId { get; set; }
+
         public UserDTO User { get; set; }
 
         public ICollection<int> StagesId { get; }

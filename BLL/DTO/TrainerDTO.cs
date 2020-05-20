@@ -1,9 +1,6 @@
 ﻿namespace BLL.DTO
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    using DAL.Entities;
 
     public class TrainerDTO
     {
@@ -22,8 +19,10 @@
 
         public int Id { get; private set; }
 
+        public int UserId { get; set; }
+
         public UserDTO User { get; set; }
 
-        public ICollection<int> ParticipantsId { get; private set; }
+        public ICollection<int> ParticipantsId { get; set; }
     }
 }

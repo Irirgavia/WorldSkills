@@ -35,7 +35,7 @@
 
         public TEntity Get(Func<TEntity, bool> predicate)
         {
-            return this.dbSet.AsNoTracking().FirstOrDefault(predicate);
+            return this.dbSet.AsNoTracking().Where(predicate).FirstOrDefault();
         }
 
         public TEntity FindById(int id)
