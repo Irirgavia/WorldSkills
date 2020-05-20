@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using DAL.Entities;
-
     public class StageDTO
     {
         public StageDTO()
@@ -23,6 +21,7 @@
             ICollection<int> administrators)
         {
             CompetitionId = competition;
+            TypeStage = typeStage;
             Tasks = tasks;
             Participants = participants;
             Judges = judges;
@@ -31,15 +30,15 @@
 
         public int Id { get; private set; }
 
-        public int CompetitionId { get; private set; }
+        public int CompetitionId { get; set; }
 
-        public TypeStage TypeStage { get; private set; }
+        public TypeStage TypeStage { get; set; }
 
-        public ICollection<TaskDTO> Tasks { get; private set; }
+        public ICollection<TaskDTO> Tasks { get; set; }
 
-        public ICollection<int> Participants { get; private set; }
+        public ICollection<int> Participants { get; set; }
 
-        public ICollection<int> Judges { get; private set; }
+        public ICollection<int> Judges { get; set; }
 
         public ICollection<int> Administrators { get; set; }
     }
