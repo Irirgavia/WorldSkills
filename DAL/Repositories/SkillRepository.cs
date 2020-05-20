@@ -1,6 +1,8 @@
 ﻿namespace DAL.Repositories
 {
+    using System;
     using System.Linq;
+    using System.Data.Entity;
 
     using DAL.Entities;
     using DAL.Repositories.Interfaces;

@@ -15,7 +15,9 @@
 
         public UserEntity GetUserByLogin(string login)
         {
-            return Context.Users.AsNoTracking().FirstOrDefault(x => x.Login == login);
+            return this.DbSet
+                .AsNoTracking()
+                .FirstOrDefault(x => x.Login.Equals(login));
         }
     }
 }

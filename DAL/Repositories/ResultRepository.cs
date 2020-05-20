@@ -15,7 +15,10 @@
 
         public IEnumerable<ResultEntity> GetResultsByMark(float begin, float end)
         {
-            return Context.Results.AsNoTracking().Where(x => x.Mark >= begin && x.Mark <= end);
+            return this.DbSet
+                .AsNoTracking()
+                .Where(x => x.Mark >= begin && x.Mark <= end)
+                .AsEnumerable();
         }
     }
 }

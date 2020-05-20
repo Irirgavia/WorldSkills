@@ -1,6 +1,7 @@
 ﻿namespace DAL.Repositories
 {
     using System;
+    using System.Data.Entity;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,6 +13,25 @@
         public TaskRepository(CompetitionContext context)
             : base(context)
         {
+        }
+
+        public override IEnumerable<TaskEntity> GetAll()
+        {
+            return this.DbSet
+                .AsNoTracking()
+                .Include(c => c.Address)
+                .Include(c => c.Answers)
+                .AsEnumerable();
+        }
+
+        public override IEnumerable<TaskEntity> Get(Func<TaskEntity, bool> predicate)
+        {
+            return this.DbSet
+                .AsNoTracking()
+                .Include(c => c.Address)
+                .Include(c => c.Answers)
+                .AsEnumerable()
+                .Where(predicate);
         }
     }
 }

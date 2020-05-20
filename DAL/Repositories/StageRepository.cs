@@ -1,6 +1,8 @@
 ﻿namespace DAL.Repositories
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using DAL.Entities;
@@ -15,7 +17,30 @@
 
         public IEnumerable<StageEntity> GetStagesByCompetition(CompetitionEntity competition)
         {
-            return Context.Stages.AsNoTracking().Where(x => x.Competition == competition);
+            return this.DbSet.AsNoTracking().Where(x => x.Competition == competition);
+        }
+
+        public override IEnumerable<StageEntity> Get(Func<StageEntity, bool> predicate)
+        {
+            return this.DbSet
+                .AsNoTracking()
+                .Include(s => s.Tasks)
+                .Include(s => s.Administrators)
+                .Include(s => s.Judges)
+                .Include(s => s.Participants)
+                .AsEnumerable()
+                .Where(predicate);
+        }
+
+        public override IEnumerable<StageEntity> GetAll()
+        {
+            return this.DbSet
+                .AsNoTracking()
+                .Include(s => s.Tasks)
+                .Include(s => s.Administrators)
+                .Include(s => s.Judges)
+                .Include(s => s.Participants)
+                .AsEnumerable();
         }
     }
 }

@@ -12,40 +12,34 @@
         where TEntity : class
         where TContext : DbContext
     {
-        private DbSet<TEntity> dbSet;
-
         public GenericRepository(TContext context)
         {
             Context = context;
-            this.dbSet = context.Set<TEntity>();
+            this.DbSet = context.Set<TEntity>();
         }
+
+        protected DbSet<TEntity> DbSet { get; }
 
         protected TContext Context { get; }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            return dbSet.AsNoTracking().ToList();
+            return this.DbSet.AsNoTracking().ToList();
         }
 
-        public IEnumerable<TEntity> GetList(Func<TEntity, bool> predicate)
+        public virtual IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
-            return this.dbSet.AsNoTracking().Where(predicate).ToList();
+            return this.DbSet.AsNoTracking().Where(predicate).ToList();
         }
 
-
-        public TEntity Get(Func<TEntity, bool> predicate)
+        public virtual TEntity GetById(int id)
         {
-            return this.dbSet.AsNoTracking().Where(predicate).FirstOrDefault();
-        }
-
-        public TEntity FindById(int id)
-        {
-            return dbSet.Find(id);
+            return this.DbSet.Find(id);
         }
 
         public void Create(TEntity item)
         {
-            dbSet.Add(item);
+            this.DbSet.Add(item);
         }
 
         public void Update(TEntity item)

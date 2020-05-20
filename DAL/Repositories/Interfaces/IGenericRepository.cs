@@ -8,13 +8,11 @@
     {
         void Create(TEntity item);
 
-        TEntity FindById(int id);
+        TEntity GetById(int id);
 
         IEnumerable<TEntity> GetAll();
 
-        IEnumerable<TEntity> GetList(Func<TEntity, bool> predicate);
-
-        TEntity Get(Func<TEntity, bool> predicate);
+        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
 
         void Remove(TEntity item);
 
