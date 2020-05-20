@@ -19,17 +19,16 @@
             this.unitOfWork = new UnitOfWork(connection);
         }
 
-        public void CreateAddress(AddressDTO address)
+        public void CreateAddress(string country, string city, string street, string house, string notes)
         {
-            this.unitOfWork.AddressRepository.Create(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+            this.unitOfWork.AddressRepository.Create(new AddressEntity(country, city, street, house, notes));
             this.unitOfWork.SaveChanges();
         }
 
-        public AddressDTO GetAddressById(int id)
+        public IEnumerable<AddressDTO> GetAddressesByPlace(string country, string city, string street, string house)
         {
-            return ObjectMapper<AddressEntity, AddressDTO>.Map(this.unitOfWork.AddressRepository.Get(a => a.Id == id));
+            return ObjectMapper<AddressEntity, AddressDTO>.MapList(this.unitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house));
         }
-
 
         public void CreateSkill(string skill)
         {
@@ -39,12 +38,15 @@
 
         public SkillDTO GetSkillByName(string skill)
         {
-            return ObjectMapper<SkillEntity, SkillDTO>.Map(this.unitOfWork.SkillRepository.Get(s => s.Name == skill));
+            return ObjectMapper<SkillEntity, SkillDTO>.Map(this.unitOfWork.SkillRepository.GetSkillByName(skill));
         }
 
-        public void CreateCompetition(CompetitionDTO competition)
+        public void CreateCompetition(DateTime begin, DateTime end, SkillDTO skill)
         {
-            this.unitOfWork.CompetitionRepository.Create(ObjectMapper<CompetitionDTO, CompetitionEntity>.Map(competition));
+            var skillEF = this.unitOfWork.SkillRepository.Get(s => s.Name.Equals(skill.Name)).FirstOrDefault();
+            var competitionEF = new CompetitionEntity() { DateTimeBegin = begin, DateTimeEnd = end, SkillId = skillEF.Id };
+            this.unitOfWork.CompetitionRepository.Create(competitionEF);
+
             this.unitOfWork.SaveChanges();
         }
 
@@ -57,7 +59,7 @@
         public CompetitionDTO GetCompetitionById(int id)
         {
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.Map(
-                this.unitOfWork.CompetitionRepository.Get(c => c.Id == id));
+                this.unitOfWork.CompetitionRepository.Get(c => c.Id == id).FirstOrDefault());
         }
 
         public void CreateStage(StageDTO stage)
@@ -69,7 +71,7 @@
         public ICollection<StageDTO> GetStagesByCompetition(CompetitionDTO competition)
         {
             return ObjectMapper<StageEntity, StageDTO>.MapList(
-                this.unitOfWork.StageRepository.GetList(s => s.CompetitionId == competition.Id))
+                this.unitOfWork.StageRepository.Get(s => s.CompetitionId == competition.Id))
                 .ToList();
         }
 

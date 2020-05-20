@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using BLL.DTO;
 
@@ -20,7 +21,7 @@
 
         public UserDTO GetUser(string login, string password)
         {
-            var user = this.unitOfWork.UserRepository.Get(u => u.Login.Equals(login));
+            var user = this.unitOfWork.UserRepository.Get(u => u.Login.Equals(login)).FirstOrDefault();
             if (user == null)
             {
                 return null;
@@ -43,19 +44,25 @@
         public IEnumerable<CompetitionDTO> GetActualCompetitions()
         {
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.GetList(c => c.DateTimeEnd >= DateTime.Now));
+                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeEnd >= DateTime.Now));
         }
 
         public IEnumerable<CompetitionDTO> GetCompetitionsBySkill(string skill)
         {
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.GetList(c => c.Skill.Name.Equals(skill)));
+                this.unitOfWork.CompetitionRepository.Get(c => c.Skill.Name.Equals(skill)));
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsByDateRange(DateTime begin, DateTime end)
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeBegin >= begin && c.DateTimeEnd <= end));
         }
 
         public IEnumerable<CompetitionDTO> GetCompetitionsByDate(DateTime begin, DateTime end)
         {
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.GetList(c => c.DateTimeBegin >= begin && c.DateTimeEnd <= end));
+                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeBegin == begin && c.DateTimeEnd == end));
         }
 
         public void Dispose()
