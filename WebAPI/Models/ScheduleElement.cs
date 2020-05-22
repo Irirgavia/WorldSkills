@@ -13,10 +13,20 @@
 
         public ICollection<CompetitionStage> Stages { get; set; }
 
+        public ScheduleElement()
+        {
+            Stages = new List<CompetitionStage>();
+        }
+
         public class CompetitionStage
         {
             public string Type { get; set; }
             public ICollection<StageTask> Tasks { get; set; }
+
+            public CompetitionStage()
+            {
+                Tasks = new List<StageTask>();
+            }
 
             public class StageTask
             {
@@ -26,7 +36,7 @@
 
                 public bool IsActual { get; set; }
 
-                public ICollection<string> Addresses { get; set; }
+                public string Addresses { get; set; }
             }
         }
     }

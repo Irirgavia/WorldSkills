@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Web;
 
     using BLL.DTO;
@@ -14,6 +15,7 @@
         public static ScheduleElement ToModel(CompetitionDTO competitionDTO)
         {
             string dateFormat = "dd.MM.yyyy HH:mm";
+            StringBuilder stringBuilder = new StringBuilder();
             var scheduleElement = new ScheduleElement()
             {
                 Skill = competitionDTO.Skill.Name,
@@ -36,7 +38,7 @@
                     stageTask.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
                     stageTask.IsActual = dateOfEnd < DateTime.Now;
                     //foreach(var address in task.Address)
-                    stageTask.Addresses.Add(task.Address.ToString());
+                    stageTask.Addresses = task.Address.ToString();
                     competitionStage.Tasks.Add(stageTask);
                 }
                 scheduleElement.Stages.Add(competitionStage);
