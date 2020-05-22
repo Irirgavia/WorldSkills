@@ -57,7 +57,7 @@ export default class ResultsSearch extends React.Component {
               <label for = "year">Год: </label>
               <input  type = "text" id = "year" name = "year" required />
               <button id = "search" type="submit">Искать</button>
-              <button id = "download" onClick = "" disabled>Скачать</button>
+              <button id = "download" onClick = "">Скачать</button>
             </form>
             <table border="1">
               <caption>Результаты в соревновании {skill}, этап {stage} за год {year}</caption>

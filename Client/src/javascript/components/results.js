@@ -4,15 +4,14 @@ import ResultSearch from './resultpath/resultsearch.js';
 
 export default class Results extends React.Component {
     render() {
-        return <form action="/results/search" method="get">
+        return <form action = "/results/search" method = "get">
             <label for = "skill">Профессия: </label>
-            <input  type = "text" id = "skill" name = "skill" required />
+            <input type = "text" id = "skill" name = "skill" required />
             <label for = "stage">Этап: </label>
-            <input  type = "text" id = "stage" name = "stage" required />
+            <input type = "text" id = "stage" name = "stage" required />
             <label for = "year">Год: </label>
-            <input  type = "text" id = "year" name = "year" required />
-            <button id = "search" type="submit">Искать</button>
-            <button id = "download" onClick = "" disabled>Скачать</button>
+            <input type = "text" id = "year" name = "year" required />
+            <button type = "submit">Искать</button>
         </form>
     }
 }
