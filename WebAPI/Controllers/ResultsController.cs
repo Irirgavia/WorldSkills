@@ -27,13 +27,13 @@
             ICollection<ResultsElement> resultsElements = new List<ResultsElement>();
             var resultsElement1 = new ResultsElement()
             {
-                Date = new DateTime(2019, 03, 12),
+                Date = "2019, 03, 12",
                 Participant = "participant1",
                 Marks = 5
             };
             var resultsElement2 = new ResultsElement()
             {
-                Date = new DateTime(2019, 03, 14),
+                Date = "2019, 03, 14",
                 Participant = "participant2",
                 Marks = 7
             };
