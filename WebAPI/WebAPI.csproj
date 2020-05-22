@@ -173,6 +173,7 @@
     </Compile>
     <Compile Include="Models\ResultsElement.cs" />
     <Compile Include="Models\ScheduleElement.cs" />
+    <Compile Include="ObjectMapper\ObjectMapperDTOModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
