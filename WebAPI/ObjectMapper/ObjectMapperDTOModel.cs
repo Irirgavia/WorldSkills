@@ -26,7 +26,7 @@
             {
                 var competitionStage = new ScheduleElement.CompetitionStage()
                 {
-                    Type = stage.TypeStage.ToString()
+                    Type = stage.TypeStageDto.ToString()
                 };
                 foreach(var task in stage.Tasks)
                 {
@@ -37,8 +37,8 @@
                     var dateOfEnd = task.DateTime + task.Time;
                     stageTask.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
                     stageTask.IsActual = dateOfEnd < DateTime.Now;
-                    //foreach(var address in task.Address)
-                    stageTask.Addresses = task.Address.ToString();
+                    foreach(var address in task.Addresses)
+                    stageTask.Addresses = task.Addresses.ToString();
                     competitionStage.Tasks.Add(stageTask);
                 }
                 scheduleElement.Stages.Add(competitionStage);
