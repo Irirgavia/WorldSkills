@@ -1,7 +1,7 @@
 import '../sass/styles.scss';
-import ReactDOM from 'react-dom';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ProfileMenu from './components/profilemenu.js'
 import Main from './components/main.js';
 import History from './components/aboutpath/history.js';
 import Rules from './components/aboutpath/rules.js';
@@ -22,11 +22,13 @@ import TrainerPersonalData from './components/profilepath/trainerprofilepath/tra
 import TrainerResults from './components/profilepath/trainerprofilepath/trainerresults.js'
 //import NotFound from './components/notfound.js';
 
-ReactDOM.render(
-    <Router>
-        <div>
-            <Switch>
-                <Route exact path="/" component={Main} />
+export default class App extends React.Component{
+    render(){
+        return <Router>
+            <div>
+                <ProfileMenu />
+                <Switch>
+                    <Route exact path="/" component={Main} />
                 <Route path="/about/history" component={History} />
                 <Route path="/about/rules" component={Rules} />
                 <Route exact path="/about" component={About} />
@@ -47,6 +49,6 @@ ReactDOM.render(
                 {/* <Route component={NotFound} /> */}
             </Switch>
         </div>
-    </Router>,
-    document.getElementById("main")
-)
+    </Router>;
+    }
+}

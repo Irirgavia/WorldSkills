@@ -187,14 +187,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ResultsElement.cs" />
     <Compile Include="Models\ScheduleElement.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="ObjectMapper\ObjectMapperDTOModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

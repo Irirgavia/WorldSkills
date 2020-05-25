@@ -22,5 +22,10 @@
         public string House { get; set; }
 
         public string Notes { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Country}, {City}, {Street}, {House}";
+        }
     }
 }

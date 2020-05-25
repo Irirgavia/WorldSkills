@@ -7,7 +7,7 @@
     using System.Web;
 
     using BLL.DTO;
-
+    using BLL.Services;
     using Models;
 
     public class ObjectMapperDTOModel
@@ -46,13 +46,18 @@
             return scheduleElement;
         }
 
-        /*public static IEnumerable<ResultsElement> ToModel(StageDTO stageDTO)
+        /*public static IEnumerable<ResultsElement> ToModel(CompetitionDTO competitionDTO, string stageType)
         {
+            AdministratorService administratorService = new AdministratorService("CompetitionContext");
             ICollection<ResultsElement> resultsElements = new List<ResultsElement>();
             var resultsElement = new ResultsElement();
-            foreach(int participantId in stageDTO.Participants)
+            var stageDTO = competitionDTO.Stages.FirstOrDefault(x => x.TypeStage.ToString() == stageType);
+            foreach(TaskDTO task in stageDTO.Tasks)
             {
-
+                foreach(AnswerDTO answerDTO in task.Answers)
+                {
+                    answerDTO.Result.Mark()
+                }
             }
             return resultsElement;
         }*/

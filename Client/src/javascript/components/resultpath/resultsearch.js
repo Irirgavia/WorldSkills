@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getResults } from '../../actions/actions.js'
+import { getResultsByYear } from '../../actions/actions.js'
 
 
-export default class ResultsSearch extends React.Component {
+export class ResultsSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: []
-    };
   }
 
   componentDidMount() {
@@ -18,29 +13,14 @@ export default class ResultsSearch extends React.Component {
     var skill = params.get("skill");
     var stage = params.get("stage");
     var year = params.get("year");
-    fetch("http://localhost:49263/api/results?skill=" + skill + '&stage=' + stage + '&year=' + year)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    this.props.getResultsByYear(skill, stage, year);
   }
       
   render() {
-      const { error, isLoaded, items } = this.state;
-      if (error) {
-          return <div>Ошибка: {error.message}</div>;
-      } else if (!isLoaded) {
+    console.log(this.props.isFetching);
+      if (this.props.error) {
+          return <div>Ошибка: {this.props.error.message}</div>;
+      } else if (this.props.isFetching) {
           return <div>Загрузка...</div>;
       } else {
         var params = new URLSearchParams(this.props.location.search);
@@ -63,11 +43,11 @@ export default class ResultsSearch extends React.Component {
               <caption>Результаты в соревновании {skill}, этап {stage} за год {year}</caption>
               <tr>
                 <th>Дата</th>
-                <th>Победитель</th>
+                <th>Участник</th>
                 <th>Баллы</th>
               </tr>
               {
-              items.map(item => (
+              this.props.items.map(item => (
                 <tr>
                   <td>{item.Date}</td>
                   <td>{item.Participant}</td>
@@ -81,49 +61,18 @@ export default class ResultsSearch extends React.Component {
     }
   }
 
-/*class ResultsSearch extends React.Component {
-
-    componentDidMount() {
-        this.props.getResults(0);
-    }
-
-    render() {
-      <table border="1">
-        <caption>Результаты</caption>
-        <tr>
-          <th>Дата</th>
-          <th>Победитель</th>
-          <th>Баллы</th>
-          <th>Профессия</th>
-          <th>Этап</th>
-        </tr>
-        {this.props.competitionResults.records.map(item => (
-          <tr>
-            <td>{item.Date}</td>
-            <td>{item.Participant}</td>
-            <td>{item.Marks}</td>
-          </tr>
-          ))}
-        </table>
-    };
-};
-
-let mapProps = (state) => {
+  let mapProps = (state) => {
     return {
-        competitionResults: state.data,
+        items: state.data,
+        isFetching: state.isFetching,
         error: state.error
     }
 }
 
 let mapDispatch = (dispatch) => {
     return {
-        getResults: (skill, stage, year) => dispatch(getResults(skill, stage, year))
+      getResultsByYear: (skill, stage, year) => dispatch(getResultsByYear(skill, stage, year))
     }
 }
 
-export default connect(mapProps, mapDispatch)(ResultsSearch) */
-
-
-/*
-            <td>{item.Skill}</td>
-            <td>{item.Stage}</td>*/
+export default connect(mapProps, mapDispatch)(ResultsSearch)

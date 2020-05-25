@@ -9,15 +9,16 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import mainReducer from './reducers/reducers.js'
 
-function configureStore(initialState) {
+var store = createStore(mainReducer, applyMiddleware(thunk));
+/*function configureStore(initialState) {
     return createStore(mainReducer, initialState, applyMiddleware(thunk))
 }
 
-const store = configureStore()
+const store = configureStore()*/
 
-render(
+ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
-    document.getElementById('content')
+    document.getElementById("main")
 )
