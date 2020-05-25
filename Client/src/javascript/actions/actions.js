@@ -15,64 +15,144 @@ export const loadUser = (login, requiredFields = []) => (dispatch, getState) => 
   return dispatch(fetchUser(login))
 }*/
 
-import {RESULTS_SUCCESS, RESULTS_ERROR, SCHEDULE_SUCCESS, SCHEDULE_ERROR} from '../constants/constants.js'
+import * as constants from '../constants/constants.js'
 
-export function receiveCompetitionResults(data) {
+const ApiUrl = "http://localhost:49263/api";
+
+export function requestResultsByYear() {
   return {
-      type: RESULTS_SUCCESS,
+      type: constants.RESULTS_BY_YEAR_REQUEST
+  }
+}
+
+export function receiveResultsByYear(data) {
+  return {
+      type: constants.RESULTS_BY_YEAR_SUCCESS,
       competitionResults: data
   }
 }
 
-export function errorReceiveCompetitionResults(err) {
+export function errorReceiveResultsByYear(err) {
   return {
-      type: RESULTS_ERROR,
+      type: constants.RESULTS_BY_YEAR_ERROR,
       error: err
   }
 }
 
-//fetch("https://localhost:3000/results?skill=skill&stage=stage&year=year")
-export function getResults(skill, stage, year) {
+//fetch("https://localhost:49263/api/results?skill=skill&stage=stage&year=year")
+export function getResultsByYear(skill, stage, year) {
   return (dispatch) => {
-      let queryTrailer = '/results?skill=' + skill + '&stage=' + stage + '&year=' + year;
-      fetch(constants.getPage + queryTrailer)
-          .then((response) => {
-              return response.json()
-          }).then((data) => {
-              dispatch(receiveCompetitionResults(data))
+    dispatch(requestResultsByYear())
+    let queryTrailer = '/results?skill=' + skill + '&stage=' + stage + '&year=' + year;
+    return fetch(ApiUrl + queryTrailer/*"http://localhost:49263/api/results?skill=" + skill + '&stage=' + stage + '&year=' + year*/)
+      .then((response) =>  response.json())
+      .then((data) => {
+              dispatch(receiveResultsByYear(data))
           }).catch((ex) => {
-              dispatch(errorReceiveCompetitionResults(err))
+              dispatch(errorReceiveResultsByYear(ex))
           });
   }
 }
 
+export function requestSchedule() {
+  return {
+      type: constants.ACTUAL_SCHEDULE_REQUEST
+  }
+}
 
 export function receiveSchedule(data) {
   return {
-      type: SCHEDULE_SUCCESS,
+      type: constants.ACTUAL_SCHEDULE_SUCCESS,
       schedule: data
   }
 }
 
 export function errorReceiveSchedule(err) {
   return {
-      type: SCHEDULE_ERROR,
+      type: constants.ACTUAL_SCHEDULE_ERROR,
       error: err
   }
 }
 
-//fetch("https://localhost:3000/schedule")
+//fetch("https://localhost:49263/api/schedule")
 export function getSchedule() {
   return (dispatch) => {
+    dispatch(requestSchedule())
       let queryTrailer = '/schedule';
-      fetch(/*constants.getPage + queryTrailer*/"http://localhost:49263/api/schedule")
+    return fetch(ApiUrl + queryTrailer/*"http://localhost:49263/api/schedule"*/)
           .then((response) => {
               return response.json()
           }).then((data) => {
-              dispatch(receiveCompetitionResults(data))
+              dispatch(receiveSchedule(data))
           }).catch((ex) => {
-              dispatch(errorReceiveCompetitionResults(err))
+              dispatch(errorReceiveSchedule(ex))
           });
+  }
+}
+
+export function requestUser() {
+  return {
+      type: constants.USER_REQUEST
+  }
+}
+
+export function receiveUser(data) {
+  return {
+      type: constants.USER_SUCCESS,
+      user: data
+  }
+}
+
+export function receiveUserWrongPassword() {
+  return {
+      type: constants.USER_WRONG_PASSWORD
+  }
+}
+
+export function receiveUserNotFound() {
+  return {
+      type: constants.USER_NOT_FOUND
+  }
+}
+
+export function errorReceiveUser(err) {
+  return {
+      type: constants.USER_ERROR,
+      error: err
+  }
+}
+
+//fetch("https://localhost:49263/api/user")
+export function getUser(login, password) {
+  return (dispatch) => {
+    dispatch(requestUser())
+      let queryTrailer = '/user';
+    return fetch(ApiUrl + queryTrailer, { method: 'POST' })
+          .then((response) => {
+              return response.json()
+          }).then((data) => {
+            if(data.Status=='NotFound'){
+              dispatch(receiveUserNotFound());
+            } else if (data.Status=='WrongPassword') {
+              dispatch(receiveUserWrongPassword());
+            } else if (data.Status=='Success'){
+                dispatch(receiveUser(data))
+              }
+          }).catch((ex) => {
+              dispatch(errorReceiveUser(ex))
+          });
+  }
+}
+
+export function logoutUserAction() {
+  return {
+      type: constants.USER_LOGOUT
+  }
+}
+
+export function logoutUser(){
+  return (dispatch) => {
+    dispatch(logoutUserAction());
   }
 }
 
