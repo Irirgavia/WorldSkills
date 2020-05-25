@@ -17,7 +17,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .FirstOrDefault(x => x.Login.Equals(login));
+                .FirstOrDefault(x => x.Login == login);
         }
     }
 }

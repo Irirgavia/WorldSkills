@@ -17,7 +17,7 @@
 
         public int Id { get; private set; }
 
-        public int UserId { get; set; }
+        //public int UserEntityId { get; set; }
 
         public UserDTO User { get; set; }
 

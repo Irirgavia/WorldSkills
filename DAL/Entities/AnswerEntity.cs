@@ -9,11 +9,11 @@
         {
         }
 
-        public AnswerEntity(ParticipantEntity participant, ResultEntity result, TaskEntity task, string projectLink, string notes)
+        public AnswerEntity(int participantEntityId, ResultEntity result, int taskEntityId, string projectLink, string notes)
         {
-            Participant = participant;
+            ParticipantEntityId = participantEntityId;
             Result = result;
-            Task = task;
+            TaskEntityId = taskEntityId;
             ProjectLink = projectLink;
             Notes = notes;
         }
@@ -21,9 +21,9 @@
         [Key]
         public int Id { get; private set; }
 
-        public int ParticipantId { get; set; }
+        public int ParticipantEntityId { get; set; }
 
-        [ForeignKey("ParticipantId")]
+        [ForeignKey("ParticipantEntityId")]
         public virtual ParticipantEntity Participant { get; set; }
 
         //public int? ResultId { get; set; }
@@ -32,10 +32,10 @@
         //[ForeignKey("ResultId")]
         public virtual ResultEntity Result { get; set; }
 
-        public int TaskId { get; set; }
+        public int TaskEntityId { get; set; }
 
-        [ForeignKey("TaskId")]
-        public virtual TaskEntity Task { get; set; }
+        //[ForeignKey("TaskEntityId")]
+        //public virtual TaskEntity Task { get; set; }
 
         public string ProjectLink { get; set; }
 

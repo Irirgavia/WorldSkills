@@ -6,6 +6,7 @@
     {
         public SkillDTO()
         {
+            //this.Competitions = new List<int>();
         }
 
         public SkillDTO(string name)
@@ -17,6 +18,6 @@
 
         public string Name { get; set; }
 
-        public virtual ICollection<int> Competitions { get; set; }
+        //public virtual ICollection<int> Competitions { get; set; }
     }
 }

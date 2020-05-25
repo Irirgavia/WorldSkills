@@ -15,9 +15,9 @@
         {
         }
 
-        public IEnumerable<StageEntity> GetStagesByCompetition(CompetitionEntity competition)
+        public IEnumerable<StageEntity> GetStagesByCompetitionId(int competitionId)
         {
-            return this.DbSet.AsNoTracking().Where(x => x.Competition == competition);
+            return this.DbSet.AsNoTracking().Where(x => x.CompetitionEntityId == competitionId);
         }
 
         public override IEnumerable<StageEntity> Get(Func<StageEntity, bool> predicate)

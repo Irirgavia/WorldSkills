@@ -1,6 +1,6 @@
 ﻿namespace BLL.DTO
 {
-    public enum TypeStage
+    public enum TypeStageDTO
     {
         Town,
         Region,

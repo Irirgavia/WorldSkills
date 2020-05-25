@@ -13,12 +13,12 @@
         }
 
         public CompetitionEntity(
-            SkillEntity skill,
+            int skillEntityId,
             DateTime dateTimeBegin,
             DateTime dateTimeEnd,
             ICollection<StageEntity> stages)
         {
-            Skill = skill;
+            SkillEntityId = skillEntityId;
             DateTimeBegin = dateTimeBegin;
             DateTimeEnd = dateTimeEnd;
             Stages = stages;
@@ -27,9 +27,9 @@
         [Key]
         public int Id { get; private set; }
 
-        public int? SkillId { get; set; }
+        public int? SkillEntityId { get; set; }
 
-        [ForeignKey("SkillId")]
+        [ForeignKey("SkillEntityId")]
         public virtual SkillEntity Skill { get; set; }
 
         [Required]

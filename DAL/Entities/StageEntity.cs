@@ -15,14 +15,15 @@
         }
 
         public StageEntity(
-            CompetitionEntity competition,
-            TypeStage typeStage,
+            int competitionEntityId,
+            TypeStageEntity typeStageEntity,
             ICollection<TaskEntity> tasks,
             ICollection<ParticipantEntity> participants,
             ICollection<JudgeEntity> judges,
             ICollection<AdministratorEntity> administrators)
         {
-            Competition = competition;
+            CompetitionEntityId = competitionEntityId;
+            TypeStageEntity = typeStageEntity;
             Tasks = tasks;
             Participants = participants;
             Judges = judges;
@@ -32,13 +33,13 @@
         [Key]
         public int Id { get; private set; }
 
-        public int? CompetitionId { get; set; }
-
-        [ForeignKey("CompetitionId")]
-        public virtual CompetitionEntity Competition { get; private set; }
+        public int? CompetitionEntityId { get; set; }
+        
+        //[ForeignKey("CompetitionEntityId")]
+        //public virtual CompetitionEntity Competition { get; set; }
 
         [Required]
-        public TypeStage TypeStage { get; private set; }
+        public TypeStageEntity TypeStageEntity { get; private set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; private set; }
 

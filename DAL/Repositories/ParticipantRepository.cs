@@ -19,7 +19,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(a => a.UserEntity)
+                .Include(a => a.User)
                 .AsEnumerable()
                 .Where(predicate);
         }

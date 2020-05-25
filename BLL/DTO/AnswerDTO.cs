@@ -8,12 +8,14 @@
 
         public AnswerDTO(
             int participant, 
-            ResultDTO result, 
+            ResultDTO result,
+            int taskId,
             string projectLink,
             string notes)
         {
             ParticipantId = participant;
             Result = result;
+            TaskId = taskId;
             ProjectLink = projectLink;
             Notes = notes;
         }

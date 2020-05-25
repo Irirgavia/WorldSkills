@@ -88,24 +88,21 @@
                 .WithMany(s => s.Judges);
             
             // Skill
-            modelBuilder.Entity<SkillEntity>()
+            /*modelBuilder.Entity<SkillEntity>()
                 .HasMany(s => s.Competitions)
-                .WithRequired(c => c.Skill);
+                .WithRequired(c => c.Skill);*/
                 
             // Competition
             modelBuilder.Entity<CompetitionEntity>()
-                .HasMany(c => c.Stages)
-                .WithRequired(s => s.Competition);
+                .HasMany(c => c.Stages);
 
             // Stage
-            modelBuilder.Entity<StageEntity>()
-                .HasMany(s => s.Tasks)
-                .WithRequired(t => t.Stage);
+            modelBuilder.Entity<StageEntity>().HasMany(s => s.Tasks);
+                //.WithRequired(t => t.Stage);
 
             // Task
-            modelBuilder.Entity<TaskEntity>()
-                .HasMany(t => t.Answers)
-                .WithRequired(a => a.Task);
+            modelBuilder.Entity<TaskEntity>().HasMany(t => t.Answers);
+                //.WithRequired(a => a.Task);
             
             // Result
             /*modelBuilder.Entity<ResultEntity>()

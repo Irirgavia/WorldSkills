@@ -1,6 +1,6 @@
 ﻿namespace DAL.Entities
 {
-    public enum TypeStage
+    public enum TypeStageEntity
     {
         Town,
         Region,

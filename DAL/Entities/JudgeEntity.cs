@@ -12,20 +12,20 @@
         }
 
         public JudgeEntity(
-            UserEntity user, 
+            int userEntityId, 
             ICollection<StageEntity> stages)
         {
-            User = user;
+            UserEntityId = userEntityId;
             Stages = stages;
         }
 
         [Key]
         public int Id { get; private set; }
 
-        public int UserId { get; set; }
+        public int UserEntityId { get; set; }
 
         [Index(IsUnique = true)]
-        [ForeignKey("UserId")]
+        [ForeignKey("UserEntityId")]
         public virtual UserEntity User { get; set; }
 
         public virtual ICollection<StageEntity> Stages { get; private set; }

@@ -12,20 +12,20 @@
         }
 
         public TrainerEntity(
-            UserEntity user, 
+            int userEntityId, 
             ICollection<ParticipantEntity> participants)
         {
-            User = user;
+            UserEntityId = userEntityId;
             Participants = participants;
         }
 
         [Key]
         public int Id { get; private set; }
 
-        public int UserId { get; set; }
+        public int UserEntityId { get; set; }
 
         [Index(IsUnique = true)]
-        [ForeignKey("UserId")]
+        [ForeignKey("UserEntityId")]
         public virtual UserEntity User { get; set; }
 
         public virtual ICollection<ParticipantEntity> Participants { get; private set; }

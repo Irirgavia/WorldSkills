@@ -8,7 +8,7 @@
     {
         public SkillEntity()
         {
-            Competitions = new List<CompetitionEntity>();
+            //Competitions = new List<CompetitionEntity>();
         }
 
         public SkillEntity(string name)
@@ -24,6 +24,6 @@
         [Index(IsUnique = true)]
         public string Name { get; set; }
 
-        public virtual ICollection<CompetitionEntity> Competitions { get; set; }
+        //public virtual ICollection<CompetitionEntity> Competitions { get; set; }
     }
 }

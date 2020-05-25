@@ -13,14 +13,14 @@
         }
 
         public ParticipantEntity(
-            UserEntity user,
-            TrainerEntity trainer,
+            int userEntityId,
+            int? trainerEntityId,
             AddressEntity address,
             ICollection<AnswerEntity> answers,
             ICollection<StageEntity> stages)
         {
-            this.UserEntity = user;
-            Trainer = trainer;
+            UserEntityId = userEntityId;
+            TrainerEntityId = trainerEntityId;
             Address = address;
             Answers = answers;
             Stages = stages;
@@ -33,16 +33,16 @@
 
         [Index(IsUnique = true)]
         [ForeignKey("UserEntityId")]
-        public virtual UserEntity UserEntity { get; set; }
+        public virtual UserEntity User { get; set; }
 
-        public int? TrainerId { get; set; }
+        public int? TrainerEntityId { get; set; }
 
-        [ForeignKey("TrainerId")]
+        [ForeignKey("TrainerEntityId")]
         public virtual TrainerEntity Trainer { get; set; }
 
-        public int AddressId { get; set; }
+        public int AddressEntityId { get; set; }
 
-        [ForeignKey("AddressId")]
+        [ForeignKey("AddressEntityId")]
         public virtual AddressEntity Address { get; set; }
 
         public virtual ICollection<AnswerEntity> Answers { get; private set; }

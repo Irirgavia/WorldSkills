@@ -6,6 +6,6 @@
 
     public interface IStageRepository : IGenericRepository<StageEntity>
     {
-        IEnumerable<StageEntity> GetStagesByCompetition(CompetitionEntity competition);
+        IEnumerable<StageEntity> GetStagesByCompetitionId(int competitionID);
     }
 }

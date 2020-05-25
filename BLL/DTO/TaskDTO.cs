@@ -14,17 +14,17 @@
             int stage,
             DateTime dateTime,
             TimeSpan time,
-            AddressDTO address,
             string description,
             string requirement,
+            ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers)
         {
             StageId = stage;
             DateTime = dateTime;
             Time = time;
-            Address = address;
             Description = description;
             Requirement = requirement;
+            Addresses = addresses;
             Answers = answers;
         }
 
@@ -36,11 +36,11 @@
 
         public TimeSpan Time { get; set; }
 
-        public AddressDTO Address { get; set; }
-
         public string Description { get; set; }
 
         public string Requirement { get; set; }
+
+        public ICollection<AddressDTO> Addresses { get; set; }
 
         public ICollection<AnswerDTO> Answers { get; }
     }

@@ -11,9 +11,9 @@
             Stages = new List<StageEntity>();
         }
 
-        public AdministratorEntity(UserEntity user, ICollection<StageEntity> stages)
+        public AdministratorEntity(int userEntityId, ICollection<StageEntity> stages)
         {
-            this.User = user;
+            UserEntityId = userEntityId;
             Stages = stages;
         }
 
@@ -21,11 +21,11 @@
         public int Id { get; private set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int UserEntityId { get; set; }
 
         [Required]
         [Index(IsUnique = true)]
-        [ForeignKey("UserId")]
+        [ForeignKey("UserEntityId")]
         public virtual UserEntity User { get; set; }
 
         public virtual ICollection<StageEntity> Stages { get; private set; }

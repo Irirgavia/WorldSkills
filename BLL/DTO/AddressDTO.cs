@@ -2,10 +2,6 @@
 {
     public class AddressDTO
     {
-        public AddressDTO()
-        {
-        }
-
         public AddressDTO(string country, string city, string street, string house, string notes)
         {
             Country = country;

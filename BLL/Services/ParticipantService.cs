@@ -7,7 +7,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using TypeStage = DAL.Entities.TypeStage;
 
     public class ParticipantService : IDisposable
     {
@@ -40,14 +39,20 @@
             var userEF = this.unitOfWork.UserRepository.GetUserByLogin(user.Login);
             userEF.Role = Role.Participant;
 
-            this.unitOfWork.ParticipantRepository.Create(new ParticipantEntity() { UserEntityId = user.Id, AddressId = address.Id });
+            this.unitOfWork.ParticipantRepository.Create(
+                new ParticipantEntity(
+                    userEF.Id,
+                    null,
+                    ObjectMapper<AddressDTO, AddressEntity>.Map(address), 
+                    new List<AnswerEntity>(), 
+                    new List<StageEntity>()));
             this.unitOfWork.SaveChanges();
         }
 
         public ParticipantDTO GetParticipant(UserDTO user)
         {
             return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
-                this.unitOfWork.ParticipantRepository.Get(p => p.UserEntity.Id == user.Id).FirstOrDefault());
+                this.unitOfWork.ParticipantRepository.Get(p => p.User.Id == user.Id).FirstOrDefault());
         }
 
         public void UpdateParticipant(ParticipantDTO participant)
@@ -71,9 +76,15 @@
                 this.unitOfWork.AnswerRepository.Get(a => a.Participant.Id == participant.Id).FirstOrDefault());
         }
 
-        public void CreateAnswer(AnswerDTO answer)
+        public void CreateAnswer(
+            int participant,
+            int taskId,
+            string projectLink,
+            string notes)
         {
-            this.unitOfWork.AnswerRepository.Create(ObjectMapper<AnswerDTO, AnswerEntity>.Map(answer));
+            var answer = new AnswerEntity(participant, new ResultEntity(), taskId, projectLink, notes);
+
+            this.unitOfWork.AnswerRepository.Create(answer);
             this.unitOfWork.SaveChanges();
         }
 

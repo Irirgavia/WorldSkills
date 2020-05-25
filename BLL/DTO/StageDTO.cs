@@ -14,14 +14,14 @@
 
         public StageDTO(
             int competition,
-            TypeStage typeStage,
+            TypeStageDTO typeStageDto,
             ICollection<TaskDTO> tasks,
             ICollection<int> participants,
             ICollection<int> judges,
             ICollection<int> administrators)
         {
             CompetitionId = competition;
-            TypeStage = typeStage;
+            this.TypeStageDto = typeStageDto;
             Tasks = tasks;
             Participants = participants;
             Judges = judges;
@@ -32,7 +32,7 @@
 
         public int CompetitionId { get; set; }
 
-        public TypeStage TypeStage { get; set; }
+        public TypeStageDTO TypeStageDto { get; set; }
 
         public ICollection<TaskDTO> Tasks { get; set; }
 

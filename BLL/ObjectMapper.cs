@@ -1,10 +1,13 @@
 ﻿namespace BLL
 {
     using System.Collections.Generic;
+    using System.Xml.Schema;
 
     using AutoMapper;
 
     using BLL.DTO;
+
+    using Castle.Core.Internal;
 
     using DAL.Entities;
 
@@ -19,14 +22,18 @@
                     cfg.CreateMap<AddressDTO, AddressEntity>();
                     cfg.CreateMap<AddressEntity, AddressDTO>();
 
-                    cfg.CreateMap<AdministratorDTO, AdministratorEntity>();
+                    cfg.CreateMap<AdministratorDTO, AdministratorEntity>()
+                        .ForMember(ef => ef.UserEntityId, p => p.MapFrom(dto => dto.User.Id));
                     cfg.CreateMap<AdministratorEntity, AdministratorDTO>();
+
 
                     cfg.CreateMap<AnswerDTO, AnswerEntity>();
                     cfg.CreateMap<AnswerEntity, AnswerDTO>();
 
-                    cfg.CreateMap<CompetitionDTO, CompetitionEntity>();
-                    cfg.CreateMap<CompetitionEntity, CompetitionDTO>();
+                    cfg.CreateMap<CompetitionDTO, CompetitionEntity>()
+                        .ForMember(ef => ef.Skill, p => p.MapFrom(dto => dto.Skill));
+                    cfg.CreateMap<CompetitionEntity, CompetitionDTO>()
+                        .ForMember(dto => dto.Skill, p => p.MapFrom(ef => ef.Skill));
 
                     cfg.CreateMap<JudgeDTO, JudgeEntity>();
                     cfg.CreateMap<JudgeEntity, JudgeDTO>();
@@ -40,21 +47,26 @@
                     cfg.CreateMap<SkillDTO, SkillEntity>();
                     cfg.CreateMap<SkillEntity, SkillDTO>();
 
-                    cfg.CreateMap<StageDTO, StageEntity>();
-                    cfg.CreateMap<StageEntity, StageDTO>();
+                    cfg.CreateMap<StageDTO, StageEntity>()
+                        .ForMember(ef => ef.CompetitionEntityId, p => p.MapFrom(dto => dto.CompetitionId));
+                    cfg.CreateMap<StageEntity, StageDTO>()
+                        .ForMember(ef => ef.CompetitionId, p => p.MapFrom(dto => dto.CompetitionEntityId));
+
+                    cfg.CreateMap<TypeStageDTO, TypeStageEntity>();
+                    cfg.CreateMap<TypeStageEntity, TypeStageDTO>();
 
                     cfg.CreateMap<TaskDTO, TaskEntity>();
                     cfg.CreateMap<TaskEntity, TaskDTO>();
+
 
                     cfg.CreateMap<TrainerDTO, TrainerEntity>();
                     cfg.CreateMap<TrainerEntity, TrainerDTO>();
 
                     cfg.CreateMap<UserDTO, UserEntity>();
                     cfg.CreateMap<UserEntity, UserDTO>();
-
-                    cfg.CreateMap<TFrom, TTo>();
                 }).CreateMapper();
         }
+
 
         public static TTo Map(TFrom fromModel)
         {
