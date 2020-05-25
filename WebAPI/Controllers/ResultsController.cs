@@ -19,27 +19,7 @@
                 return BadRequest();
             ICollection<ResultsElement> resultsElements = new List<ResultsElement>();
 
-            return Json(Test(skill, stage, year));
-        }
-
-        private IEnumerable<ResultsElement> Test(string skill, string stage, int year)
-        {
-            ICollection<ResultsElement> resultsElements = new List<ResultsElement>();
-            var resultsElement1 = new ResultsElement()
-            {
-                Date = "2019, 03, 12",
-                Participant = "participant1",
-                Marks = 5
-            };
-            var resultsElement2 = new ResultsElement()
-            {
-                Date = "2019, 03, 14",
-                Participant = "participant2",
-                Marks = 7
-            };
-            resultsElements.Add(resultsElement1);
-            resultsElements.Add(resultsElement2);
-            return resultsElements;
+            return Json(Test.TestDataForResults(skill, stage, year));
         }
     }
 }
