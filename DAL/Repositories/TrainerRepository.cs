@@ -21,7 +21,8 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(x => x.User)
-                .Include(x => x.Participants)
+                .Include(x => x.Participants.Select(p => p.Address))
+                .Include(x => x.Participants.Select(p => p.User))
                 .AsEnumerable();
         }
 
@@ -30,7 +31,8 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(x => x.User)
-                .Include(x => x.Participants)
+                .Include(x => x.Participants.Select(p => p.Address))
+                .Include(x => x.Participants.Select(p => p.User))
                 .AsEnumerable()
                 .Where(predicate);
         }

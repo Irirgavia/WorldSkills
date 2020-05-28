@@ -20,7 +20,9 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.Skill)
-                .Include(c => c.Stages)
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Addresses)))
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Answers.Select(a => a.Result))))
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Answers.Select(a => a.Participant))))
                 .AsEnumerable();
         }
 
@@ -29,7 +31,9 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.Skill)
-                .Include(c => c.Stages)
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Addresses)))
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Answers.Select(a => a.Result))))
+                .Include(c => c.Stages.Select(s => s.Tasks.Select(t => t.Answers.Select(a => a.Participant))))
                 .AsEnumerable()
                 .Where(predicate);
         }

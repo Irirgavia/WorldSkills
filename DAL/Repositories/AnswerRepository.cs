@@ -20,6 +20,8 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(a => a.Result)
+                .Include(a => a.Participant.Address)
+                .Include(a => a.Participant.User)
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -29,6 +31,8 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(a => a.Result)
+                .Include(a => a.Participant.Address)
+                .Include(a => a.Participant.User)
                 .AsEnumerable();
         }
     }

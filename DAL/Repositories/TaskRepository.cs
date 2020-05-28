@@ -1,8 +1,8 @@
 ﻿namespace DAL.Repositories
 {
     using System;
-    using System.Data.Entity;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using DAL.Entities;
@@ -20,7 +20,9 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.Addresses)
-                .Include(c => c.Answers)
+                .Include(c => c.Answers.Select(a => a.Participant.User))
+                .Include(c => c.Answers.Select(a => a.Participant.Address))
+                .Include(c => c.Answers.Select(a => a.Result))
                 .AsEnumerable();
         }
 
@@ -29,7 +31,9 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.Addresses)
-                .Include(c => c.Answers)
+                .Include(c => c.Answers.Select(a => a.Participant.User))
+                .Include(c => c.Answers.Select(a => a.Participant.Address))
+                .Include(c => c.Answers.Select(a => a.Result))
                 .AsEnumerable()
                 .Where(predicate);
         }
