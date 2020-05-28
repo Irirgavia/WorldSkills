@@ -5,6 +5,10 @@
 
     public class ResultEntity : IIdentifier
     {
+        public ResultEntity()
+        {
+        }
+
         public ResultEntity(float mark = 0)
         {
             PrizeType = PrizeType.NonAwardWinning;
@@ -23,12 +27,6 @@
 
         [Key]
         public int Id { get; private set; }
-
-        /*public int AnswerId { get; set; }
-
-        [Index(IsUnique = true)]
-        [ForeignKey("AnswerId")]
-        public virtual AnswerEntity Answer { get; set; }*/
 
         [Required]
         public PrizeType PrizeType { get; set; }

@@ -42,7 +42,7 @@
         public int Id { get; private set; }
 
         [Required]
-        //[Index(IsUnique = true)]
+        [Index(IsUnique = true)]
         [MaxLength(50)]
         public string Login { get; set; }
 
@@ -51,40 +51,20 @@
 
         [Required]
         public Role Role { get; set; }
-        /*
-        public int? AdministratorId { get; set; }
-
-        [ForeignKey("AdministratorId")]
-        public virtual AdministratorEntity AdministratorEntity { get; set; }
-
-        public int? JudgeId { get; set; }
-
-        [ForeignKey("JudgeId")]
-        public virtual JudgeEntity JudgeEntity { get; set; }
-
-        public int? ParticipantId { get; set; }
-
-        [ForeignKey("ParticipantId")]
-        public virtual ParticipantEntity ParticipantEntity { get; set; }
-
-        public int? TrainerId { get; set; }
-
-        [ForeignKey("TrainerId")]
-        public virtual TrainerEntity TrainerEntity { get; set; }
-        */
+        
         [Required]
         [Index("IX_FullNameAndBirthday", 1)]
-        [MaxLength(50)]
+        [MaxLength(30)]
         public string Surname { get; set; }
 
         [Required]
         [Index("IX_FullNameAndBirthday", 2)]
-        [MaxLength(50)]
+        [MaxLength(30)]
         public string Name { get; set; }
 
         [Required]
         [Index("IX_FullNameAndBirthday", 3)]
-        [MaxLength(50)]
+        [MaxLength(30)]
         public string Patronymic { get; set; }
 
         [Required]
@@ -95,9 +75,11 @@
         public string Photo { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string Mail { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string Telephone { get; set; }
 
         public string Awards { get; set; }

@@ -26,16 +26,10 @@
         [ForeignKey("ParticipantEntityId")]
         public virtual ParticipantEntity Participant { get; set; }
 
-        //public int? ResultId { get; set; }
-
         [Index(IsUnique = true)]
-        //[ForeignKey("ResultId")]
         public virtual ResultEntity Result { get; set; }
 
         public int TaskEntityId { get; set; }
-
-        //[ForeignKey("TaskEntityId")]
-        //public virtual TaskEntity Task { get; set; }
 
         public string ProjectLink { get; set; }
 

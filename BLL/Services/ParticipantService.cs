@@ -25,7 +25,6 @@
                 var townStage = competition.Stages.FirstOrDefault();
                 var participantEF = this.unitOfWork.ParticipantRepository.Get(x => x.Id == participantId).FirstOrDefault();
                 townStage.Participants.Add(participantEF);
-                participantEF.Stages.Add(townStage);
                 this.unitOfWork.SaveChanges();
             }
             catch (Exception e)
@@ -43,9 +42,7 @@
                 new ParticipantEntity(
                     userEF.Id,
                     null,
-                    ObjectMapper<AddressDTO, AddressEntity>.Map(address), 
-                    new List<AnswerEntity>(), 
-                    new List<StageEntity>()));
+                    ObjectMapper<AddressDTO, AddressEntity>.Map(address)));
             this.unitOfWork.SaveChanges();
         }
 

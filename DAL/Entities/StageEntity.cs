@@ -34,9 +34,6 @@
         public int Id { get; private set; }
 
         public int? CompetitionEntityId { get; set; }
-        
-        //[ForeignKey("CompetitionEntityId")]
-        //public virtual CompetitionEntity Competition { get; set; }
 
         [Required]
         public TypeStageEntity TypeStageEntity { get; private set; }

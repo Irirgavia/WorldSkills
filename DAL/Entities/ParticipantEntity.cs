@@ -8,22 +8,16 @@
     {
         public ParticipantEntity()
         {
-            Answers = new List<AnswerEntity>();
-            Stages = new List<StageEntity>();
         }
 
         public ParticipantEntity(
             int userEntityId,
             int? trainerEntityId,
-            AddressEntity address,
-            ICollection<AnswerEntity> answers,
-            ICollection<StageEntity> stages)
+            AddressEntity address)
         {
             UserEntityId = userEntityId;
             TrainerEntityId = trainerEntityId;
             Address = address;
-            Answers = answers;
-            Stages = stages;
         }
 
         [Key]
@@ -37,16 +31,9 @@
 
         public int? TrainerEntityId { get; set; }
 
-        [ForeignKey("TrainerEntityId")]
-        public virtual TrainerEntity Trainer { get; set; }
-
         public int AddressEntityId { get; set; }
 
         [ForeignKey("AddressEntityId")]
         public virtual AddressEntity Address { get; set; }
-
-        public virtual ICollection<AnswerEntity> Answers { get; private set; }
-
-        public virtual ICollection<StageEntity> Stages { get; private set; }
     }
 }

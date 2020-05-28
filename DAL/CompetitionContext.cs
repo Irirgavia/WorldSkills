@@ -46,69 +46,31 @@
         // Fluent API
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // User
-            /*modelBuilder.Entity<UserEntity>()
-                .HasOptional(u => u.AdministratorEntity)
-                .WithRequired(p => p.User);
-            
-            modelBuilder.Entity<UserEntity>()
-                .HasOptional(u => u.ParticipantEntity)
-                .WithRequired(p => p.UserEntity);
-                
-            modelBuilder.Entity<UserEntity>()
-                .HasOptional(u => u.JudgeEntity)
-                .WithRequired(p => p.User);
-            
-            modelBuilder.Entity<UserEntity>()
-                .HasOptional(u => u.TrainerEntity)
-                .WithRequired(p => p.User);
-                */
             // Trainer
             modelBuilder.Entity<TrainerEntity>()
-                .HasMany(t => t.Participants)
-                .WithOptional(p => p.Trainer); 
-                
-            // Participant
-            modelBuilder.Entity<ParticipantEntity>()
-                .HasMany(p => p.Stages)
-                .WithMany(s => s.Participants);
-            
-            modelBuilder.Entity<ParticipantEntity>()
-                .HasMany(p => p.Answers)
-                .WithRequired(a => a.Participant);
-                
-            // Admin
-            modelBuilder.Entity<AdministratorEntity>()
-                .HasMany(a => a.Stages)
-                .WithMany(s => s.Administrators);
-
-            // Judge
-            modelBuilder.Entity<JudgeEntity>()
-                .HasMany(j => j.Stages)
-                .WithMany(s => s.Judges);
-            
-            // Skill
-            /*modelBuilder.Entity<SkillEntity>()
-                .HasMany(s => s.Competitions)
-                .WithRequired(c => c.Skill);*/
+                .HasMany(t => t.Participants);
                 
             // Competition
             modelBuilder.Entity<CompetitionEntity>()
                 .HasMany(c => c.Stages);
 
             // Stage
-            modelBuilder.Entity<StageEntity>().HasMany(s => s.Tasks);
-                //.WithRequired(t => t.Stage);
+            modelBuilder.Entity<StageEntity>()
+                .HasMany(s => s.Tasks);
+
+            modelBuilder.Entity<StageEntity>()
+                .HasMany(s => s.Administrators);
+
+            modelBuilder.Entity<StageEntity>()
+                .HasMany(s => s.Judges);
+
+            modelBuilder.Entity<StageEntity>()
+                .HasMany(s => s.Participants);
 
             // Task
-            modelBuilder.Entity<TaskEntity>().HasMany(t => t.Answers);
-                //.WithRequired(a => a.Task);
-            
-            // Result
-            /*modelBuilder.Entity<ResultEntity>()
-                .HasRequired(r => r.Answer)
-                .WithRequiredPrincipal(a => a.Result);*/
-                
+            modelBuilder.Entity<TaskEntity>()
+                .HasMany(t => t.Answers);
+
             base.OnModelCreating(modelBuilder);
         }
     }

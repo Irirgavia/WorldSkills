@@ -34,10 +34,8 @@
         [Key]
         public int Id { get; private set; }
 
+        [Required]
         public int StageEntityId { get; set; }
-
-        //[ForeignKey("StageEntityId")]
-        //public virtual StageEntity Stage { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }
