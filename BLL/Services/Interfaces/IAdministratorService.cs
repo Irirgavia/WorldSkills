@@ -2,25 +2,32 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     using BLL.DTO;
 
     public interface IAdministratorService : IDisposable
     {
-        void CreateAddress(string country, string city, string street, string house, string apatrment, string notes);
+        AddressDTO GetAddressById(int id);
 
         IEnumerable<AddressDTO> GetAddressesByPlace(string country, string city, string street, string house);
 
-        void CreateSkill(string skill);
+        void CreateAddress(string country, string city, string street, string house, string apatrment, string notes);
+
+        SkillDTO GeTSkillById(int id);
 
         SkillDTO GetSkillByName(string skill);
+
+        void CreateSkill(string skill);
+
+        CompetitionDTO GetCompetitionById(int id);
 
         void CreateCompetition(DateTime begin, DateTime end, string skill);
 
         void UpdateCompetition(CompetitionDTO competition);
 
-        CompetitionDTO GetCompetitionById(int id);
+        StageDTO GetStageById(int id);
+
+        ICollection<StageDTO> GetStagesByCompetitionId(int id);
 
         void CreateStage(
             int competitionId,
@@ -29,7 +36,8 @@
             ICollection<AdministratorDTO> administrators,
             ICollection<JudgeDTO> judges);
 
-        ICollection<StageDTO> GetStagesByCompetitionId(int id);
+
+        TaskDTO GetTaskById(int id);
 
         void CreateTask(
             int stage,
@@ -40,6 +48,20 @@
             ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers);
 
-        ParticipantDTO GetParticipantById(int participantId);
+        AdministratorDTO GetAdministratorById(int id);
+
+        AdministratorDTO GetAdministratorByUserId(int id);
+
+        ParticipantDTO GetParticipantById(int id);
+
+        ParticipantDTO GetParticipantByUserId(int id);
+
+        JudgeDTO GetJudgeById(int id);
+
+        JudgeDTO GetJudgeByUserId(int id);
+
+        TrainerDTO GetTrainerById(int id);
+
+        TrainerDTO GetTrainerByUserId(int id);
     }
 }

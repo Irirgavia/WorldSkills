@@ -28,6 +28,11 @@
             this.unitOfWork.SaveChanges();
         }
 
+        public AddressDTO GetAddressById(int id)
+        {
+            return ObjectMapper<AddressEntity, AddressDTO>.Map(this.unitOfWork.AddressRepository.GetById(id));
+        }
+
         public IEnumerable<AddressDTO> GetAddressesByPlace(string country, string city, string street, string house)
         {
             return ObjectMapper<AddressEntity, AddressDTO>.MapList(this.unitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house));
@@ -38,6 +43,11 @@
         {
             this.unitOfWork.SkillRepository.Create(new SkillEntity(skill));
             this.unitOfWork.SaveChanges();
+        }
+
+        public SkillDTO GeTSkillById(int id)
+        {
+            return ObjectMapper<SkillEntity, SkillDTO>.Map(this.unitOfWork.SkillRepository.GetById(id));
         }
 
         public SkillDTO GetSkillByName(string skill)
@@ -88,6 +98,11 @@
             this.unitOfWork.SaveChanges();
         }
 
+        public StageDTO GetStageById(int id)
+        {
+            return ObjectMapper<StageEntity, StageDTO>.Map(this.unitOfWork.StageRepository.GetById(id));
+        }
+
         public ICollection<StageDTO> GetStagesByCompetitionId(int id)
         {
             return ObjectMapper<StageEntity, StageDTO>.MapList(
@@ -96,6 +111,11 @@
         }
 
         // Task
+        public TaskDTO GetTaskById(int id)
+        {
+            return ObjectMapper<TaskEntity, TaskDTO>.Map(this.unitOfWork.TaskRepository.GetById(id));
+        }
+
         public void CreateTask(
             int stage,
             DateTime dateTime,
@@ -118,10 +138,52 @@
         }
 
         // Participant
-        public ParticipantDTO GetParticipantById(int participantId)
+        public AdministratorDTO GetAdministratorById(int id)
+        {
+            return ObjectMapper<AdministratorEntity, AdministratorDTO>.Map(
+                this.unitOfWork.AdministratorRepository.GetById(id));
+        }
+
+        public AdministratorDTO GetAdministratorByUserId(int id)
+        {
+            return ObjectMapper<AdministratorEntity, AdministratorDTO>.Map(
+                this.unitOfWork.AdministratorRepository.Get(a => a.UserEntityId == id).FirstOrDefault());
+        }
+
+        public ParticipantDTO GetParticipantById(int id)
         {
             return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
-                this.unitOfWork.ParticipantRepository.Get(p => p.Id == participantId).FirstOrDefault());
+                this.unitOfWork.ParticipantRepository.GetById(id));
+        }
+
+        public ParticipantDTO GetParticipantByUserId(int id)
+        {
+            return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
+                this.unitOfWork.ParticipantRepository.Get(a => a.UserEntityId == id).FirstOrDefault());
+        }
+
+        public JudgeDTO GetJudgeById(int id)
+        {
+            return ObjectMapper<JudgeEntity, JudgeDTO>.Map(
+                this.unitOfWork.JudgeRepository.GetById(id));
+        }
+
+        public JudgeDTO GetJudgeByUserId(int id)
+        {
+            return ObjectMapper<JudgeEntity, JudgeDTO>.Map(
+                this.unitOfWork.JudgeRepository.Get(a => a.UserEntityId == id).FirstOrDefault());
+        }
+
+        public TrainerDTO GetTrainerById(int id)
+        {
+            return ObjectMapper<TrainerEntity, TrainerDTO>.Map(
+                this.unitOfWork.TrainerRepository.GetById(id));
+        }
+
+        public TrainerDTO GetTrainerByUserId(int id)
+        {
+            return ObjectMapper<TrainerEntity, TrainerDTO>.Map(
+                this.unitOfWork.TrainerRepository.Get(a => a.UserEntityId == id).FirstOrDefault());
         }
 
         public void Dispose()
