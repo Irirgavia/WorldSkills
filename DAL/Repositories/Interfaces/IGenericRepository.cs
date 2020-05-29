@@ -6,7 +6,7 @@
     public interface IGenericRepository<TEntity>
         where TEntity : class
     {
-        void Create(TEntity item);
+        TEntity Create(TEntity item);
 
         TEntity GetById(int id);
 
@@ -19,5 +19,7 @@
         void Update(TEntity item);
 
         void CreateOrUpdate(TEntity item);
+
+        TEntity GetOrCreate(TEntity item, Func<TEntity, bool> predicate);
     }
 }

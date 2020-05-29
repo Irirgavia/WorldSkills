@@ -37,9 +37,9 @@
             return this.DbSet.Find(id);
         }
 
-        public void Create(TEntity item)
+        public TEntity Create(TEntity item)
         {
-            this.DbSet.Add(item);
+            return this.DbSet.Add(item);
         }
 
         public void Update(TEntity item)
@@ -54,9 +54,31 @@
 
         public void CreateOrUpdate(TEntity item)
         {
-            Context.Entry(item).State = ((IIdentifier)item).Id == 0 ?
-                                            EntityState.Added : 
-                                            EntityState.Modified;
+            switch (((IIdentifier)item).Id)
+            {
+                case 0:
+                    {
+                        this.Create(item);
+                        break;
+                    }
+
+                default:
+                    {
+                        Update(item);
+                        break;
+                    }
+            } 
+        }
+
+        public TEntity GetOrCreate(TEntity item, Func<TEntity, bool> predicate)
+        {
+            var entity = this.Get(predicate).FirstOrDefault();
+            if (entity == null)
+            {
+                entity = this.Create(item);
+            }
+
+            return entity;
         }
     }
 }
