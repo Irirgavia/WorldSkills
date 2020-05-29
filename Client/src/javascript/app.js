@@ -10,17 +10,15 @@ import Schedule from './components/schedule.js';
 import Results from './components/results.js';
 import ResultSearch from './components/resultpath/resultsearch.js';
 import Contacts from './components/contacts.js';
-import Profile from './components/profile.js';
-import Signin from './components/signin.js';
+import SignIn from './components/signin.js';
+import SignOut from './components/signout.js';
+import PersonalData from './components/profilepath/personaldata/personaldata.js'
 import JudgeAnswers from './components/profilepath/judgeprofilepath/judgeanswers.js'
-import JudgePersonalData from './components/profilepath/judgeprofilepath/judgepersonaldata.js'
-import JudgeTasks from './components/profilepath/judgeprofilepath/judgetasks.js'
 import ParticipantCompetitions from './components/profilepath/participantprofilepath/participantcompetitions.js'
 import ParticipantPersonalData from './components/profilepath/participantprofilepath/participantpersonaldata.js'
 import ParticipantResults from './components/profilepath/participantprofilepath/participantresults.js'
-import TrainerPersonalData from './components/profilepath/trainerprofilepath/trainerpersonaldata.js'
 import TrainerResults from './components/profilepath/trainerprofilepath/trainerresults.js'
-//import NotFound from './components/notfound.js';
+import NotFound from './components/system/notfound.js'
 
 export default class App extends React.Component{
     render(){
@@ -36,17 +34,16 @@ export default class App extends React.Component{
                 <Route exact path="/results" component={Results} />
                 <Route path="/results/search" component={ResultSearch} />
                 <Route path="/contacts" component={Contacts} />
-                <Route exact path="/profile" component={Profile} />
-                <Route path="/signin" component={Signin} />
-                <Route path="/profile/judge/answers" component={JudgeAnswers} />
-                <Route path="/profile/judge/personaldata" component={JudgePersonalData} />
-                <Route path="/profile/judge/tasks" component={JudgeTasks} />
-                <Route path="/profile/participant/competitions" component={ParticipantCompetitions} />
-                <Route path="/profile/participant/personaldata" component={ParticipantPersonalData} />
-                <Route path="/profile/participant/results" component={ParticipantResults} />
-                <Route path="/profile/trainer/personaldata" component={TrainerPersonalData} />
-                <Route path="/profile/trainer/results" component={TrainerResults} />
-                {/* <Route component={NotFound} /> */}
+                <Route path="/signin" component={SignIn} />
+                <Route path="/signout" component={SignOut} />
+                <Route path="/judge/answers" component={JudgeAnswers} />
+                <Route path="/judge/personaldata" component={PersonalData} />
+                <Route path="/participant/competitions" component={ParticipantCompetitions} />
+                <Route path="/participant/personaldata" component={ParticipantPersonalData} />
+                <Route path="/participant/results" component={ParticipantResults} />
+                <Route path="/trainer/personaldata" component={PersonalData} />
+                <Route path="/trainer/results" component={TrainerResults} />
+                <Route component={NotFound} />
             </Switch>
         </div>
     </Router>;
