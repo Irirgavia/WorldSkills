@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getResultsByYear } from '../../actions/actions.js'
+import { getResultsByYear } from '../../actions/actions.js';
+import { Error } from '../system/error.js'
+import { Loading } from '../system/loading.js';
 
 
 export class ResultsSearch extends React.Component {
@@ -19,9 +21,9 @@ export class ResultsSearch extends React.Component {
   render() {
     console.log(this.props.isFetching);
       if (this.props.error) {
-          return <div>Ошибка: {this.props.error.message}</div>;
+          return <Error error={this.props.error.message} />;
       } else if (this.props.isFetching) {
-          return <div>Загрузка...</div>;
+          return <Loading />;
       } else {
         var params = new URLSearchParams(this.props.location.search);
         var skill = params.get("skill");

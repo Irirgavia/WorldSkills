@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSchedule } from '../actions/actions.js'
+import { getSchedule } from '../actions/actions.js';
+import { Error } from './system/error.js';
+import { Loading } from './system/loading.js';
 
 export class Schedule extends React.Component {
     constructor(props) {
@@ -13,9 +15,9 @@ export class Schedule extends React.Component {
         
     render() {
         if (this.props.error) {
-            return <div>Ошибка: {this.props.error.message}</div>;
+            return <Error error={this.props.error.message} />;
         } else if (this.props.isFetching) {
-            return <div>Загрузка...</div>;
+            return <Loading />;
         } else {
             return (
                 <div>
@@ -25,12 +27,18 @@ export class Schedule extends React.Component {
                       <p class="competitiondata">{item.Skill} {item.DateOfBegin}-{item.DateOfEnd}</p>
                       {item.Stages.map((stage) =>
                       (
-                        <table class="stage" border="1">
-                          <tr>
-                            <td>{stage.Type}</td>
-                            <td>
+                        <div class="stage">
+                        <p class="stagetype">Этап: {stage.Type}</p>
                               <table class="tasks" border="1">
-                                {stage.Tasks.map((task) =>
+                                <thead>
+                                  <tr>
+                                  <th>Начало выполнения задания</th>
+                                  <th>Конец выполнения задания</th>
+                                  <th>Адреса</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  {stage.Tasks.map((task) =>
                                 (
                                   <tr class={"task " + task.IsActual}>
                                     <td>{task.TaskDateOfBegin}</td>
@@ -38,10 +46,9 @@ export class Schedule extends React.Component {
                                     <td>{task.Addresses}</td>
                                   </tr>
                                 ))}
+                                </tbody>
                               </table>
-                            </td>
-                          </tr>
-                        </table>
+                        </div>
                       ))}
                     </div>
                   ))}
