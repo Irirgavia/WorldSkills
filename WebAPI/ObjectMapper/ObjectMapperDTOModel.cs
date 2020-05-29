@@ -12,9 +12,9 @@
 
     public class ObjectMapperDTOModel
     {
+        static string dateFormat = "dd.MM.yyyy HH:mm";
         public static ScheduleElement ToModel(CompetitionDTO competitionDTO)
         {
-            string dateFormat = "dd.MM.yyyy HH:mm";
             StringBuilder stringBuilder = new StringBuilder();
             var scheduleElement = new ScheduleElement()
             {
@@ -61,5 +61,20 @@
             }
             return resultsElement;
         }*/
+
+        public static PersonalDataModel ToModel(UserDTO userDTO)
+        {
+            PersonalDataModel personalData = new PersonalDataModel()
+            {
+                Surname = userDTO.Surname,
+                Name = userDTO.Name,
+                Patronymic = userDTO.Patronymic,
+                Birthday = userDTO.Birthday.ToString(dateFormat),
+                Mail = userDTO.Mail,
+                Telephone = userDTO.Telephone,
+                Awards = userDTO.Awards
+            };
+            return personalData;
+        }
     }
 }
