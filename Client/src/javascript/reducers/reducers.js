@@ -10,28 +10,18 @@ const initialState = {
 
 export default function mainReducer(state = initialState, action) {
     switch (action.type) {
-        case constants.RESULTS_BY_YEAR_REQUEST:
-            return {...state, data: [], isFetching: true}
+        case constants.DATA_REQUEST:
+            return {...state, data: [], isFetching: true, error: '' }
 
-        case constants.RESULTS_BY_YEAR_SUCCESS:
-            return { ...state, data: action.competitionResults, isFetching: false, error: '' }
+        case constants.DATA_SUCCESS:
+            return { ...state, data: action.data, isFetching: false, error: '' }
 
-        case constants.RESULTS_BY_YEAR_ERROR:
-            return { ...state, isFetching: false, error: action.error }
-            
-
-        case constants.ACTUAL_SCHEDULE_REQUEST:
-            return {...state, data: [], isFetching: true}
-        
-        case constants.ACTUAL_SCHEDULE_SUCCESS:
-            return { ...state, data: action.schedule, isFetching: false, error: '' }
-
-        case constants.ACTUAL_SCHEDULE_ERROR:
+        case constants.DATA_ERROR:
             return { ...state, isFetching: false, error: action.error }
             
             
         case constants.USER_REQUEST:
-            return {...state, data: [], isFetching: true, isSignedIn: false, user: {id: 0, login: "", role: ""} }
+            return {...state, data: [], isFetching: true, isSignedIn: false, user: {id: 0, login: "", role: ""}, error: '' }
         
         case constants.USER_WRONG_PASSWORD:
             return { ...state, isFetching: false, error: 'Password is wrong.', isSignedIn: false, user: {id: 0, login: "", role: ""} }
