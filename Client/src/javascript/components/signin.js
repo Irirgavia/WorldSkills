@@ -1,29 +1,42 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser } from '../actions/actions.js'
+import { getUser } from '../actions/actions.js';
+import Error from './system/error.js'
+import Loading from './system/loading.js';
 
 
-export class Signin extends React.Component {
+export class SignIn extends React.Component {
     constructor(props) {
-      super(props);
+        super(props);
+        this.loginInput = React.createRef();
+        this.passwordInput = React.createRef();
     }
   
     logingIn() {
-        var login = this.refs.loginInput.value;
-        var password = this.refs.passwordInput.value;
+        var login = this.loginInput.value;
+        var password = this.passwordInput.value;
         this.props.getUser(login, password);
     }
 
     render() {
-        return <form action={this.logingIn.bind(this)}>
+        if(this.props.isSignedIn)
+        {
+            return <Redirect to="/" />;
+        } else if(this.props.isFetching)
+        {
+            return <Loading />;
+        } else
+        {
+            return <form action={this.logingIn.bind(this)}>
             <label for = "login">Логин: </label>
-            <input type = "text" id="login" name="login" ref="loginInput" />
+            <input type = "text" id="login" name="login" ref={this.loginInput} />
             <label for = "password">Пароль: </label>
-            <input type = "password" id="password" name="password" ref="passwordInput" />
+            <input type = "password" id="password" name="password" ref={this.passwordInput} />
             <button type = "submit">Войти</button>
-            <p>{
-            }</p>
+            <Error error={this.props.error.message} />
         </form>
+        }
     }
 }
 
@@ -41,4 +54,4 @@ let mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapProps, mapDispatch)(Signin)
+export default connect(mapProps, mapDispatch)(SignIn)
