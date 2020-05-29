@@ -19,8 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -184,7 +183,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarkController.cs" />
+    <Compile Include="Controllers\PersonalDataController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -192,8 +194,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswerForJudgeModel.cs" />
+    <Compile Include="Models\PersonalDataModel.cs" />
+    <Compile Include="Models\ResultForParticipant.cs" />
+    <Compile Include="Models\ResultForTrainer.cs" />
     <Compile Include="Models\ResultsElement.cs" />
     <Compile Include="Models\ScheduleElement.cs" />
+    <Compile Include="Models\TaskForPatricipantModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="ObjectMapper\ObjectMapperDTOModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
