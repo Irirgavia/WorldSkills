@@ -18,25 +18,25 @@
             if (city != null && street != null && house != null)
             {
                 return Context.Addresses.AsNoTracking().Where(
-                    x => x.Country.Equals(country) 
-                         && x.City.Equals(city) 
-                         && x.Street.Equals(street)
-                         && x.House.Equals(house));
+                    x => x.Country == country 
+                         && x.City == city
+                         && x.Street == street
+                         && x.House == house);
             }
 
             if (city != null && street != null)
             {
                 return Context.Addresses.AsNoTracking().Where(
-                    x => x.Country.Equals(country)
-                         && x.City.Equals(city)
-                         && x.Street.Equals(street));
+                    x => x.Country == country
+                         && x.City == city
+                         && x.Street == street);
             }
 
             if (city != null)
             {
                 return Context.Addresses.AsNoTracking().Where(
-                    x => x.Country.Equals(country)
-                         && x.City.Equals(city));
+                    x => x.Country == country
+                         && x.City == city);
             }
 
             return Context.Addresses.AsNoTracking().Where(x => x.Country.Equals(country));
