@@ -19,22 +19,22 @@ import * as constants from '../constants/constants.js'
 
 const ApiUrl = "http://localhost:49263/api";
 
-export function requestResultsByYear() {
+export function requestData() {
   return {
-      type: constants.RESULTS_BY_YEAR_REQUEST
+      type: constants.DATA_REQUEST
   }
 }
 
-export function receiveResultsByYear(data) {
+export function receiveData(data) {
   return {
-      type: constants.RESULTS_BY_YEAR_SUCCESS,
-      competitionResults: data
+      type: constants.DATA_SUCCESS,
+      data: data
   }
 }
 
-export function errorReceiveResultsByYear(err) {
+export function errorReceiveData(err) {
   return {
-      type: constants.RESULTS_BY_YEAR_ERROR,
+      type: constants.DATA_ERROR,
       error: err
   }
 }
@@ -42,50 +42,30 @@ export function errorReceiveResultsByYear(err) {
 //fetch("https://localhost:49263/api/results?skill=skill&stage=stage&year=year")
 export function getResultsByYear(skill, stage, year) {
   return (dispatch) => {
-    dispatch(requestResultsByYear())
+    dispatch(requestData())
     let queryTrailer = '/results?skill=' + skill + '&stage=' + stage + '&year=' + year;
     return fetch(ApiUrl + queryTrailer/*"http://localhost:49263/api/results?skill=" + skill + '&stage=' + stage + '&year=' + year*/)
       .then((response) =>  response.json())
       .then((data) => {
-              dispatch(receiveResultsByYear(data))
+              dispatch(receiveData(data))
           }).catch((ex) => {
-              dispatch(errorReceiveResultsByYear(ex))
+              dispatch(errorReceiveData(ex))
           });
-  }
-}
-
-export function requestSchedule() {
-  return {
-      type: constants.ACTUAL_SCHEDULE_REQUEST
-  }
-}
-
-export function receiveSchedule(data) {
-  return {
-      type: constants.ACTUAL_SCHEDULE_SUCCESS,
-      schedule: data
-  }
-}
-
-export function errorReceiveSchedule(err) {
-  return {
-      type: constants.ACTUAL_SCHEDULE_ERROR,
-      error: err
   }
 }
 
 //fetch("https://localhost:49263/api/schedule")
 export function getSchedule() {
   return (dispatch) => {
-    dispatch(requestSchedule())
+    dispatch(requestData())
       let queryTrailer = '/schedule';
     return fetch(ApiUrl + queryTrailer/*"http://localhost:49263/api/schedule"*/)
           .then((response) => {
               return response.json()
           }).then((data) => {
-              dispatch(receiveSchedule(data))
+              dispatch(receiveData(data))
           }).catch((ex) => {
-              dispatch(errorReceiveSchedule(ex))
+              dispatch(errorReceiveData(ex))
           });
   }
 }
@@ -127,7 +107,15 @@ export function getUser(login, password) {
   return (dispatch) => {
     dispatch(requestUser())
       let queryTrailer = '/user';
-    return fetch(ApiUrl + queryTrailer, { method: 'POST' })
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      login: login,
+      password: password})
+    })
           .then((response) => {
               return response.json()
           }).then((data) => {
@@ -150,12 +138,158 @@ export function logoutUserAction() {
   }
 }
 
-export function logoutUser(){
+export function logOutUser(){
   return (dispatch) => {
     dispatch(logoutUserAction());
   }
 }
 
+export function getPersonalData(userId) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/personaldata';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({userId: userId})
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function savePersonalData(data) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/personaldata/update';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function getAnswersToRate(judgeId) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/answer';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({judgeId: judgeId})
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function saveMark(data) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/mark/save';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function saveAnswer(data) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/answer/save';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function getResultsByParticipant(participantId) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/results/participant';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({participantId: participantId})
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
+
+export function getResultsByTrainer(trainerId) {
+  return (dispatch) => {
+    dispatch(requestData())
+      let queryTrailer = '/results/trainer';
+    return fetch(ApiUrl + queryTrailer, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({trainerId: trainerId})
+    })
+    .then((response) => {
+      return response.json()
+    }).then((data) => {
+      dispatch(receiveData(data))
+    }).catch((ex) => {
+      dispatch(errorReceiveData(ex))
+    });
+  }
+}
 
 
 /*
