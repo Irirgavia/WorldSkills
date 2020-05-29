@@ -95,6 +95,7 @@
     <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -131,6 +132,7 @@
     <Compile Include="Services\ParticipantService.cs" />
     <Compile Include="Services\ServiceModule.cs" />
     <Compile Include="Services\TrainerService.cs" />
+    <Compile Include="Utilities\MailUtility.cs" />
     <Compile Include="Utilities\ObjectMapper.cs" />
     <Compile Include="Utilities\PasswordHasher.cs" />
   </ItemGroup>
