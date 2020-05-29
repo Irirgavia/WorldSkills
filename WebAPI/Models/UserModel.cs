@@ -13,13 +13,6 @@ namespace WebAPI.Models
 
         public string Role { get; set; }
 
-        public AutorizationStatus Status { get; set; }
-    }
-
-    public enum AutorizationStatus
-    {
-        Success,
-        NotFound,
-        WrongPassword
+        public string Status { get; set; }
     }
 }

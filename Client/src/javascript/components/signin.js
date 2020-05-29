@@ -11,15 +11,22 @@ export class SignIn extends React.Component {
         super(props);
         this.loginInput = React.createRef();
         this.passwordInput = React.createRef();
+        this.logingIn= this.logingIn.bind(this);
     }
   
     logingIn() {
-        var login = this.loginInput.value;
-        var password = this.passwordInput.value;
+        console.log("logingIn!");
+        console.log(this.loginInput);
+        console.log(this.passwordInput);
+        var login = this.loginInput.current.value;
+        var password = this.passwordInput.current.value;
+        console.log(login);
+        console.log(password);
         this.props.getUser(login, password);
     }
 
     render() {
+        console.log(this.props.isFetching);
         if(this.props.isSignedIn)
         {
             return <Redirect to="/" />;
@@ -28,14 +35,15 @@ export class SignIn extends React.Component {
             return <Loading />;
         } else
         {
-            return <form action={this.logingIn.bind(this)}>
+            console.log("form!");
+            return <div>
             <label for = "login">Логин: </label>
             <input type = "text" id="login" name="login" ref={this.loginInput} />
             <label for = "password">Пароль: </label>
             <input type = "password" id="password" name="password" ref={this.passwordInput} />
-            <button type = "submit">Войти</button>
+            <button onClick={this.logingIn}>Войти</button>
             <Error error={this.props.error.message} />
-        </form>
+        </div>
         }
     }
 }

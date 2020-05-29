@@ -14,6 +14,8 @@ export default class Error extends React.Component{
                     mes = "Пользователь с таким логином не найден.";
                 }
         }
+        if (mes == '')
+        return <div></div>;
         return <div id="error">Ошибка: {mes}</div>;
     }
 }

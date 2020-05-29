@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        public IHttpActionResult Get([FromBody] string login, [FromBody] string password)
+        public IHttpActionResult Post([FromBody] (string login, string password) parameters)
         {
 
             return Json(Test.TestDataForUserParticipant());

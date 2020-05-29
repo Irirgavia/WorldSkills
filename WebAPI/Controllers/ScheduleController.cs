@@ -16,13 +16,13 @@
         public IHttpActionResult Get()
         {
             ICollection<ScheduleElement> scheduleElements = new List<ScheduleElement>();
-            /*var guestService = new GuestService("CompetitionContext");
+            var guestService = new GuestService("CompetitionContext");
             var competitions = guestService.GetActualCompetitions();
             foreach(var competition in competitions)
             {
                 scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));
-            }*/
-            return Json(/*scheduleElements*/ Test.TestDataForSchedule());
+            }
+            return Json(scheduleElements /*Test.TestDataForSchedule()*/);
         }
     }
 }
