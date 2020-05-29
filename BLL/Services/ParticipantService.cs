@@ -9,6 +9,7 @@
     using System.Linq;
 
     using BLL.Services.Interfaces;
+    using BLL.Utilities;
 
     public class ParticipantService : IParticipantService
     {

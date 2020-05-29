@@ -1,13 +1,10 @@
-﻿namespace BLL
+﻿namespace BLL.Utilities
 {
     using System.Collections.Generic;
-    using System.Xml.Schema;
 
     using AutoMapper;
 
     using BLL.DTO;
-
-    using Castle.Core.Internal;
 
     using DAL.Entities;
 

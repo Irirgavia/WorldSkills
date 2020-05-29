@@ -1,4 +1,4 @@
-﻿namespace BLL
+﻿namespace BLL.Utilities
 {
     using System;
     using System.Security.Cryptography;

@@ -1,4 +1,4 @@
-﻿namespace BLL
+﻿namespace BLL.Services
 {
     using DAL.Repositories;
     using DAL.Repositories.Interfaces;
@@ -16,7 +16,7 @@
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(this.ConnectionString);
+            this.Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(this.ConnectionString);
         }
     }
 }

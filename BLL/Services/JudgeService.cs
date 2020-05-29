@@ -9,7 +9,7 @@
 
     public class JudgeService : IJudgeService
     {
-        private IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public JudgeService(string connection)
         {
