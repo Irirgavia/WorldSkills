@@ -1,60 +1,60 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getResultsByParticipant } from '../../../actions/actions.js';
+import { Error } from '../../system/error.js';
+import { Loading } from '../../system/loading.js';
 
-export default class ParticipantResults extends React.Component {
+export class ParticioantResults extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        error: null,
-        isLoaded: false,
-        items: []
-      };
     }
   
-    componentDidMount(year) {
-      fetch("https://localhost:3000/results/participant?id=${id}")
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items: result.items
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
+    componentDidMount() {
+      this.props.getResultsByParticipant(this.props.participantId);
     }
   
     render() {
-        const { error, isLoaded, items } = this.state;
-        if (error) {
-            return <div>Ошибка: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Загрузка...</div>;
-        } else {
-            return (
-                <table border="1">
-                    <caption>Результаты</caption>
-                    <tr>
-                        <th>Дата</th>
-                        <th>Профессия</th>
-                        <th>Этап</th>
-                        <th>Баллы</th>
-                    </tr>
-                    {items.map(item => (
-                        <tr>
-                            <td>{item.date}</td>
-                            <td>{item.skill}</td>
-                            <td>{item.stage}</td>
-                            <td>{item.marks}</td>
-                        </tr>
-                    ))}
-                </table>
-            );
-        }
+      if (this.props.error) {
+        return <Error error={this.props.error.message} />;
+    } else if (this.props.isFetching) {
+        return <Loading />;
+    } else {
+      return (
+          <table border="1">
+            <tr>
+              <th>Профессия</th>
+              <th>Этап</th>
+              <th>Дата</th>
+              <th>Баллы</th>
+            </tr>
+            {
+            this.props.items.map(item => (
+              <tr>
+                <td>{item.Skill}</td>
+                <td>{item.Stage}</td>
+                <td>{item.Date}</td>
+                <td>{item.Mark}</td>
+              </tr>
+            ))}
+          </table>
+      );
     }
+  }
 }
+
+let mapProps = (state) => {
+  return {
+    participantId: state.user.id,
+      items: state.data,
+      isFetching: state.isFetching,
+      error: state.error
+  }
+}
+
+let mapDispatch = (dispatch) => {
+  return {
+    getResultsByParticipant: (participantId) => dispatch(getResultsByParticipant(participantId))
+  }
+}
+
+export default connect(mapProps, mapDispatch)(ParticioantResults)
