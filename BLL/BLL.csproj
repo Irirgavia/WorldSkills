@@ -133,6 +133,7 @@
     <Compile Include="Services\ServiceModule.cs" />
     <Compile Include="Services\TrainerService.cs" />
     <Compile Include="Utilities\MailUtility.cs" />
+    <Compile Include="Utilities\MessageUtility.cs" />
     <Compile Include="Utilities\ObjectMapper.cs" />
     <Compile Include="Utilities\PasswordHasher.cs" />
   </ItemGroup>
