@@ -1,22 +1,17 @@
 ﻿namespace BLL.Services
 {
     using System;
-
-    using BLL.DTO;
-
+    using BLL.Services.Interfaces;
     using DAL.Repositories;
+    using DAL.Repositories.Interfaces;
 
-    public class TrainerService : IDisposable
+    public class TrainerService : ITrainerService
     {
-        private UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
-        public TrainerService()
+        public TrainerService(string connection)
         {
-            this.unitOfWork = new UnitOfWork();
-        }
-
-        public void CreateTrainer(UserDTO user)
-        {
+            this.unitOfWork = new UnitOfWork(connection);
         }
 
         public void Dispose()

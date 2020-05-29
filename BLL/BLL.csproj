@@ -125,6 +125,11 @@
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GuestService.cs" />
+    <Compile Include="Services\Interfaces\IAdministratorService.cs" />
+    <Compile Include="Services\Interfaces\IGuestService.cs" />
+    <Compile Include="Services\Interfaces\IJudgeService.cs" />
+    <Compile Include="Services\Interfaces\IParticipantService.cs" />
+    <Compile Include="Services\Interfaces\ITrainerService.cs" />
     <Compile Include="Services\JudgeService.cs" />
     <Compile Include="Services\ParticipantService.cs" />
     <Compile Include="Services\TrainerService.cs" />

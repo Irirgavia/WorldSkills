@@ -4,15 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Abp.AutoMapper;
-
     using BLL.DTO;
+    using BLL.Services.Interfaces;
 
     using DAL.Entities;
     using DAL.Repositories;
     using DAL.Repositories.Interfaces;
 
-    public class AdministratorService : IDisposable
+    public class AdministratorService : IAdministratorService
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -21,9 +20,10 @@
             this.unitOfWork = new UnitOfWork(connection);
         }
 
-        public void CreateAddress(string country, string city, string street, string house, string apatrment, string notes)
+        // Address
+        public void CreateAddress(string country, string city, string street, string house, string apartment, string notes)
         {
-            this.unitOfWork.AddressRepository.Create(new AddressEntity(country, city, street, house, apatrment, notes));
+            this.unitOfWork.AddressRepository.Create(new AddressEntity(country, city, street, house, apartment, notes));
             this.unitOfWork.SaveChanges();
         }
 
@@ -32,6 +32,7 @@
             return ObjectMapper<AddressEntity, AddressDTO>.MapList(this.unitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house));
         }
 
+        // Skill
         public void CreateSkill(string skill)
         {
             this.unitOfWork.SkillRepository.Create(new SkillEntity(skill));
@@ -43,11 +44,13 @@
             return ObjectMapper<SkillEntity, SkillDTO>.Map(this.unitOfWork.SkillRepository.GetSkillByName(skill));
         }
 
-        public void CreateCompetition(DateTime begin, DateTime end, SkillDTO skill)
+        // Competition
+        public void CreateCompetition(DateTime begin, DateTime end, string skill)
         {
-            var skillEF = this.unitOfWork.SkillRepository.Get(s => s.Name.Equals(skill.Name)).FirstOrDefault();
-            var competitionEF = new CompetitionEntity() { DateTimeBegin = begin, DateTimeEnd = end, SkillEntityId = skillEF.Id };
-            this.unitOfWork.CompetitionRepository.Create(competitionEF);
+            var skillEF = this.unitOfWork.SkillRepository.GetOrCreate(new SkillEntity(skill), s => s.Name == skill);
+
+            this.unitOfWork.CompetitionRepository.Create(
+                new CompetitionEntity() { DateTimeBegin = begin, DateTimeEnd = end, SkillEntityId = skillEF.Id });
 
             this.unitOfWork.SaveChanges();
         }
@@ -64,6 +67,7 @@
                 this.unitOfWork.CompetitionRepository.Get(c => c.Id == id).FirstOrDefault());
         }
 
+        // Stage
         public void CreateStage(
             int competitionId,
             TypeStageDTO typeStageDto,
@@ -90,6 +94,7 @@
                 .ToList();
         }
 
+        // Task
         public void CreateTask(
             int stage,
             DateTime dateTime,
@@ -111,6 +116,7 @@
             this.unitOfWork.SaveChanges();
         }
 
+        // Participant
         public ParticipantDTO GetParticipantById(int participantId)
         {
             return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(

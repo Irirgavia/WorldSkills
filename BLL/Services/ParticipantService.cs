@@ -8,7 +8,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ParticipantService : IDisposable
+    using BLL.Services.Interfaces;
+
+    public class ParticipantService : IParticipantService
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -17,20 +19,14 @@
             this.unitOfWork = new UnitOfWork(connection);
         }
 
+
         public void RegistrationNewParticipantOnActualCompetition(int competitionId, int participantId)
         {
-            try
-            {
-                var competition = this.unitOfWork.CompetitionRepository.Get(c => c.Id == competitionId).FirstOrDefault();
-                var townStage = competition.Stages.FirstOrDefault();
-                var participantEF = this.unitOfWork.ParticipantRepository.Get(x => x.Id == participantId).FirstOrDefault();
-                townStage.Participants.Add(participantEF);
-                this.unitOfWork.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                
-            }
+            var competition = this.unitOfWork.CompetitionRepository.Get(c => c.Id == competitionId).FirstOrDefault();
+            var townStage = competition.Stages.FirstOrDefault();
+            var participantEF = this.unitOfWork.ParticipantRepository.Get(x => x.Id == participantId).FirstOrDefault();
+            townStage.Participants.Add(participantEF);
+            this.unitOfWork.SaveChanges();
         }
 
         public void CreateParticipant(UserDTO user, AddressDTO address)

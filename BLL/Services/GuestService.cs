@@ -2,17 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     using BLL.DTO;
+    using BLL.Services.Interfaces;
 
     using DAL.Entities;
     using DAL.Repositories;
     using DAL.Repositories.Interfaces;
 
-    public class GuestService : IDisposable
+    public class GuestService : IGuestService
     {
-        private IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public GuestService(string connection)
         {
@@ -37,7 +37,7 @@
             this.unitOfWork.SaveChanges();
         }
 
-        public UserDTO GetUser(string login, string password)
+        public UserDTO GetUser(string login, string password) 
         {
             var user = this.unitOfWork.UserRepository.GetUserByLogin(login);
             if (user == null)
@@ -65,14 +65,49 @@
                 this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeEnd >= DateTime.Now));
         }
         
-        public IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int year)
+        public IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int? year)
         {
-            var competitionsEF = this.unitOfWork.CompetitionRepository.Get(c => 
-                c.Skill.Name == skill &&
-                (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year)  &&
-                (c.DateTimeBegin.Year == year + 1 || c.DateTimeBegin.Year == year));
-            
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(competitionsEF);
+            if (skill != null && year != null)
+            {
+               return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                    this.unitOfWork.CompetitionRepository.Get(
+                        c => 
+                            c.Skill.Name == skill &&
+                            (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) && 
+                            (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+            }
+
+            if (skill != null)
+            {
+                return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                    this.unitOfWork.CompetitionRepository.Get(
+                        c =>
+                            c.Skill.Name == skill));
+            }
+
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.unitOfWork.CompetitionRepository.Get(
+                    c =>
+                        (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) &&
+                        (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+        }
+
+        public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(string skill, int? year, TypeStageDTO typeStage)
+        {
+            var competitions = GetCompetitionsBySkillAndYear(skill, year);
+            var stages = new List<StageDTO>();
+            foreach (var competition in competitions)
+            {
+                foreach (var stage in competition.Stages)
+                {
+                    if (stage.TypeStageDto.Equals(typeStage))
+                    {
+                        stages.Add(stage);
+                    }
+                }
+            }
+
+            return stages;
         }
         
         public IEnumerable<CompetitionDTO> GetCompetitionsBySkill(string skill)

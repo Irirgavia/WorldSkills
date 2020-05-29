@@ -2,10 +2,12 @@
 {
     using System;
 
+    using BLL.Services.Interfaces;
+
     using DAL.Repositories;
     using DAL.Repositories.Interfaces;
 
-    public class JudgeService : IDisposable
+    public class JudgeService : IJudgeService
     {
         private IUnitOfWork unitOfWork;
 
