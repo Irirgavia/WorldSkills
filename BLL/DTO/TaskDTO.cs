@@ -8,6 +8,7 @@
         public TaskDTO()
         {
             Answers = new List<AnswerDTO>();
+            Addresses = new List<AddressDTO>();
         }
 
         public TaskDTO(

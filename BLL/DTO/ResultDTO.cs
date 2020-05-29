@@ -19,8 +19,6 @@
 
         public PrizeType PrizeType { get; set; }
 
-        //public int AnswerId { get; private set; }
-
         public float Mark { get; set; }
 
         public string Notes { get; set; }

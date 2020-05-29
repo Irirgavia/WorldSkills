@@ -6,21 +6,15 @@
     {
         public JudgeDTO()
         {
-            StagesId = new List<int>();
         }
 
-        public JudgeDTO(
-            UserDTO user,
-            ICollection<int> stages)
+        public JudgeDTO(UserDTO user)
         { 
             User = user;
-            StagesId = stages;
         }
 
         public int Id { get; private set; }
 
         public UserDTO User { get; set; }
-
-        public ICollection<int> StagesId { get; }
     }
 }

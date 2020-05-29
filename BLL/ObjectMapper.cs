@@ -50,7 +50,7 @@
                     cfg.CreateMap<StageDTO, StageEntity>()
                         .ForMember(ef => ef.CompetitionEntityId, p => p.MapFrom(dto => dto.CompetitionId));
                     cfg.CreateMap<StageEntity, StageDTO>()
-                        .ForMember(ef => ef.CompetitionId, p => p.MapFrom(dto => dto.CompetitionEntityId));
+                        .ForMember(dto => dto.CompetitionId, p => p.MapFrom(ef => ef.CompetitionEntityId));
 
                     cfg.CreateMap<TypeStageDTO, TypeStageEntity>();
                     cfg.CreateMap<TypeStageEntity, TypeStageDTO>();

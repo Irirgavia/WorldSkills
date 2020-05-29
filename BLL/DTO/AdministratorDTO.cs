@@ -6,21 +6,15 @@
     {
         public AdministratorDTO()
         {
-            StagesId = new List<int>();
         }
 
-        public AdministratorDTO(UserDTO user, ICollection<int> stages)
+        public AdministratorDTO(UserDTO user)
         {
             User = user;
-            StagesId = stages;
         }
 
         public int Id { get; private set; }
 
-        //public int UserEntityId { get; set; }
-
         public UserDTO User { get; set; }
-
-        public ICollection<int> StagesId { get; }
     }
 }

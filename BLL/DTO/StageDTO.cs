@@ -7,18 +7,18 @@
         public StageDTO()
         {
             Tasks = new List<TaskDTO>();
-            Participants = new List<int>();
-            Judges = new List<int>();
-            Administrators = new List<int>();
+            Participants = new List<ParticipantDTO>();
+            Judges = new List<JudgeDTO>();
+            Administrators = new List<AdministratorDTO>();
         }
 
         public StageDTO(
             int competition,
             TypeStageDTO typeStageDto,
             ICollection<TaskDTO> tasks,
-            ICollection<int> participants,
-            ICollection<int> judges,
-            ICollection<int> administrators)
+            ICollection<ParticipantDTO> participants,
+            ICollection<JudgeDTO> judges,
+            ICollection<AdministratorDTO> administrators)
         {
             CompetitionId = competition;
             this.TypeStageDto = typeStageDto;
@@ -36,10 +36,10 @@
 
         public ICollection<TaskDTO> Tasks { get; set; }
 
-        public ICollection<int> Participants { get; set; }
+        public ICollection<ParticipantDTO> Participants { get; set; }
 
-        public ICollection<int> Judges { get; set; }
+        public ICollection<JudgeDTO> Judges { get; set; }
 
-        public ICollection<int> Administrators { get; set; }
+        public ICollection<AdministratorDTO> Administrators { get; set; }
     }
 }

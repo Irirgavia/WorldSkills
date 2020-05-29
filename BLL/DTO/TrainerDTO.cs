@@ -6,21 +6,21 @@
     {
         public TrainerDTO()
         {
-            ParticipantsId = new List<int>();
+            Participants = new List<ParticipantDTO>();
         }
 
         public TrainerDTO(
             UserDTO user,
-            ICollection<int> participants)
+            ICollection<ParticipantDTO> participants)
         {
             User = user;
-            ParticipantsId = participants;
+            Participants = participants;
         }
 
         public int Id { get; private set; }
 
         public UserDTO User { get; set; }
 
-        public ICollection<int> ParticipantsId { get; set; }
+        public ICollection<ParticipantDTO> Participants { get; set; }
     }
 }
