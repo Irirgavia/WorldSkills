@@ -120,11 +120,14 @@ export function getUser(login, password) {
               return response.json()
           }).then((data) => {
             if(data.Status=='NotFound'){
+              console.log(data.Status+'NotFound');
               dispatch(receiveUserNotFound());
             } else if (data.Status=='WrongPassword') {
+              console.log(data.Status+'WrongPassword');
               dispatch(receiveUserWrongPassword());
             } else if (data.Status=='Success'){
-                dispatch(receiveUser(data))
+              console.log(data.Status+'Success');
+              dispatch(receiveUser(data))
               }
           }).catch((ex) => {
               dispatch(errorReceiveUser(ex))
