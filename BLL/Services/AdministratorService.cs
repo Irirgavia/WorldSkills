@@ -144,6 +144,11 @@
         }
 
         // Participant
+        public UserDTO GetUserById(int id)
+        {
+            return ObjectMapper<UserEntity, UserDTO>.Map(this.unitOfWork.UserRepository.GetById(id));
+        }
+
         public void UpdateUser(UserDTO user)
         {
             this.unitOfWork.UserRepository.Update(ObjectMapper<UserDTO, UserEntity>.Map(user));
