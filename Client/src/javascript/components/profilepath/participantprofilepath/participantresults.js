@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getResultsByParticipant } from '../../../actions/actions.js';
-import { Error } from '../../system/error.js';
-import { Loading } from '../../system/loading.js';
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class ParticioantResults extends React.Component {
     constructor(props) {

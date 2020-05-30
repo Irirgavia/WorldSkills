@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { saveTask } from '../../../actions/actions.js';
 import { AdminStageCompetititons } from './admincompetitionchange.js'
-import * as systemComponents from '../../system'
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class AdminTaskChange extends React.Component {
   constructor(props) {
@@ -36,9 +37,9 @@ export class AdminTaskChange extends React.Component {
 
   render() {
       if (this.props.error) {
-          return <systemComponents.Error error={this.props.error.message} />;
+          return <Error error={this.props.error.message} />;
       } else if (this.props.isFetching) {
-          return <systemComponents.Loading />;
+          return <Loading />;
       } else if(this.state.finishEditingFlag){
         return <div>
             Сохранено.

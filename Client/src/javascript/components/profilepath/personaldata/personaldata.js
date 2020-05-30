@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getPersonalData } from '../../../actions/actions.js';
-import { Error } from '../../system/error.js';
-import { Loading } from '../../system/loading.js';
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class PersonalData extends React.Component {
     constructor(props) {

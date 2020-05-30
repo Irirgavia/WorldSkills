@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getSchedule } from '../actions/actions.js';
-import { Error } from './system/error.js';
-import { Loading } from './system/loading.js';
+import Error from './system/error.js';
+import Loading from './system/loading.js';
 
 export class Schedule extends React.Component {
     constructor(props) {
@@ -14,6 +14,8 @@ export class Schedule extends React.Component {
     }
         
     render() {
+      console.log("schedule");
+      console.log(this.props.error);
         if (this.props.error) {
             return <Error error={this.props.error.message} />;
         } else if (this.props.isFetching) {

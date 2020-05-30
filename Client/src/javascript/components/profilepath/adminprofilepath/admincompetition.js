@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCompetitionsByAdmin, saveAnswer } from '../../../actions/actions.js';
-import * as change from './change';
-import * as systemComponents from '../../system'
+import AdminCompetititonsChange from './change/admincompetitionchange.js'
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class AdminCompetititons extends React.Component {
   constructor(props) {
@@ -66,11 +67,11 @@ export class AdminCompetititons extends React.Component {
 
   render() {
       if (this.props.error) {
-          return <systemComponents.Error error={this.props.error.message} />;
+          return <Error error={this.props.error.message} />;
       } else if (this.props.isFetching) {
-          return <systemComponents.Loading />;
+          return <Loading />;
         } else if(this.state.changeCompetitionFlag){
-            return <change.AdminCompetititonsChange competition={this.state.competitionToChange} />
+            return <AdminCompetititonsChange competition={this.state.competitionToChange} />
         }else {
           return (
               <div>

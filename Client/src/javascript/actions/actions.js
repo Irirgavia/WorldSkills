@@ -63,8 +63,10 @@ export function getSchedule() {
           .then((response) => {
               return response.json()
           }).then((data) => {
+            console.log(data);
               dispatch(receiveData(data))
           }).catch((ex) => {
+            console.log(ex);
               dispatch(errorReceiveData(ex))
           });
   }

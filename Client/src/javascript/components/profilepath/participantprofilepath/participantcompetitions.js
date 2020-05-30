@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCompetitionsByParticipant, saveAnswer } from '../../../actions/actions.js';
-import { Error } from '../../system/error.js';
-import { Loading } from '../../system/loading.js';
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class ParticipantCompetititons extends React.Component {
   constructor(props) {

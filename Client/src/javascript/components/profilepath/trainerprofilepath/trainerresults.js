@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getResultsByTrainer } from '../../../actions/actions.js';
-import { Error } from '../../system/error.js';
-import { Loading } from '../../system/loading.js';
+import Error from '../../system/error.js';
+import Loading from '../../system/loading.js';
 
 export class TrainerResults extends React.Component {
     constructor(props) {
