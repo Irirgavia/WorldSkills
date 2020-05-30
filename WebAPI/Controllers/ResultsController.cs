@@ -19,7 +19,7 @@
                 return BadRequest();
             ICollection<ResultsElementResponseModel> resultsElements = new List<ResultsElementResponseModel>();
 
-            return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
+            return BadRequest();
         }
 
         [Route("api/results/participant")]
@@ -27,7 +27,7 @@
         {
             ICollection<ResultForParticipantResponseModel> resultsElements = new List<ResultForParticipantResponseModel>();
 
-            return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
+            return BadRequest();
         }
 
         [Route("api/results/trainer")]
@@ -35,7 +35,7 @@
         {
             ICollection<ResultForTrainerResponseModel> resultsElements = new List<ResultForTrainerResponseModel>();
 
-            return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
+            return BadRequest();
         }
     }
 }
