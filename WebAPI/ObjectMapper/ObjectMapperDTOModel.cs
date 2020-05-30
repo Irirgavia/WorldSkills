@@ -88,5 +88,25 @@
             };
             return personalData;
         }
+
+        public static PersonalDataResponseModel ToPersonalDataResponseModel(ParticipantDTO participantDTO)
+        {
+            PersonalDataResponseModel personalDataResponseModel = new PersonalDataResponseModel()
+            {
+                Surname = participantDTO.User.Surname,
+                Name = participantDTO.User.Name,
+                Patronymic = participantDTO.User.Patronymic,
+                Birthday = participantDTO.User.Birthday.ToString(dateFormat),
+                Telephone = participantDTO.User.Telephone,
+                Mail = participantDTO.User.Mail,
+                Awards = participantDTO.User.Awards,
+                AddressId = participantDTO.Address.Id,
+                Country = participantDTO.Address.Country,
+                City = participantDTO.Address.City,
+                Street = participantDTO.Address.Street,
+                House = participantDTO.Address.House
+            };
+            return personalDataResponseModel;
+        }
     }
 }

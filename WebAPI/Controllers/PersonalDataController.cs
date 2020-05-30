@@ -8,6 +8,8 @@ using System.Web.Http;
 using BLL.Services;
 using BLL.DTO;
 using WebAPI.Models.RequestModels;
+using WebAPI.Models.ResponseModels;
+using WebAPI.ObjectMapper;
 
 namespace WebAPI.Controllers
 {
@@ -15,7 +17,13 @@ namespace WebAPI.Controllers
     {
         public IHttpActionResult Get([FromBody] int userId)
         {
-            return Json(Test.TestDataForUserParticipant());
+            PersonalDataResponseModel personalDataResponse;
+            using (var adminService = new BLL.Services.AdministratorService("CompetitionContext"))
+            {
+                ParticipantDTO participantDTO = adminService.GetParticipantByUserId(userId);
+                personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(participantDTO);
+            }
+            return Json(personalDataResponse);
         }
 
         public IHttpActionResult Update([FromBody] PersonalDataSaveRequestModel parameters)
