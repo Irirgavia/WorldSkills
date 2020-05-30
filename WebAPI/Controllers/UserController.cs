@@ -19,10 +19,11 @@ namespace WebAPI.Controllers
             UserResponseModel user;
             using (var service = new GuestService("CompetitionContext"))
             {
-                var userDto = service.GetUser(parameters.login, parameters.password);
-                user = ObjectMapper.ObjectMapperDTOModel.UserToModel(userDto);
+                var serviceResponse = service.GetUser(parameters.login, parameters.password);
+                user = ObjectMapper.ObjectMapperDTOModel.UserToModel(serviceResponse.user, serviceResponse.isPasswordValid);
             }
             return Json(user);
+            //return Json(Test.TestDataForUserParticipant());
         }
     }
 }

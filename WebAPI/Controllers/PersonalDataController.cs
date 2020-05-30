@@ -28,11 +28,31 @@ namespace WebAPI.Controllers
 
         public IHttpActionResult Update([FromBody] PersonalDataSaveRequestModel parameters)
         {
-            using (var patricipantService = new BLL.Services.ParticipantService("CompetitionContext"))
+            using (var adminService = new BLL.Services.AdministratorService("CompetitionContext"))
             {
+                UserDTO userDTO = adminService.GetUserById(parameters.userId);
+                userDTO.Surname = parameters.surname;
+                userDTO.Name = parameters.name;
+                userDTO.Patronymic = parameters.patronymic;
+                string[] splitDate = parameters.birthday.Split('.');
+                int day = int.Parse(splitDate[0]);
+                int month = int.Parse(splitDate[0]);
+                int year = int.Parse(splitDate[0]);
+                userDTO.Birthday = new DateTime(year, month, day);
+                userDTO.Mail = parameters.mail;
+                userDTO.Telephone = parameters.telephone;
 
+                adminService.UpdateUser(userDTO);
+
+                AddressDTO addressDTO = adminService.GetAddressById(parameters.addressId);
+                addressDTO.Country = parameters.country;
+                addressDTO.City = parameters.city;
+                addressDTO.Street = parameters.street;
+                addressDTO.House = parameters.house;
+
+                adminService.UpdateAddress(addressDTO);
             }
-            return Json(Test.TestDataForUserParticipant());
+            return Ok();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WebAPI.Models.RequestModels;
 using WebAPI.Models.ResponseModels;
+using WebAPI.ObjectMapper;
 
 namespace WebAPI.Controllers
 {
@@ -13,26 +14,25 @@ namespace WebAPI.Controllers
     {
         public IHttpActionResult Get([FromBody] int judgeId)
         {
-            ICollection<AnswerForJudgeResponseModel> AnswerForJudgeModels = new List<AnswerForJudgeResponseModel>();
-            /*var guestService = new GuestService("CompetitionContext");
-            var competitions = guestService.GetActualCompetitions();
-            foreach(var competition in competitions)
+            ICollection<AnswerForJudgeResponseModel> answerForJudgeModels = new List<AnswerForJudgeResponseModel>();
+            using (var participantService = new BLL.Services.ParticipantService("CompetitionContext"))
             {
-                scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));
-            }*/
-            return Json(/*scheduleElements*/ Test.TestDataForSchedule());
+                using (var adminService = new BLL.Services.AdministratorService("CompetitionContext"))
+                {
+                    var participant = adminService.GetParticipantById(judgeId);
+                    var stages = participantService.GetStages(participant);
+                    foreach(var stage in stages)
+                    {
+                        answerForJudgeModels.Add(ObjectMapperDTOModel.ToAnswerForJudgeResponseModel(stage));
+                    }
+                }
+            }
+            return Json(answerForJudgeModels);
         }
 
         public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
-            ICollection<AnswerForJudgeResponseModel> AnswerForJudgeModels = new List<AnswerForJudgeResponseModel>();
-            /*var guestService = new GuestService("CompetitionContext");
-            var competitions = guestService.GetActualCompetitions();
-            foreach(var competition in competitions)
-            {
-                scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));
-            }*/
-            return Json(/*scheduleElements*/ Test.TestDataForSchedule());
+            return BadRequest();
         }
     }
 }
