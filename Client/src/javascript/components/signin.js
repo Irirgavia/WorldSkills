@@ -14,7 +14,8 @@ export class SignIn extends React.Component {
         this.logingIn= this.logingIn.bind(this);
     }
   
-    logingIn() {
+    logingIn(event) {
+        event.preventDefault();
         console.log("logingIn!");
         console.log(this.loginInput);
         console.log(this.passwordInput);
@@ -36,14 +37,14 @@ export class SignIn extends React.Component {
         } else
         {
             console.log("form!");
-            return <div>
+            return <form onSubmit={this.logingIn}>
             <label for = "login">Логин: </label>
             <input type = "text" id="login" name="login" ref={this.loginInput} />
             <label for = "password">Пароль: </label>
             <input type = "password" id="password" name="password" ref={this.passwordInput} />
-            <button onClick={this.logingIn}>Войти</button>
+            <button type="submit">Войти</button>
             <Error error={this.props.error.message} />
-        </div>
+        </form>
         }
     }
 }

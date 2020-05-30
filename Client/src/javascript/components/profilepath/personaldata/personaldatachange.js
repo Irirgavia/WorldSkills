@@ -19,7 +19,8 @@ export class PersonalDataChange extends React.Component {
         this.state = { finishEditingFlag: false };
     }
 
-    save(){
+    save(event){
+        event.preventDefault();
         var data = {
             userId: this.props.userId,
             surname: this.surnameInput.value,
@@ -54,7 +55,7 @@ export class PersonalDataChange extends React.Component {
                 <Redirect from="/trainer/personaldata/change" to="/trainer/personaldata" />
             </div>;
         }else {
-            return <form class = "personaldata" action = { this.save.bind(this) }>
+            return <form class = "personaldata" onSubmit = { this.save.bind(this) }>
                     <p>
                         <label class = "questionField" for="surname">Фамилия:</label>
                         <input type = "text" class = "answerField" id="surname" name="surname" ref={this.surnameInput} maxLength="50" required>{this.props.items.Surname}</input>

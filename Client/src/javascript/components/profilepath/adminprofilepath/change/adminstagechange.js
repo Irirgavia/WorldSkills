@@ -15,7 +15,8 @@ export class AdminStageChange extends React.Component {
     };
   }
 
-  sendStage(){
+  sendStage(event){
+    event.preventDefault();
     var data = {
         competitionId: this.props.competitionId,
         Id: this.props.stage.Id,
@@ -66,7 +67,7 @@ export class AdminStageChange extends React.Component {
       } else {
           return (
           <div class="stage">
-            <form action={this.sendStage.bind(this)}>
+            <form onSubmit={this.sendStage.bind(this)}>
               <p>
                 <label class = "questionField" for="stagetype">Этап:</label>
                 <input type = "text" class = "answerField" id="stagetype" name="stagetype" ref={this.stagetypeInput} maxLength="50" required>{this.props.stage.Type}</input>

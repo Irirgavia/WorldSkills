@@ -18,7 +18,8 @@ export class AdminCompetititonsChange extends React.Component {
     };
   }
 
-  sendCompetition(){
+  sendCompetition(event){
+    event.preventDefault();
     var data = {
         competitionId: this.props.competition.Id,
         skillInput: this.skillInput.value,
@@ -68,7 +69,7 @@ export class AdminCompetititonsChange extends React.Component {
       } else {
           return (
           <div class="competition">
-            <form action={this.sendCompetition.bind(this)}>
+            <form onSubmit={this.sendCompetition.bind(this)}>
               <p>
                 <label class = "questionField" for="skill">Профессия:</label>
                 <input type = "text" class = "answerField" id="skill" name="skill" ref={this.skillInput} maxLength="50" required>{this.props.competition.Skill}</input>

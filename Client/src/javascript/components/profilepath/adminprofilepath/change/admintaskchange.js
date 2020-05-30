@@ -16,7 +16,8 @@ export class AdminTaskChange extends React.Component {
     };
   }
 
-  sendTask(){
+  sendTask(event){
+    event.preventDefault();
     var data = {
         competitionId: this.props.competitionId,
         stageId: this.props.stageId,
@@ -46,7 +47,7 @@ export class AdminTaskChange extends React.Component {
       } else {
           return (
           <div class="tasks">
-            <form action={this.sendTask.bind(this)}>
+            <form onSubmit={this.sendTask.bind(this)}>
               <p>
                 <label class = "questionField" for="taskDateOfBegin">Дата начала:</label>
                 <input type = "date" class = "answerField" id="taskDateOfBegin" name="taskDateOfBegin" ref={this.taskDateOfBeginInput} maxLength="50" required>{this.props.task.TaskDateOfBegin}</input>
