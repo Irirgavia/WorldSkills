@@ -38,6 +38,12 @@
             return ObjectMapper<AddressEntity, AddressDTO>.MapList(this.unitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house));
         }
 
+        public void UpdateAddress(AddressDTO address)
+        {
+            this.unitOfWork.AddressRepository.Update(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+            this.unitOfWork.SaveChanges();
+        }
+
         // Skill
         public void CreateSkill(string skill)
         {
@@ -138,6 +144,12 @@
         }
 
         // Participant
+        public void UpdateUser(UserDTO user)
+        {
+            this.unitOfWork.UserRepository.Update(ObjectMapper<UserDTO, UserEntity>.Map(user));
+            this.unitOfWork.SaveChanges();
+        }
+
         public AdministratorDTO GetAdministratorById(int id)
         {
             return ObjectMapper<AdministratorEntity, AdministratorDTO>.Map(

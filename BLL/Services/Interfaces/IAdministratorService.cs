@@ -13,6 +13,8 @@
 
         void CreateAddress(string country, string city, string street, string house, string apatrment, string notes);
 
+        void UpdateAddress(AddressDTO address);
+
         SkillDTO GeTSkillById(int id);
 
         SkillDTO GetSkillByName(string skill);
@@ -47,6 +49,8 @@
             string requirement,
             ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers);
+
+        void UpdateUser(UserDTO user);
 
         AdministratorDTO GetAdministratorById(int id);
 
