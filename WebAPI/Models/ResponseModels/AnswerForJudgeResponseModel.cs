@@ -49,7 +49,7 @@ namespace WebAPI.Models.ResponseModels
                 {
                     public int Id { get; set; }
 
-                    public int Link { get; set; }
+                    public string Link { get; set; }
                 }
             }
         }
