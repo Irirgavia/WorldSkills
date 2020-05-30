@@ -9,6 +9,7 @@
     using BLL.DTO;
     using BLL.Services;
     using Models.ResponseModels;
+    using WebAPI.Models.RequestModels;
 
     public class ObjectMapperDTOModel
     {
@@ -37,8 +38,12 @@
                     var dateOfEnd = task.DateTime + task.Time;
                     stageTask.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
                     stageTask.IsActual = dateOfEnd < DateTime.Now;
-                    foreach(var address in task.Addresses)
-                    stageTask.Addresses = task.Addresses.ToString();
+                    foreach (var address in task.Addresses)
+                    {
+                        stringBuilder.Append(address);
+                        stringBuilder.Append(", ");
+                    }
+                    stageTask.Addresses = stringBuilder.ToString();
                     competitionStage.Tasks.Add(stageTask);
                 }
                 scheduleElement.Stages.Add(competitionStage);
@@ -77,16 +82,39 @@
             return personalData;
         }
 
-        public static UserResponseModel UserToModel(UserDTO userDTO)
+        public static UserResponseModel UserToModel(UserDTO userDTO, bool isPasswordValid)
         {
-            UserResponseModel personalData = new UserResponseModel()
+            if (userDTO == null)
             {
-                Id = userDTO.Id,
-                Login = userDTO.Login,
-                Role = "participant",
-                Status = "Success"
-            };
-            return personalData;
+                return new UserResponseModel()
+                {
+                    Id = -1,
+                    Login = "",
+                    Role = "",
+                    Status = "NotFound"
+                };
+            }
+
+            if (isPasswordValid)
+            {
+                return new UserResponseModel()
+                {
+                    Id = userDTO.Id,
+                    Login = userDTO.Login,
+                    Role = "participant",
+                    Status = "Success"
+                };
+            }
+            else
+            {
+                return new UserResponseModel()
+                {
+                    Id = -1,
+                    Login = "",
+                    Role = "",
+                    Status = "WrongPassword"
+                };
+            }
         }
 
         public static PersonalDataResponseModel ToPersonalDataResponseModel(ParticipantDTO participantDTO)
@@ -107,6 +135,40 @@
                 House = participantDTO.Address.House
             };
             return personalDataResponseModel;
+        }
+
+        public static AnswerForJudgeResponseModel ToAnswerForJudgeResponseModel(StageDTO stageDTO)
+        {
+            AnswerForJudgeResponseModel answerForJudgeResponseModel = new AnswerForJudgeResponseModel()
+            {
+                Skill = stageDTO.CompetitionId.ToString(),
+                DateOfBegin = stageDTO.CompetitionId.ToString(),
+                DateOfEnd = stageDTO.CompetitionId.ToString()
+            };
+            var stage = new AnswerForJudgeResponseModel.CompetitionStage()
+            {
+                Type = stageDTO.TypeStageDto.ToString()
+            };
+            foreach(var taskDTO in stageDTO.Tasks)
+            {
+                var task = new AnswerForJudgeResponseModel.CompetitionStage.StageTask()
+                {
+                    Description = taskDTO.Description,
+                    TaskDateOfBegin = taskDTO.DateTime.ToString(),
+                    TaskDateOfEnd = (taskDTO.DateTime + taskDTO.Time).ToString()
+                };
+                foreach (var answerDTO in taskDTO.Answers)
+                {
+                    var answer = new AnswerForJudgeResponseModel.CompetitionStage.StageTask.TaskAnswer()
+                    {
+                        Id = answerDTO.Id,
+                        Link = answerDTO.ProjectLink
+                    };
+                    task.Answers.Add(answer);
+                }
+                stage.Tasks.Add(task);
+            }
+            return answerForJudgeResponseModel;
         }
     }
 }
