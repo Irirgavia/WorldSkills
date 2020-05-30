@@ -8,6 +8,8 @@ export class ProfileMenu extends React.Component {
     }
 
     render() {
+        console.log("name:"+this.props.user.login);
+        console.log("isSignedIn:"+this.props.isSignedIn);
         if (!this.props.isSignedIn){
             return <ul id="registration">
             <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdyPuXOouBLsxRCG3tiQTruitJjgcmV3Zlv17RZMSDIRXjEtQ/viewform?usp=sf_link">Регистрация на участие</a></li>
@@ -17,7 +19,7 @@ export class ProfileMenu extends React.Component {
         </ul>
         } else if(this.props.user.role=="participant"){
             return <ul id="registration">
-                <li id="profilemenu" class="down">{this.props.user.name}
+                <li id="profilemenu" class="down">{this.props.user.login}
                     <ul class="submenu">
                         <li><Link to="/participant/personaldata">Личные данные</Link></li>
                         <li><Link to="/participant/results">Результаты</Link></li>
@@ -28,7 +30,7 @@ export class ProfileMenu extends React.Component {
             </ul>
         } else if(this.props.user.role=="judge"){
             return <ul id="registration">
-                <li id="profilemenu" class="down">{this.props.user.name}
+                <li id="profilemenu" class="down">{this.props.user.login}
                     <ul class="submenu">
                         <li><Link to="/judge/personaldata">Личные данные</Link></li>
                         <li><Link to="/judge/tasks">Задания</Link></li>
@@ -39,7 +41,7 @@ export class ProfileMenu extends React.Component {
             </ul>
         } else if(this.props.user.role=="trainer"){
             return <ul id="registration">
-                <li id="profilemenu" class="down">{this.props.user.name}
+                <li id="profilemenu" class="down">{this.props.user.login}
                     <ul class="submenu">
                         <li><Link to="/trainer/personaldata">Личные данные</Link></li>
                         <li><Link to="/profile/trainer/results">Результаты команд</Link></li>
@@ -49,7 +51,7 @@ export class ProfileMenu extends React.Component {
             </ul>
         } else if(this.props.user.role=="administrator"){
             return <ul id="registration">
-                <li id="profilemenu" class="down">{this.props.user.name}
+                <li id="profilemenu" class="down">{this.props.user.login}
                     <ul class="submenu">
                         <li><Link to="/administrator/personaldata">Личные данные</Link></li>
                         <li><Link to="/signout">Выйти</Link></li>
@@ -67,4 +69,4 @@ export class ProfileMenu extends React.Component {
       }
   }
   
-  export default connect(mapProps)(ProfileMenu)
+  export default connect(mapProps, null)(ProfileMenu)
