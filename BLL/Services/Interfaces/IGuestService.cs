@@ -7,7 +7,7 @@
 
     public interface IGuestService : IDisposable
     {
-        UserDTO GetUser(string login, string password);
+        (UserDTO user, bool isPasswordValid) GetUser(string login, string password);
 
         void CreateUser(
             string login,

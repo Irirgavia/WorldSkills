@@ -38,20 +38,20 @@
             this.unitOfWork.SaveChanges();
         }
 
-        public UserDTO GetUser(string login, string password) 
+        public (UserDTO user, bool isPasswordValid) GetUser(string login, string password)
         {
-            var user = this.unitOfWork.UserRepository.GetUserByLogin(login);
-            if (user == null)
+            var userDto = ObjectMapper<UserEntity, UserDTO>.Map(this.unitOfWork.UserRepository.GetUserByLogin(login));
+            if (userDto == null)
             {
-                return null;
+                return (user: null, isPasswordValid: false);
             }
 
-            if (!PasswordHasher.Verify(password, user.Password))
+            if (!PasswordHasher.Verify(password, userDto.Password))
             {
-                return null;
+                return (user: userDto, isPasswordValid: false);
             }
 
-            return ObjectMapper<UserEntity, UserDTO>.Map(user);
+            return (user: userDto, isPasswordValid: true);
         }
 
         public IEnumerable<CompetitionDTO> GetAllCompetitions()
