@@ -7,7 +7,7 @@
     using System.Net.Http;
     using System.Web.Http;
 
-    using Models;
+    using Models.ResponseModels;
 
     public class ResultsController : ApiController
     {
@@ -17,7 +17,7 @@
         {
             if (skill == null && stage == null && year == null)
                 return BadRequest();
-            ICollection<ResultsElement> resultsElements = new List<ResultsElement>();
+            ICollection<ResultsElementResponseModel> resultsElements = new List<ResultsElementResponseModel>();
 
             return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
         }
@@ -25,7 +25,7 @@
         [Route("api/results/participant")]
         public IHttpActionResult GetResultsByParticipant([FromBody] int participantId)
         {
-            ICollection<ResultForParticipant> resultsElements = new List<ResultForParticipant>();
+            ICollection<ResultForParticipantResponseModel> resultsElements = new List<ResultForParticipantResponseModel>();
 
             return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
         }
@@ -33,7 +33,7 @@
         [Route("api/results/trainer")]
         public IHttpActionResult GetResultsByTrainer([FromBody] int trainerId)
         {
-            ICollection<ResultForTrainer> resultsElements = new List<ResultForTrainer>();
+            ICollection<ResultForTrainerResponseModel> resultsElements = new List<ResultForTrainerResponseModel>();
 
             return Json(/*Test.TestDataForResults(skill, stage, year)*/0);
         }

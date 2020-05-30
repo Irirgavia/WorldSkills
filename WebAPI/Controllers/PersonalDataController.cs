@@ -7,6 +7,7 @@ using System.Web.Http;
 
 using BLL.Services;
 using BLL.DTO;
+using WebAPI.Models.RequestModels;
 
 namespace WebAPI.Controllers
 {
@@ -17,18 +18,7 @@ namespace WebAPI.Controllers
             return Json(Test.TestDataForUserParticipant());
         }
 
-        public IHttpActionResult Update([FromBody] int userId,
-            [FromBody] string surname,
-            [FromBody] string name,
-            [FromBody] string patronymic,
-            [FromBody] string birthday,
-            [FromBody] string mail,
-            [FromBody] string telephone,
-            [FromBody] int addressId,
-            [FromBody] string country,
-            [FromBody] string city,
-            [FromBody] string street,
-            [FromBody] string house)
+        public IHttpActionResult Update([FromBody] PersonalDataSaveRequestModel parameters)
         {
             using (var patricipantService = new BLL.Services.ParticipantService("CompetitionContext"))
             {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAPI.Models
+namespace WebAPI.Models.ResponseModels
 {
-    public class UserModel
+    public class UserResponseModel
     {
         public int Id { get; set; }
 

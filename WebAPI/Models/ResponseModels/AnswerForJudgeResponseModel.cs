@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAPI.Models
+namespace WebAPI.Models.ResponseModels
 {
-    public class AnswerForJudgeModel
+    public class AnswerForJudgeResponseModel
     {
         public string Skill { get; set; }
 
@@ -15,7 +15,7 @@ namespace WebAPI.Models
 
         public ICollection<CompetitionStage> Stages { get; set; }
 
-        public AnswerForJudgeModel()
+        public AnswerForJudgeResponseModel()
         {
             Stages = new List<CompetitionStage>();
         }

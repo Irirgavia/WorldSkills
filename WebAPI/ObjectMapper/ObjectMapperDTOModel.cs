@@ -8,15 +8,15 @@
 
     using BLL.DTO;
     using BLL.Services;
-    using Models;
+    using Models.ResponseModels;
 
     public class ObjectMapperDTOModel
     {
         static string dateFormat = "dd.MM.yyyy HH:mm";
-        public static ScheduleElement ToModel(CompetitionDTO competitionDTO)
+        public static ScheduleElementResponseModel ToModel(CompetitionDTO competitionDTO)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            var scheduleElement = new ScheduleElement()
+            var scheduleElement = new ScheduleElementResponseModel()
             {
                 Skill = competitionDTO.Skill.Name,
                 DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
@@ -24,13 +24,13 @@
             };
             foreach(var stage in competitionDTO.Stages)
             {
-                var competitionStage = new ScheduleElement.CompetitionStage()
+                var competitionStage = new ScheduleElementResponseModel.CompetitionStage()
                 {
                     Type = stage.TypeStageDto.ToString()
                 };
                 foreach(var task in stage.Tasks)
                 {
-                    var stageTask = new ScheduleElement.CompetitionStage.StageTask()
+                    var stageTask = new ScheduleElementResponseModel.CompetitionStage.StageTask()
                     {
                         TaskDateOfBegin = task.DateTime.ToString(dateFormat)
                     };
@@ -62,9 +62,9 @@
             return resultsElement;
         }*/
 
-        public static PersonalDataModel ToModel(UserDTO userDTO)
+        public static PersonalDataResponseModel ToModel(UserDTO userDTO)
         {
-            PersonalDataModel personalData = new PersonalDataModel()
+            PersonalDataResponseModel personalData = new PersonalDataResponseModel()
             {
                 Surname = userDTO.Surname,
                 Name = userDTO.Name,
@@ -73,6 +73,18 @@
                 Mail = userDTO.Mail,
                 Telephone = userDTO.Telephone,
                 Awards = userDTO.Awards
+            };
+            return personalData;
+        }
+
+        public static UserResponseModel UserToModel(UserDTO userDTO)
+        {
+            UserResponseModel personalData = new UserResponseModel()
+            {
+                Id = userDTO.Id,
+                Login = userDTO.Login,
+                Role = "participant",
+                Status = "Success"
             };
             return personalData;
         }

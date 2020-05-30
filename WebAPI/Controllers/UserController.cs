@@ -7,12 +7,22 @@ using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
+    using Models.RequestModels;
+    using Models.ResponseModels;
+    using BLL.Services;
+    using BLL.DTO;
+
     public class UserController : ApiController
     {
-        public IHttpActionResult Post([FromBody] (string login, string password) parameters)
+        public IHttpActionResult Post([FromBody] UserRequestModel parameters)
         {
-
-            return Json(Test.TestDataForUserParticipant());
+            UserResponseModel user;
+            using (var service = new GuestService("CompetitionContext"))
+            {
+                var userDto = service.GetUser(parameters.login, parameters.password);
+                user = ObjectMapper.ObjectMapperDTOModel.UserToModel(userDto);
+            }
+            return Json(user);
         }
     }
 }

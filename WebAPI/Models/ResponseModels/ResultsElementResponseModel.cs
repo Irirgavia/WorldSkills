@@ -1,8 +1,8 @@
-﻿namespace WebAPI.Models
+﻿namespace WebAPI.Models.ResponseModels
 {
     using System;
 
-    public class ResultsElement
+    public class ResultsElementResponseModel
     {
         public string Date { get; set; }
         

@@ -194,14 +194,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnswerForJudgeModel.cs" />
-    <Compile Include="Models\PersonalDataModel.cs" />
-    <Compile Include="Models\ResultForParticipant.cs" />
-    <Compile Include="Models\ResultForTrainer.cs" />
-    <Compile Include="Models\ResultsElement.cs" />
-    <Compile Include="Models\ScheduleElement.cs" />
-    <Compile Include="Models\TaskForPatricipantModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\RequestModels\AnswerSaveRequestModel.cs" />
+    <Compile Include="Models\RequestModels\MarkSaveRequestModel.cs" />
+    <Compile Include="Models\RequestModels\PersonalDataSaveRequestModel.cs" />
+    <Compile Include="Models\ResponseModels\AnswerForJudgeResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\PersonalDataResponseModel.cs" />
+    <Compile Include="Models\RequestModels\UserRequestModel.cs" />
+    <Compile Include="Models\ResponseModels\ResultForParticipantResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\ResultForTrainerResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\ResultsElementResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\ScheduleElementResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\TaskForPatricipantResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\UserResponseModel.cs" />
     <Compile Include="ObjectMapper\ObjectMapperDTOModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs" />

@@ -7,7 +7,7 @@
     using System.Net.Http;
     using System.Web.Http;
 
-    using Models;
+    using Models.ResponseModels;
     using ObjectMapper;
     using BLL.Services;
 
@@ -15,7 +15,7 @@
     {
         public IHttpActionResult Get()
         {
-            ICollection<ScheduleElement> scheduleElements = new List<ScheduleElement>();
+            ICollection<ScheduleElementResponseModel> scheduleElements = new List<ScheduleElementResponseModel>();
             var guestService = new GuestService("CompetitionContext");
             var competitions = guestService.GetActualCompetitions();
             foreach(var competition in competitions)

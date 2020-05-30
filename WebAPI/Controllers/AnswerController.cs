@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebAPI.Models;
+using WebAPI.Models.RequestModels;
+using WebAPI.Models.ResponseModels;
 
 namespace WebAPI.Controllers
 {
@@ -12,7 +13,7 @@ namespace WebAPI.Controllers
     {
         public IHttpActionResult Get([FromBody] int judgeId)
         {
-            ICollection<AnswerForJudgeModel> AnswerForJudgeModels = new List<AnswerForJudgeModel>();
+            ICollection<AnswerForJudgeResponseModel> AnswerForJudgeModels = new List<AnswerForJudgeResponseModel>();
             /*var guestService = new GuestService("CompetitionContext");
             var competitions = guestService.GetActualCompetitions();
             foreach(var competition in competitions)
@@ -22,9 +23,9 @@ namespace WebAPI.Controllers
             return Json(/*scheduleElements*/ Test.TestDataForSchedule());
         }
 
-        public IHttpActionResult Save([FromBody] int taskId, [FromBody] int participantId, [FromBody] string projectLink)
+        public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
-            ICollection<AnswerForJudgeModel> AnswerForJudgeModels = new List<AnswerForJudgeModel>();
+            ICollection<AnswerForJudgeResponseModel> AnswerForJudgeModels = new List<AnswerForJudgeResponseModel>();
             /*var guestService = new GuestService("CompetitionContext");
             var competitions = guestService.GetActualCompetitions();
             foreach(var competition in competitions)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WebAPI.Models
+﻿namespace WebAPI.Models.ResponseModels
 {
-    public class TaskForPatricipantModel
+    using System;
+    using System.Collections.Generic;
+
+    public class ScheduleElementResponseModel
     {
         public string Skill { get; set; }
 
@@ -15,7 +13,7 @@ namespace WebAPI.Models
 
         public ICollection<CompetitionStage> Stages { get; set; }
 
-        public TaskForPatricipantModel()
+        public ScheduleElementResponseModel()
         {
             Stages = new List<CompetitionStage>();
         }
@@ -32,15 +30,13 @@ namespace WebAPI.Models
 
             public class StageTask
             {
-                public int Id { get; set; }
-
                 public string TaskDateOfBegin { get; set; }
 
                 public string TaskDateOfEnd { get; set; }
 
                 public bool IsActual { get; set; }
 
-                public string Description { get; set; }
+                public string Addresses { get; set; }
             }
         }
     }

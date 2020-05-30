@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAPI.Models
+namespace WebAPI.Models.ResponseModels
 {
-    public class PersonalDataModel
+    public class PersonalDataResponseModel
     {
         public string Surname { get; set; }
 
