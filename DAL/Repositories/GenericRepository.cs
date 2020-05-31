@@ -14,7 +14,7 @@
     {
         public GenericRepository(TContext context)
         {
-            Context = context;
+            this.Context = context;
             this.DbSet = context.Set<TEntity>();
         }
 
@@ -44,12 +44,12 @@
 
         public void Update(TEntity item)
         {
-            Context.Entry(item).State = EntityState.Modified;
+            this.Context.Entry(item).State = EntityState.Modified;
         }
 
         public void Remove(TEntity item)
         {
-            Context.Entry(item).State = EntityState.Deleted;
+            this.Context.Entry(item).State = EntityState.Deleted;
         }
 
         public void CreateOrUpdate(TEntity item)
@@ -64,7 +64,7 @@
 
                 default:
                     {
-                        Update(item);
+                        this.Update(item);
                         break;
                     }
             } 
@@ -72,13 +72,7 @@
 
         public TEntity GetOrCreate(TEntity item, Func<TEntity, bool> predicate)
         {
-            var entity = this.Get(predicate).FirstOrDefault();
-            if (entity == null)
-            {
-                entity = this.Create(item);
-            }
-
-            return entity;
+            return this.Get(predicate).FirstOrDefault() ?? this.Create(item);
         }
     }
 }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using DAL.Entities;
+    using DAL.Entities.Account;
 
     public interface IAddressRepository : IGenericRepository<AddressEntity>
     {
