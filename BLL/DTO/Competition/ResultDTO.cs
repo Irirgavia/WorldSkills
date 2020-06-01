@@ -1,23 +1,27 @@
-﻿namespace BLL.DTO
+﻿namespace BLL.DTO.Competition
 {
+    using System.Collections.Generic;
+
     public class ResultDTO
     {
         public ResultDTO()
         {
+            this.Prizes = new List<PrizeDTO>();
         }
 
         public ResultDTO(
-            PrizeType prizeType,
+            ICollection<PrizeDTO> prizes,
             float mark,
             string notes)
         {
-            Mark = mark;
-            Notes = notes;
+            this.Mark = mark;
+            this.Notes = notes;
+            this.Prizes = prizes;
         }
 
         public int Id { get; private set; }
 
-        public PrizeType PrizeType { get; set; }
+        public ICollection<PrizeDTO> Prizes { get; set; }
 
         public float Mark { get; set; }
 

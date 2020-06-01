@@ -3,15 +3,16 @@
     using System;
     using System.Collections.Generic;
 
-    using BLL.DTO;
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
 
     public interface IAdministratorService : IDisposable
     {
         AddressDTO GetAddressById(int id);
 
-        IEnumerable<AddressDTO> GetAddressesByPlace(string country, string city, string street, string house);
+        IEnumerable<AddressDTO> GetAddressesByPlace(string country, string city, string street, string house, string apartments);
 
-        void CreateAddress(string country, string city, string street, string house, string apatrment, string notes);
+        void CreateAddress(string country, string city, string street, string house, string apartments, string notes);
 
         void UpdateAddress(AddressDTO address);
 
@@ -31,12 +32,7 @@
 
         ICollection<StageDTO> GetStagesByCompetitionId(int id);
 
-        void CreateStage(
-            int competitionId,
-            TypeStageDTO typeStageDto,
-            ICollection<ParticipantDTO> participants,
-            ICollection<AdministratorDTO> administrators,
-            ICollection<JudgeDTO> judges);
+        void CreateStage(int competitionId, int stageTypeId, ICollection<AccountDTO> participants);
 
 
         TaskDTO GetTaskById(int id);
@@ -50,22 +46,6 @@
             ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers);
 
-        void UpdateUser(UserDTO user);
-
-        AdministratorDTO GetAdministratorById(int id);
-
-        AdministratorDTO GetAdministratorByUserId(int id);
-
-        ParticipantDTO GetParticipantById(int id);
-
-        ParticipantDTO GetParticipantByUserId(int id);
-
-        JudgeDTO GetJudgeById(int id);
-
-        JudgeDTO GetJudgeByUserId(int id);
-
-        TrainerDTO GetTrainerById(int id);
-
-        TrainerDTO GetTrainerByUserId(int id);
+        void UpdatePersonalData(PersonalDataDTO personalData);
     }
 }

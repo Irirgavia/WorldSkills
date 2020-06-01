@@ -2,16 +2,16 @@
 {
     public static class MessageUtility
     {
-        public static string GetMessageForUpdateObject(string mailTo, string subject)
+        public static string GetMessageForUpdateObject(string nameTo, string subject)
         {
             return
-                $"Уважаемый(-ая) {mailTo}, объект {subject} был обновлён. Проверьте данные об указанном соревновании.";
+                $"Уважаемый(-ая) {nameTo}, объект {subject} был обновлён. Проверьте данные об указанном соревновании.";
         }
 
-        public static string GetMessageForUpdateAnswer(string mailTo, float mark)
+        public static string GetMessageForUpdateAnswer(string nameTo, float mark)
         {
             return
-                $"Уважаемый(-ая) {mailTo}, была выставлена оценка {mark}. Проверьте данные об связанном соревновании.";
+                $"Уважаемый(-ая) {nameTo}, была выставлена оценка {mark}. Проверьте данные об связанном соревновании.";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO
+﻿namespace BLL.DTO.Competition
 {
     public class AnswerDTO
     {
@@ -7,22 +7,22 @@
         }
 
         public AnswerDTO(
-            int participant, 
+            int accountId, 
             ResultDTO result,
             int taskId,
             string projectLink,
             string notes)
         {
-            ParticipantId = participant;
-            Result = result;
-            TaskId = taskId;
-            ProjectLink = projectLink;
-            Notes = notes;
+            this.AccountId = accountId;
+            this.Result = result;
+            this.TaskId = taskId;
+            this.ProjectLink = projectLink;
+            this.Notes = notes;
         }
 
         public int Id { get; private set; }
 
-        public int ParticipantId { get; set; }
+        public int AccountId { get; set; }
 
         public ResultDTO Result { get; set; }
 

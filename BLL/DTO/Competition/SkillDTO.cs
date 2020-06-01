@@ -1,7 +1,5 @@
-﻿namespace BLL.DTO
+﻿namespace BLL.DTO.Competition
 {
-    using System.Collections.Generic;
-
     public class SkillDTO
     {
         public SkillDTO()
@@ -10,7 +8,7 @@
 
         public SkillDTO(string name)
         {
-            Name = name;
+            this.Name = name;
         }
 
         public int Id { get; private set; }

@@ -1,85 +1,82 @@
 ﻿namespace BLL.Services
 {
-    using BLL.DTO;
-    using DAL.Entities;
-    using DAL.Repositories;
-    using DAL.Repositories.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
     using BLL.Services.Interfaces;
     using BLL.Utilities;
 
-    public class ParticipantService : IParticipantService
+    using DAL.Entities.Account;
+    using DAL.Entities.Competition;
+    using DAL.UnitOfWorks;
+    using DAL.UnitOfWorks.Interfaces;
+
+    public sealed class ParticipantService : IParticipantService
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ICompetitionUnitOfWork competitionUnitOfWork;
+
+        private readonly IAccountUnitOfWork accountUnitOfWork;
 
         public ParticipantService(string connection)
         {
-            this.unitOfWork = new UnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(connection);
+            this.accountUnitOfWork = new AccountUnitOfWork(connection);
         }
 
-
-        public void RegistrationNewParticipantOnActualCompetition(int competitionId, int participantId)
+        // TODO: function
+        public void RegisterAccountOnCompetition(int competitionId, StageTypeDTO stageType, int accountId)
         {
-            var competition = this.unitOfWork.CompetitionRepository.Get(c => c.Id == competitionId).FirstOrDefault();
-            var townStage = competition.Stages.FirstOrDefault();
-            var participantEF = this.unitOfWork.ParticipantRepository.Get(x => x.Id == participantId).FirstOrDefault();
-            townStage.Participants.Add(participantEF);
-            this.unitOfWork.SaveChanges();
+            var competition = this.competitionUnitOfWork.CompetitionRepository.Get(c => c.Id == competitionId)
+                                  .FirstOrDefault();
+            var stage = competition.StageEntities.FirstOrDefault(s => s.StageTypeEntity.Name == stageType.Name);
+            var account = this.accountUnitOfWork.AccountRepository.Get(x => x.Id == accountId).FirstOrDefault();
+            //stage.AccountIds.Add(account);
+            this.competitionUnitOfWork.SaveChanges();
         }
 
-        public void CreateParticipant(UserDTO user, AddressDTO address)
+        public void UpdateAccount(AccountDTO account)
         {
-            var userEF = this.unitOfWork.UserRepository.GetUserByLogin(user.Login);
-            userEF.Role = Role.Participant;
-
-            this.unitOfWork.ParticipantRepository.Create(
-                new ParticipantEntity(
-                    userEF.Id,
-                    null,
-                    ObjectMapper<AddressDTO, AddressEntity>.Map(address)));
-            this.unitOfWork.SaveChanges();
+            this.accountUnitOfWork.AccountRepository.Update(ObjectMapper<AccountDTO, AccountEntity>.Map(account));
+            this.accountUnitOfWork.SaveChanges();
         }
 
-        public ParticipantDTO GetParticipant(UserDTO user)
+        public void UpdateLoginAndPassword(AccountDTO account, string login, string password)
         {
-            return ObjectMapper<ParticipantEntity, ParticipantDTO>.Map(
-                this.unitOfWork.ParticipantRepository.Get(p => p.User.Id == user.Id).FirstOrDefault());
+            var credentials = this.accountUnitOfWork.CredentialsRepository.GetById(account.Credentials.Id);
+            credentials.Login = login;
+            credentials.Password = PasswordHasher.Hash(password);
+            this.accountUnitOfWork.CredentialsRepository.Update(credentials);
+            this.accountUnitOfWork.CredentialsRepository.Update(credentials);
+            this.accountUnitOfWork.SaveChanges();
         }
 
-        public void UpdateParticipant(ParticipantDTO participant)
+        // TODO: function
+        public IEnumerable<StageDTO> GetStages(AccountDTO account)
         {
-            this.unitOfWork.UserRepository.Update(ObjectMapper<UserDTO, UserEntity>.Map(participant.User));
-            this.unitOfWork.ParticipantRepository.Update(
-                ObjectMapper<ParticipantDTO, ParticipantEntity>.Map(participant));
-            this.unitOfWork.SaveChanges();
+            return null; /*ObjectMapper<StageEntity, StageDTO>.MapList(
+                this.competitionUnitOfWork.StageRepository.Get(
+                    s => s.AccountIds.Contains(ObjectMapper<AccountDTO, AccountEntityId>.Map(account))));*/
         }
 
-        public IEnumerable<StageDTO> GetStages(ParticipantDTO participant)
+        // TODO: function
+        public AnswerDTO GetParticipantAnswer(AccountDTO account)
         {
-            return ObjectMapper<StageEntity, StageDTO>.MapList(
-                this.unitOfWork.StageRepository.Get(
-                    s => s.Participants.Contains(ObjectMapper<ParticipantDTO, ParticipantEntity>.Map(participant))));
+            return null; /*ObjectMapper<AnswerEntity, AnswerDTO>.Map(
+                this.competitionUnitOfWork.AnswerRepository.Get(a => a.AccountEntityId.Id == account.Id)
+                    .FirstOrDefault());*/
         }
 
-        public AnswerDTO GetParticipantAnswer(ParticipantDTO participant)
+        public void UpdateAnswer(AccountDTO account, int taskId, string notes)
         {
-            return ObjectMapper<AnswerEntity, AnswerDTO>.Map(
-                this.unitOfWork.AnswerRepository.Get(a => a.Participant.Id == participant.Id).FirstOrDefault());
-        }
+            var answer = this.competitionUnitOfWork.AnswerRepository.Get(a => a.AccountEntityId == account.Id)
+                             .FirstOrDefault();
 
-        public void CreateAnswer(
-            int participant,
-            int taskId,
-            string projectLink,
-            string notes)
-        {
-            var answer = new AnswerEntity(participant, new ResultEntity(), taskId, projectLink, notes);
-
-            this.unitOfWork.AnswerRepository.Create(answer);
-            this.unitOfWork.SaveChanges();
+            answer.Notes = notes;
+            this.competitionUnitOfWork.AnswerRepository.Update(answer);
+            this.competitionUnitOfWork.SaveChanges();
         }
 
         public void Dispose()
@@ -88,11 +85,12 @@
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.unitOfWork?.Dispose();
+                this.competitionUnitOfWork?.Dispose();
+                this.accountUnitOfWork?.Dispose();
             }
         }
     }

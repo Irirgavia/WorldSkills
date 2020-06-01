@@ -4,12 +4,14 @@
     using System.Collections.Generic;
 
     using BLL.DTO;
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
 
     public interface IGuestService : IDisposable
     {
-        (UserDTO user, bool isPasswordValid) GetUser(string login, string password);
+        (AccountDTO account, bool isPasswordValid) GetAccount(string login, string password);
 
-        void CreateUser(
+        void CreateParticipant(
             string login,
             string password,
             string surname,
@@ -19,7 +21,7 @@
             string photo,
             string mail,
             string telephone,
-            string awards);
+            AddressDTO address);
 
         IEnumerable<CompetitionDTO> GetAllCompetitions();
 
@@ -27,7 +29,7 @@
 
         IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int? year);
 
-        IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(string skill, int? year, TypeStageDTO typeStage);
+        IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(string skill, int? year, StageTypeDTO stageType);
 
         IEnumerable<CompetitionDTO> GetCompetitionsBySkill(string skill);
 

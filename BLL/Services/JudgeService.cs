@@ -2,34 +2,44 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using BLL.Services.Interfaces;
     using BLL.Utilities;
 
-    using DAL.Repositories;
-    using DAL.Repositories.Interfaces;
+    using DAL.UnitOfWorks;
+    using DAL.UnitOfWorks.Interfaces;
 
     public class JudgeService : IJudgeService
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ICompetitionUnitOfWork competitionUnitOfWork;
+        private readonly IAccountUnitOfWork accountUnitOfWork;
 
-        public JudgeService(string connection)
+        public JudgeService(string competitionConnection, string accountConnection)
         {
-            this.unitOfWork = new UnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionConnection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(accountConnection);
         }
 
         public void RateAnswer(int answerId, float mark, string notes)
         {
-            var answer = this.unitOfWork.AnswerRepository.GetById(answerId);
-            answer.Result.Mark = mark;
-            answer.Result.Notes = notes;
-            this.unitOfWork.AnswerRepository.Update(answer);
-            this.unitOfWork.SaveChanges();
+            var answer = this.competitionUnitOfWork.AnswerRepository.GetById(answerId);
+            answer.ResultEntity.Mark = mark;
+            answer.ResultEntity.Notes = notes;
+            this.competitionUnitOfWork.AnswerRepository.Update(answer);
+            this.competitionUnitOfWork.SaveChanges();
 
-            MailUtility.SendEmail(
-                new List<string>() { answer.Participant.User.Mail },
-                "Обновление оценки",
-                MessageUtility.GetMessageForUpdateAnswer(answer.Participant.User.Mail, mark));
+            var account = this.accountUnitOfWork.AccountRepository
+                .Get(a => a.Id == answer.AccountEntityId)
+                .FirstOrDefault();
+
+            if (account.IsMailNotificationTurnOn)
+            {
+                MailUtility.SendEmail(
+                    new List<string>() { account.PersonalDataIdEntity.Mail },
+                    "Обновление оценки",
+                    MessageUtility.GetMessageForUpdateAnswer(account.PersonalDataIdEntity.Name, mark));
+            }
         }
 
         public void Dispose()
@@ -42,7 +52,7 @@
         {
             if (disposing)
             {
-                this.unitOfWork?.Dispose();
+                this.competitionUnitOfWork?.Dispose();
             }
         }
     }

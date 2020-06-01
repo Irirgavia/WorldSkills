@@ -4,21 +4,21 @@
     using System.Collections.Generic;
 
     using BLL.DTO;
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
 
     public interface IParticipantService : IDisposable
     {
-        void RegistrationNewParticipantOnActualCompetition(int competitionId, int participantId);
+        void RegisterAccountOnCompetition(int competitionId, StageTypeDTO stageType, int accountId);
 
-        void CreateParticipant(UserDTO user, AddressDTO address);
+        void UpdateAccount(AccountDTO account);
 
-        ParticipantDTO GetParticipant(UserDTO user);
+        void UpdateLoginAndPassword(AccountDTO account, string login, string password);
 
-        void UpdateParticipant(ParticipantDTO participant);
+        IEnumerable<StageDTO> GetStages(AccountDTO account);
 
-        IEnumerable<StageDTO> GetStages(ParticipantDTO participant);
+        AnswerDTO GetParticipantAnswer(AccountDTO account);
 
-        AnswerDTO GetParticipantAnswer(ParticipantDTO participant);
-
-        void CreateAnswer(int participant, int taskId, string projectLink, string notes);
+        void UpdateAnswer(AccountDTO account, int taskId, string notes);
     }
 }

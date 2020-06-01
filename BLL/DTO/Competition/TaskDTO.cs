@@ -1,41 +1,43 @@
-﻿namespace BLL.DTO
+﻿namespace BLL.DTO.Competition
 {
     using System;
     using System.Collections.Generic;
+
+    using BLL.DTO.Account;
 
     public class TaskDTO
     {
         public TaskDTO()
         {
-            Answers = new List<AnswerDTO>();
-            Addresses = new List<AddressDTO>();
+            this.Answers = new List<AnswerDTO>();
+            this.Addresses = new List<AddressDTO>();
         }
 
         public TaskDTO(
             int stage,
-            DateTime dateTime,
-            TimeSpan time,
+            DateTime dateTimeBegin,
+            TimeSpan durationTime,
             string description,
             string requirement,
             ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers)
         {
-            StageId = stage;
-            DateTime = dateTime;
-            Time = time;
-            Description = description;
-            Requirement = requirement;
-            Addresses = addresses;
-            Answers = answers;
+            this.StageId = stage;
+            this.DateTimeBegin = dateTimeBegin;
+            this.DurationTime = durationTime;
+            this.Description = description;
+            this.Requirement = requirement;
+            this.Addresses = addresses;
+            this.Answers = answers;
         }
 
         public int Id { get; private set; }
 
         public int StageId { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime DateTimeBegin { get; set; }
 
-        public TimeSpan Time { get; set; }
+        public TimeSpan DurationTime { get; set; }
 
         public string Description { get; set; }
 

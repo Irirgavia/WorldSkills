@@ -106,36 +106,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Account\AccountDTO.cs" />
+    <Compile Include="DTO\Account\AddressDTO.cs" />
+    <Compile Include="DTO\Account\CredentialsDTO.cs" />
+    <Compile Include="DTO\Account\PersonalDataDTO.cs" />
+    <Compile Include="DTO\Account\RoleDTO.cs" />
+    <Compile Include="DTO\Competition\AnswerDTO.cs" />
+    <Compile Include="DTO\Competition\CompetitionDTO.cs" />
+    <Compile Include="DTO\Competition\PrizeDTO.cs" />
+    <Compile Include="DTO\Competition\ResultDTO.cs" />
+    <Compile Include="DTO\Competition\SkillDTO.cs" />
+    <Compile Include="DTO\Competition\StageDTO.cs" />
+    <Compile Include="DTO\Competition\StageTypeDTO.cs" />
+    <Compile Include="DTO\Competition\TaskDTO.cs" />
+    <Compile Include="DTO\NotificationSystem\MailDTO.cs" />
+    <Compile Include="DTO\NotificationSystem\NewsDTO.cs" />
+    <Compile Include="DTO\NotificationSystem\NotificationDTO.cs" />
     <Compile Include="Services\AdministratorService.cs" />
-    <Compile Include="DTO\AddressDTO.cs" />
-    <Compile Include="DTO\AdministratorDTO.cs" />
-    <Compile Include="DTO\AnswerDTO.cs" />
-    <Compile Include="DTO\CompetitionDTO.cs" />
-    <Compile Include="DTO\JudgeDTO.cs" />
-    <Compile Include="DTO\ParticipantDTO.cs" />
-    <Compile Include="DTO\PrizeType.cs" />
-    <Compile Include="DTO\ResultDTO.cs" />
-    <Compile Include="DTO\SkillDTO.cs" />
-    <Compile Include="DTO\StageDTO.cs" />
-    <Compile Include="DTO\TaskDTO.cs" />
-    <Compile Include="DTO\TrainerDTO.cs" />
-    <Compile Include="DTO\TypeStageDTO.cs" />
-    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GuestService.cs" />
     <Compile Include="Services\Interfaces\IAdministratorService.cs" />
     <Compile Include="Services\Interfaces\IGuestService.cs" />
     <Compile Include="Services\Interfaces\IJudgeService.cs" />
     <Compile Include="Services\Interfaces\IParticipantService.cs" />
-    <Compile Include="Services\Interfaces\ITrainerService.cs" />
     <Compile Include="Services\JudgeService.cs" />
     <Compile Include="Services\ParticipantService.cs" />
     <Compile Include="Services\ServiceModule.cs" />
-    <Compile Include="Services\TrainerService.cs" />
     <Compile Include="Utilities\MailUtility.cs" />
     <Compile Include="Utilities\MessageUtility.cs" />
     <Compile Include="Utilities\ObjectMapper.cs" />
     <Compile Include="Utilities\PasswordHasher.cs" />
+    <Compile Include="Utilities\ValidateUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

@@ -2,25 +2,31 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    using BLL.DTO;
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
     using BLL.Services.Interfaces;
     using BLL.Utilities;
 
-    using DAL.Entities;
-    using DAL.Repositories;
-    using DAL.Repositories.Interfaces;
+    using DAL.Entities.Account;
+    using DAL.Entities.Competition;
+    using DAL.UnitOfWorks;
+    using DAL.UnitOfWorks.Interfaces;
 
     public class GuestService : IGuestService
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IAccountUnitOfWork accountUnitOfWork;
+
+        private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 
         public GuestService(string connection)
         {
-            this.unitOfWork = new UnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(connection);
+            this.accountUnitOfWork = new AccountUnitOfWork(connection);
         }
 
-        public void CreateUser(
+        public void CreateParticipant(
             string login,
             string password,
             string surname,
@@ -30,103 +36,34 @@
             string photo,
             string mail,
             string telephone,
-            string awards)
+            AddressDTO address)
         {
-            var hashPassword = PasswordHasher.Hash(password);
-            var user = new UserEntity(login, hashPassword, Role.User, surname, name, patronymic, birthday, photo, mail, telephone, awards);
-            this.unitOfWork.UserRepository.Create(user);
-            this.unitOfWork.SaveChanges();
-        }
+            var accountAddress = this.accountUnitOfWork.AddressRepository.GetAddressesByPlace(
+                address.Country,
+                address.City,
+                address.Street,
+                address.House,
+                address.Apartments).FirstOrDefault();
 
-        public (UserDTO user, bool isPasswordValid) GetUser(string login, string password)
-        {
-            var userDto = ObjectMapper<UserEntity, UserDTO>.Map(this.unitOfWork.UserRepository.GetUserByLogin(login));
-            if (userDto == null)
+            if (accountAddress == null)
             {
-                return (user: null, isPasswordValid: false);
             }
 
-            if (!PasswordHasher.Verify(password, userDto.Password))
-            {
-                return (user: userDto, isPasswordValid: false);
-            }
+            var personalData = new PersonalDataEntity(
+                surname,
+                name,
+                patronymic,
+                birthday,
+                photo,
+                mail,
+                telephone,
+                accountAddress);
 
-            return (user: userDto, isPasswordValid: true);
-        }
+            var role = this.accountUnitOfWork.RoleRepository.Get(r => r.Name == "Participant").FirstOrDefault();
+            var credentials = new CredentialsEntity(login, PasswordHasher.Hash(password), role.Id);
 
-        public IEnumerable<CompetitionDTO> GetAllCompetitions()
-        {
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.GetAll());
-        }
-
-        public IEnumerable<CompetitionDTO> GetActualCompetitions()
-        {
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeEnd >= DateTime.Now));
-        }
-        
-        public IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int? year)
-        {
-            if (skill != null && year != null)
-            {
-               return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                    this.unitOfWork.CompetitionRepository.Get(
-                        c => 
-                            c.Skill.Name == skill &&
-                            (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) && 
-                            (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
-            }
-
-            if (skill != null)
-            {
-                return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                    this.unitOfWork.CompetitionRepository.Get(
-                        c =>
-                            c.Skill.Name == skill));
-            }
-
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.Get(
-                    c =>
-                        (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) &&
-                        (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
-        }
-
-        public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(string skill, int? year, TypeStageDTO typeStage)
-        {
-            var competitions = GetCompetitionsBySkillAndYear(skill, year);
-            var stages = new List<StageDTO>();
-            foreach (var competition in competitions)
-            {
-                foreach (var stage in competition.Stages)
-                {
-                    if (stage.TypeStageDto.Equals(typeStage))
-                    {
-                        stages.Add(stage);
-                    }
-                }
-            }
-
-            return stages;
-        }
-        
-        public IEnumerable<CompetitionDTO> GetCompetitionsBySkill(string skill)
-        {
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.Get(c => c.Skill.Name.Equals(skill)));
-        }
-
-        public IEnumerable<CompetitionDTO> GetCompetitionsByDateRange(DateTime begin, DateTime end)
-        {
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeBegin >= begin && c.DateTimeEnd <= end));
-        }
-
-        public IEnumerable<CompetitionDTO> GetCompetitionsByDate(DateTime begin, DateTime end)
-        {
-            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
-                this.unitOfWork.CompetitionRepository.Get(c => c.DateTimeBegin == begin && c.DateTimeEnd == end));
+            this.accountUnitOfWork.AccountRepository.Create(new AccountEntity(personalData, credentials));
+            this.accountUnitOfWork.SaveChanges();
         }
 
         public void Dispose()
@@ -135,11 +72,95 @@
             GC.SuppressFinalize(this);
         }
 
+        public (AccountDTO account, bool isPasswordValid) GetAccount(string login, string password)
+        {
+            var accountDto = ObjectMapper<AccountEntity, AccountDTO>.Map(
+                this.accountUnitOfWork.AccountRepository.Get(a => a.CredentialsIdEntity.Login == login)
+                    .FirstOrDefault());
+            if (accountDto == null) return (account: null, isPasswordValid: false);
+
+            if (!PasswordHasher.Verify(password, accountDto.Credentials.Password))
+                return (account: accountDto, isPasswordValid: false);
+
+            return (account: accountDto, isPasswordValid: true);
+        }
+
+        public IEnumerable<CompetitionDTO> GetActualCompetitions()
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.Get(c => c.DateTimeEnd >= DateTime.Now));
+        }
+
+        public IEnumerable<CompetitionDTO> GetAllCompetitions()
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.GetAll());
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsByDate(DateTime begin, DateTime end)
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.Get(
+                    c => c.DateTimeBegin == begin && c.DateTimeEnd == end));
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsByDateRange(DateTime begin, DateTime end)
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.Get(
+                    c => c.DateTimeBegin >= begin && c.DateTimeEnd <= end));
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsBySkill(string skill)
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.Get(c => c.SkillEntity.Name.Equals(skill)));
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int? year)
+        {
+            if (skill != null && year != null)
+                return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                    this.competitionUnitOfWork.CompetitionRepository.Get(
+                        c => 
+                            c.SkillEntity.Name == skill 
+                         && (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) 
+                         && (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+
+            if (skill != null)
+                return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                    this.competitionUnitOfWork.CompetitionRepository.Get(c => c.SkillEntity.Name == skill));
+
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.Get(
+                    c => 
+                        (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) && 
+                        (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+        }
+
+        public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(
+            string skill,
+            int? year,
+            StageTypeDTO stageType)
+        {
+            var competitions = this.GetCompetitionsBySkillAndYear(skill, year);
+            var stages = new List<StageDTO>();
+            foreach (var competition in competitions)
+            {
+                foreach (var stage in competition.Stages)
+                    if (stage.StageType.Name == stageType.Name)
+                        stages.Add(stage);
+            }
+
+            return stages;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                this.unitOfWork?.Dispose();
+                this.competitionUnitOfWork?.Dispose();
+                this.accountUnitOfWork?.Dispose();
             }
         }
     }

@@ -5,8 +5,14 @@
     using AutoMapper;
 
     using BLL.DTO;
+    using BLL.DTO.Account;
+    using BLL.DTO.Competition;
+    using BLL.DTO.NotificationSystem;
 
     using DAL.Entities;
+    using DAL.Entities.Account;
+    using DAL.Entities.Competition;
+    using DAL.Entities.NotificationSystem;
 
     public static class ObjectMapper<TFrom, TTo>
     {
@@ -16,27 +22,29 @@
         {
             mapper = new MapperConfiguration(cfg =>
                 {
+                    cfg.CreateMap<AccountDTO, AccountEntity>();
+                    cfg.CreateMap<AccountEntity, AccountDTO>();
+
                     cfg.CreateMap<AddressDTO, AddressEntity>();
                     cfg.CreateMap<AddressEntity, AddressDTO>();
 
-                    cfg.CreateMap<AdministratorDTO, AdministratorEntity>()
-                        .ForMember(ef => ef.UserEntityId, p => p.MapFrom(dto => dto.User.Id));
-                    cfg.CreateMap<AdministratorEntity, AdministratorDTO>();
+                    cfg.CreateMap<CredentialsDTO, CredentialsEntity>();
+                    cfg.CreateMap<CredentialsEntity, CredentialsDTO>();
 
+                    cfg.CreateMap<PersonalDataDTO, PersonalDataEntity>();
+                    cfg.CreateMap<PersonalDataEntity, PersonalDataDTO>();
+
+                    cfg.CreateMap<RoleDTO, RoleEntity>();
+                    cfg.CreateMap<RoleEntity, RoleDTO>();
 
                     cfg.CreateMap<AnswerDTO, AnswerEntity>();
                     cfg.CreateMap<AnswerEntity, AnswerDTO>();
 
-                    cfg.CreateMap<CompetitionDTO, CompetitionEntity>()
-                        .ForMember(ef => ef.Skill, p => p.MapFrom(dto => dto.Skill));
-                    cfg.CreateMap<CompetitionEntity, CompetitionDTO>()
-                        .ForMember(dto => dto.Skill, p => p.MapFrom(ef => ef.Skill));
+                    cfg.CreateMap<CompetitionDTO, CompetitionEntity>();
+                    cfg.CreateMap<CompetitionEntity, CompetitionDTO>();
 
-                    cfg.CreateMap<JudgeDTO, JudgeEntity>();
-                    cfg.CreateMap<JudgeEntity, JudgeDTO>();
-
-                    cfg.CreateMap<ParticipantDTO, ParticipantEntity>();
-                    cfg.CreateMap<ParticipantEntity, ParticipantDTO>();
+                    cfg.CreateMap<PrizeDTO, PrizeEntity>();
+                    cfg.CreateMap<PrizeEntity, PrizeDTO>();
 
                     cfg.CreateMap<ResultDTO, ResultEntity>();
                     cfg.CreateMap<ResultEntity, ResultDTO>();
@@ -44,36 +52,33 @@
                     cfg.CreateMap<SkillDTO, SkillEntity>();
                     cfg.CreateMap<SkillEntity, SkillDTO>();
 
-                    cfg.CreateMap<StageDTO, StageEntity>()
-                        .ForMember(ef => ef.CompetitionEntityId, p => p.MapFrom(dto => dto.CompetitionId));
-                    cfg.CreateMap<StageEntity, StageDTO>()
-                        .ForMember(dto => dto.CompetitionId, p => p.MapFrom(ef => ef.CompetitionEntityId));
+                    cfg.CreateMap<StageDTO, StageEntity>();
+                    cfg.CreateMap<StageEntity, StageDTO>();
 
-                    cfg.CreateMap<TypeStageDTO, TypeStageEntity>();
-                    cfg.CreateMap<TypeStageEntity, TypeStageDTO>();
+                    cfg.CreateMap<StageTypeDTO, StageTypeEntity>();
+                    cfg.CreateMap<StageTypeEntity, StageTypeDTO>();
 
                     cfg.CreateMap<TaskDTO, TaskEntity>();
                     cfg.CreateMap<TaskEntity, TaskDTO>();
 
+                    cfg.CreateMap<MailDTO, MailEntity>();
+                    cfg.CreateMap<MailEntity, MailDTO>();
 
-                    cfg.CreateMap<TrainerDTO, TrainerEntity>();
-                    cfg.CreateMap<TrainerEntity, TrainerDTO>();
+                    cfg.CreateMap<NewsDTO, NewsEntity>();
+                    cfg.CreateMap<NewsEntity, NewsDTO>();
 
-                    cfg.CreateMap<UserDTO, UserEntity>();
-                    cfg.CreateMap<UserEntity, UserDTO>();
+                    cfg.CreateMap<NotificationDTO, NotificationEntity>();
+                    cfg.CreateMap<NotificationEntity, NotificationDTO>();
                 }).CreateMapper();
         }
 
-
         public static TTo Map(TFrom fromModel)
         {
-           //mapper = new MapperConfiguration(cfg => cfg.CreateMap<TFrom, TTo>()).CreateMapper();
             return mapper.Map<TFrom, TTo>(fromModel);
         }
 
         public static IEnumerable<TTo> MapList(IEnumerable<TFrom> fromModel)
         {
-            //mapper = new MapperConfiguration(cfg => cfg.CreateMap<TFrom, TTo>()).CreateMapper();
             return mapper.Map<IEnumerable<TFrom>, IEnumerable<TTo>>(fromModel);
         }
     }

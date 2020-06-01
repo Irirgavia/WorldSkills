@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO
+﻿namespace BLL.DTO.Competition
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     {
         public CompetitionDTO()
         {
+            this.Stages = new List<StageDTO>();
         }
 
         public CompetitionDTO(
@@ -15,20 +16,20 @@
             DateTime dateTimeEnd,
             ICollection<StageDTO> stages)
         {
-            Skill = skill;
-            DateTimeBegin = dateTimeBegin;
-            DateTimeEnd = dateTimeEnd;
-            Stages = stages;
+            this.Skill = skill;
+            this.DateTimeBegin = dateTimeBegin;
+            this.DateTimeEnd = dateTimeEnd;
+            this.Stages = stages;
         }
 
         public int Id { get; private set; }
 
-        public virtual SkillDTO Skill { get; set; }
+        public SkillDTO Skill { get; set; }
 
         public DateTime DateTimeBegin { get; set; }
 
         public DateTime DateTimeEnd { get; set; }
 
-        public virtual ICollection<StageDTO> Stages { get; set; }
+        public ICollection<StageDTO> Stages { get; set; }
     }
 }
