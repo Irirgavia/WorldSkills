@@ -1,31 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using WebAPI.Models.RequestModels;
-using WebAPI.Models.ResponseModels;
-using WebAPI.ObjectMapper;
-
-namespace WebAPI.Controllers
+﻿namespace WebAPI.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
+
+    using WebAPI.Models.RequestModels;
+    using WebAPI.Models.ResponseModels.ForJudge;
+    using WebAPI.ObjectMapper;
+    using WebAPI.ServiceProvider;
+
     public class AnswerController : ApiController
     {
+        /// <summary>
+        /// Get by judge what answer he should rate
+        /// </summary>
+        /// <param name="judgeId"></param>
+        /// <returns></returns>
         public IHttpActionResult Get([FromBody] int judgeId)
         {
-            ICollection<AnswerForJudgeResponseModel> answerForJudgeModels = new List<AnswerForJudgeResponseModel>();
-            using (var participantService = new BLL.Services.ParticipantService("CompetitionContext"))
+            ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
+            var adminService = ServiceProvider.GetAdministratorService();
+            var stages = adminService.GetStagesByAccountId(judgeId);
+            foreach (var stage in stages)
             {
-                using (var adminService = new BLL.Services.AdministratorService("CompetitionContext"))
-                {
-                    var participant = adminService.GetParticipantById(judgeId);
-                    var stages = participantService.GetStages(participant);
-                    foreach(var stage in stages)
-                    {
-                        answerForJudgeModels.Add(ObjectMapperDTOModel.ToAnswerForJudgeResponseModel(stage));
-                    }
-                }
+                answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
             }
             return Json(answerForJudgeModels);
         }

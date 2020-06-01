@@ -8,11 +8,15 @@ using WebAPI.Models.RequestModels;
 
 namespace WebAPI.Controllers
 {
+    using ServiceProvider;
+
     public class MarkController : ApiController
     {
         public IHttpActionResult Save([FromBody] MarkSaveRequestModel parameters)
         {
-            return BadRequest();
+            var judgeService = ServiceProvider.GetJudgeService();
+            judgeService.RateAnswer(parameters.answerId, parameters.mark, null);
+            return Ok();
         }
     }
 }

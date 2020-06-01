@@ -25,7 +25,7 @@
         [Route("api/results/participant")]
         public IHttpActionResult GetResultsByParticipant([FromBody] int participantId)
         {
-            ICollection<ResultForParticipantResponseModel> resultsElements = new List<ResultForParticipantResponseModel>();
+            ICollection<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel> resultsElements = new List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel>();
 
             return BadRequest();
         }
@@ -33,7 +33,7 @@
         [Route("api/results/trainer")]
         public IHttpActionResult GetResultsByTrainer([FromBody] int trainerId)
         {
-            ICollection<ResultForTrainerResponseModel> resultsElements = new List<ResultForTrainerResponseModel>();
+            ICollection<Models.ResponseModels.ForTrainer.ResultForTrainerResponseModel> resultsElements = new List<Models.ResponseModels.ForTrainer.ResultForTrainerResponseModel>();
 
             return BadRequest();
         }

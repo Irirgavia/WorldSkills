@@ -9,14 +9,14 @@
 
     using Models.ResponseModels;
     using ObjectMapper;
-    using BLL.Services;
+    using ServiceProvider;
 
     public class ScheduleController : ApiController
     {
         public IHttpActionResult Get()
         {
             ICollection<ScheduleElementResponseModel> scheduleElements = new List<ScheduleElementResponseModel>();
-            var guestService = new GuestService("CompetitionContext");
+            var guestService = ServiceProvider.GetGuestService();
             var competitions = guestService.GetActualCompetitions();
             foreach(var competition in competitions)
             {
