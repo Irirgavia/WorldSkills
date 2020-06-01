@@ -8,6 +8,6 @@ namespace WebAPI.Models.RequestModels
     public class MarkSaveRequestModel
     {
         public int answerId { get; set; }
-        public int mark { get; set; }
+        public float mark { get; set; }
     }
 }
