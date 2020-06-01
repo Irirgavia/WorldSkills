@@ -2,11 +2,32 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class PersonalDataEntity : IIdentifier
     {
         public PersonalDataEntity()
         {
+        }
+
+        public PersonalDataEntity(
+            string surname,
+            string name,
+            string patronymic,
+            DateTime birthday,
+            string photo,
+            string mail,
+            string telephone,
+            int addressId)
+        {
+            this.Surname = surname;
+            this.Name = name;
+            this.Patronymic = patronymic;
+            this.Birthday = birthday;
+            this.Photo = photo;
+            this.Mail = mail;
+            this.Telephone = telephone;
+            this.AddressEntityId = addressId;
         }
 
         public PersonalDataEntity(
@@ -58,6 +79,9 @@
         public string Telephone { get; set; }
 
         [Required]
+        public int AddressEntityId { get; set; }
+
+        [ForeignKey("AddressEntityId")]
         public AddressEntity AddressEntity { get; set; }
     }
 }

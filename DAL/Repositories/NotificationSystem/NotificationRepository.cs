@@ -8,9 +8,9 @@
     using DAL.Contexts;
     using DAL.Entities.NotificationSystem;
 
-    public class NotificationRepository : GenericRepository<NotificationEntity, NotificationSystemContext>
+    public class NotificationRepository : GenericRepository<NotificationEntity, SystemContext>
     {
-        public NotificationRepository(NotificationSystemContext context)
+        public NotificationRepository(SystemContext context)
             : base(context)
         {
         }

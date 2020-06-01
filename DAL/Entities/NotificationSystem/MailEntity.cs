@@ -10,17 +10,18 @@
     {
         public MailEntity()
         {
+            this.AccountIdsTo = new List<int>();
         }
 
         public MailEntity(
-            AccountEntity from,
-            ICollection<AccountEntity> to,
+            int accountIdFrom,
+            ICollection<int> accountIdsTo,
             DateTime dateTime,
             string subject,
             string body)
         {
-            this.From = from;
-            this.To = to;
+            this.AccountIdFrom = accountIdFrom;
+            this.AccountIdsTo = accountIdsTo;
             this.DateTime = dateTime;
             this.Subject = subject;
             this.Body = body;
@@ -30,10 +31,10 @@
         public int Id { get; private set; }
 
         [Required]
-        public AccountEntity From { get; set; }
+        public int AccountIdFrom { get; set; }
 
         [Required]
-        public ICollection<AccountEntity> To { get; set; }
+        public ICollection<int> AccountIdsTo { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }

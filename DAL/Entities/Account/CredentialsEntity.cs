@@ -9,11 +9,11 @@
         {
         }
 
-        public CredentialsEntity(string login, string password, RoleEntity roleEntity)
+        public CredentialsEntity(string login, string password, int roleEntityId)
         {
             this.Login = login;
             this.Password = password;
-            this.RoleEntity = roleEntity;
+            this.RoleEntityId = roleEntityId;
         }
 
         [Key]
@@ -29,6 +29,9 @@
         public string Password { get; set; }
 
         [Required]
+        public int RoleEntityId { get; set; }
+
+        [ForeignKey("RoleEntityId")]
         public RoleEntity RoleEntity { get; set; }
     }
 }

@@ -7,21 +7,21 @@
     {
         public ResultEntity()
         {
-            this.PrizeEntities = new List<PrizeEntity>();
+            this.PrizeEntityIds = new List<int>();
         }
 
         public ResultEntity(float mark = 0)
         {
-            this.PrizeEntities = new List<PrizeEntity>();
+            this.PrizeEntityIds = new List<int>();
             this.Mark = mark;
         }
 
         public ResultEntity(
-            ICollection<PrizeEntity> prizeEntities,
+            ICollection<int> prizeEntityIds,
             float mark, 
             string notes)
         {
-            this.PrizeEntities = prizeEntities;
+            this.PrizeEntityIds = prizeEntityIds;
             this.Mark = mark;
             this.Notes = notes;
         }
@@ -29,7 +29,7 @@
         [Key]
         public int Id { get; private set; }
 
-        public ICollection<PrizeEntity> PrizeEntities { get; set; }
+        public ICollection<int> PrizeEntityIds { get; set; }
 
         [Required]
         [Range(0, float.MaxValue)]

@@ -1,5 +1,6 @@
 ﻿namespace DAL.Entities.Account
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,10 +10,20 @@
         {
         }
 
-        public AccountEntity(PersonalDataEntity personalData, CredentialsEntity credentials, bool isMailNotificationTurnOn = true)
+        public AccountEntity(int personalDataId, int credentialsId, bool isMailNotificationTurnOn = true)
         {
-            this.PersonalDataEntity = personalData;
-            this.CredentialsEntity = credentials;
+            this.PersonalDataEntityId = personalDataId;
+            this.CredentialsEntityId = credentialsId;
+            this.IsMailNotificationTurnOn = isMailNotificationTurnOn;
+        }
+
+        public AccountEntity(
+            PersonalDataEntity personalData,
+            CredentialsEntity credentials,
+            bool isMailNotificationTurnOn = true)
+        {
+            this.PersonalDataIdEntity = personalData;
+            this.CredentialsIdEntity = credentials;
             this.IsMailNotificationTurnOn = isMailNotificationTurnOn;
         }
 
@@ -21,13 +32,21 @@
 
         [Required]
         [Index(IsUnique = true)]
-        public PersonalDataEntity PersonalDataEntity { get; private set; }
+        public int PersonalDataEntityId { get; set; }
+
+        [ForeignKey("PersonalDataEntityId")]
+        public PersonalDataEntity PersonalDataIdEntity { get; private set; }
 
         [Required]
         [Index(IsUnique = true)]
-        public CredentialsEntity CredentialsEntity { get; private set; }
+        public int CredentialsEntityId { get; private set; }
+
+        [ForeignKey("CredentialsEntityId")]
+        public CredentialsEntity CredentialsIdEntity { get; private set; }
 
         [Required]
         public bool IsMailNotificationTurnOn { get; set; }
+
+        public ICollection<int> StageIds { get; set; }
     }
 }

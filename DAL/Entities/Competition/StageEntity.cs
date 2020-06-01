@@ -2,27 +2,27 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
-    using DAL.Entities.Account;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class StageEntity : IIdentifier
     {
         public StageEntity()
         {
             this.TaskEntities = new List<TaskEntity>();
-            this.AccountEntities = new List<AccountEntity>();
+            this.AccountIds = new List<int>();
         }
 
         public StageEntity(
             int competitionEntityId,
-            StageTypeEntity stageTypeEntity,
+            int stageTypeEntityId,
             ICollection<TaskEntity> taskEntities,
-            ICollection<AccountEntity> accountEntities)
+            ICollection<int> accountIds)
         {
             this.CompetitionEntityId = competitionEntityId;
-            this.StageTypeEntity = stageTypeEntity;
+            this.StageTypeEntityId = stageTypeEntityId;
             this.TaskEntities = taskEntities;
-            this.AccountEntities = accountEntities;
+            this.AccountIds = accountIds;
+            this.AccountIds = accountIds;
         }
 
         [Key]
@@ -32,10 +32,13 @@
         public int CompetitionEntityId { get; set; }
 
         [Required]
+        public int StageTypeEntityId { get; set; }
+
+        [ForeignKey("StageTypeEntityId")]
         public StageTypeEntity StageTypeEntity { get; set; }
 
         public ICollection<TaskEntity> TaskEntities { get; set; }
 
-        public ICollection<AccountEntity> AccountEntities { get; set; }
+        public ICollection<int> AccountIds { get; set; }
     }
 }

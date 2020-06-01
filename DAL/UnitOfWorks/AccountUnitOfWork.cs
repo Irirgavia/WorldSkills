@@ -4,35 +4,37 @@
 
     using DAL.Contexts;
     using DAL.Entities.Account;
-    using DAL.Entities.NotificationSystem;
+    using DAL.Repositories;
     using DAL.Repositories.Account;
     using DAL.Repositories.Interfaces;
-    using DAL.Repositories.NotificationSystem;
     using DAL.UnitOfWorks.Interfaces;
 
-    public class NotificationUnitOfWorks : INotificationUnitOfWorks
+    public class AccountUnitOfWork : IAccountUnitOfWork
     {
-        private readonly NotificationSystemContext notificationSystemContext;
         private readonly AccountContext accountContext;
 
-        public NotificationUnitOfWorks(string connectionString)
+        public AccountUnitOfWork(string connectionString)
         {
             this.accountContext = new AccountContext(connectionString);
-            this.notificationSystemContext = new NotificationSystemContext(connectionString);
         }
 
         public IGenericRepository<AccountEntity> AccountRepository =>
             new AccountRepository(this.accountContext);
 
-        public IGenericRepository<MailEntity> MailRepository =>
-            new MailRepository(this.notificationSystemContext);
+        public IAddressRepository AddressRepository =>
+            new AccountAddressRepository(this.accountContext);
 
-        public IGenericRepository<NotificationEntity> NotificationRepository =>
-            new NotificationRepository(this.notificationSystemContext);
+        public IGenericRepository<CredentialsEntity> CredentialsRepository =>
+            new CredentialsRepository(this.accountContext);
+
+        public IGenericRepository<PersonalDataEntity> PersonalDataRepository =>
+            new PersonalDataRepository(this.accountContext);
+
+        public IGenericRepository<RoleEntity> RoleRepository =>
+            new GenericRepository<RoleEntity, AccountContext>(this.accountContext);
 
         public void SaveChanges()
         {
-            this.notificationSystemContext.SaveChanges();
             this.accountContext.SaveChanges();
         }
 
@@ -46,7 +48,6 @@
         {
             if (disposing)
             {
-                this.notificationSystemContext?.Dispose();
                 this.accountContext?.Dispose();
             }
         }

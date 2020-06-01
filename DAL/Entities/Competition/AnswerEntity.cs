@@ -3,8 +3,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using DAL.Entities.Account;
-
     public class AnswerEntity : IIdentifier
     {
         public AnswerEntity()
@@ -25,9 +23,6 @@
 
         [Required]
         public int AccountEntityId { get; set; }
-
-        [ForeignKey("AccountEntityId")]
-        public AccountEntity AccountEntity { get; set; }
 
         [Index(IsUnique = true)]
         public ResultEntity ResultEntity { get; set; }

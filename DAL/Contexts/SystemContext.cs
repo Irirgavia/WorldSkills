@@ -5,14 +5,14 @@
     using DAL.Contexts.Initializers;
     using DAL.Entities.NotificationSystem;
 
-    public class NotificationSystemContext : DbContext
+    public class SystemContext : DbContext
     {
-        static NotificationSystemContext()
+        static SystemContext()
         {
-            Database.SetInitializer<NotificationSystemContext>(new NotificationSystemInitializer());
+            Database.SetInitializer<SystemContext>(new SystemInitializer());
         }
 
-        public NotificationSystemContext(string context)
+        public SystemContext(string context)
             : base(context)
         {
             this.Configuration.ProxyCreationEnabled = false;
@@ -22,13 +22,12 @@
 
         public DbSet<NotificationEntity> Notifications { get; set; }
 
+        public DbSet<NewsEntity> News { get; set; }
+
+
         // Fluent API
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Mail
-            modelBuilder.Entity<MailEntity>()
-                .HasMany(m => m.To);
-
             base.OnModelCreating(modelBuilder);
         }
     }

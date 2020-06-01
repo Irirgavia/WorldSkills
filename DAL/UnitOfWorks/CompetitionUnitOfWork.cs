@@ -3,30 +3,23 @@
     using System;
 
     using DAL.Contexts;
-    using DAL.Entities.Account;
     using DAL.Entities.Competition;
     using DAL.Repositories;
-    using DAL.Repositories.Account;
     using DAL.Repositories.Competition;
     using DAL.Repositories.Interfaces;
     using DAL.UnitOfWorks.Interfaces;
 
-    public class CompetitionUnitOfWork : ICompetitionUnitOfWorks
+    public class CompetitionUnitOfWork : ICompetitionUnitOfWork
     {
         private readonly CompetitionContext competitionContext;
-        private readonly AccountContext accountContext;
 
         public CompetitionUnitOfWork(string connectionString)
         {
             this.competitionContext = new CompetitionContext(connectionString);
-            this.accountContext = new AccountContext(connectionString);
         }
 
-        public IGenericRepository<AccountEntity> AccountRepository =>
-            new AccountRepository(this.accountContext);
-
         public IAddressRepository AddressRepository => 
-            new AddressRepository(this.accountContext);
+            new CompetitionAddressRepository(this.competitionContext);
 
         public IGenericRepository<AnswerEntity> AnswerRepository => 
             new AnswerRepository(this.competitionContext);
@@ -55,7 +48,6 @@
         public void SaveChanges()
         {
             this.competitionContext.SaveChanges();
-            this.accountContext.SaveChanges();
         }
 
         public void Dispose()
@@ -69,7 +61,6 @@
             if (disposing)
             {
                 this.competitionContext?.Dispose();
-                this.accountContext?.Dispose();
             }
         }
     }

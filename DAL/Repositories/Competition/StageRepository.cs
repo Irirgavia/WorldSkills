@@ -20,11 +20,7 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(s => s.TaskEntities.Select(t => t.AddressEntities))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntities)))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.PersonalDataEntity.AddressEntity)))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.CredentialsEntity.RoleEntity)))
-                .Include(s => s.AccountEntities.Select(a => a.PersonalDataEntity.AddressEntity))
-                .Include(s => s.AccountEntities.Select(a => a.CredentialsEntity.RoleEntity))
+                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds)))
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -34,11 +30,7 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(s => s.TaskEntities.Select(t => t.AddressEntities))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntities)))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.PersonalDataEntity.AddressEntity)))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.CredentialsEntity.RoleEntity)))
-                .Include(s => s.AccountEntities.Select(a => a.PersonalDataEntity.AddressEntity))
-                .Include(s => s.AccountEntities.Select(a => a.CredentialsEntity.RoleEntity))
+                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds)))
                 .AsEnumerable();
         }
     }

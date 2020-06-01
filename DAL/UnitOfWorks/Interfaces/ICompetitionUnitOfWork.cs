@@ -3,7 +3,7 @@
     using DAL.Entities.Competition;
     using DAL.Repositories.Interfaces;
 
-    public interface ICompetitionUnitOfWorks : IUnitOfWork
+    public interface ICompetitionUnitOfWork : IUnitOfWork
     {
         IAddressRepository AddressRepository { get; }
 

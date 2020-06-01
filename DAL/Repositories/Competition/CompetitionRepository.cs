@@ -21,11 +21,7 @@
                 .AsNoTracking()
                 .Include(c => c.SkillEntity)
                 .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AddressEntities)))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntities))))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.PersonalDataEntity.AddressEntity))))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.CredentialsEntity.RoleEntity))))
-                .Include(c => c.StageEntities.Select(s => s.AccountEntities.Select(a => a.PersonalDataEntity.AddressEntity)))
-                .Include(c => c.StageEntities.Select(s => s.AccountEntities.Select(a => a.CredentialsEntity.RoleEntity)))
+                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds))))
                 .AsEnumerable();
         }
 
@@ -35,11 +31,7 @@
                 .AsNoTracking()
                 .Include(c => c.SkillEntity)
                 .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AddressEntities)))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntities))))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.PersonalDataEntity.AddressEntity))))
-                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.AccountEntity.CredentialsEntity.RoleEntity))))
-                .Include(c => c.StageEntities.Select(s => s.AccountEntities.Select(a => a.PersonalDataEntity.AddressEntity)))
-                .Include(c => c.StageEntities.Select(s => s.AccountEntities.Select(a => a.CredentialsEntity.RoleEntity)))
+                .Include(c => c.StageEntities.Select(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds))))
                 .AsEnumerable()
                 .Where(predicate);
         }

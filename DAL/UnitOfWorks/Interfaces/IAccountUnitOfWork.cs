@@ -3,8 +3,10 @@
     using DAL.Entities.Account;
     using DAL.Repositories.Interfaces;
 
-    public interface IAccountUnitOfWorks : IUnitOfWork
+    public interface IAccountUnitOfWork : IUnitOfWork
     {
+        IGenericRepository<AccountEntity> AccountRepository { get; }
+
         IAddressRepository AddressRepository { get; }
 
         IGenericRepository<CredentialsEntity> CredentialsRepository { get; }

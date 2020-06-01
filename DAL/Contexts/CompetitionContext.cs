@@ -3,7 +3,6 @@
     using System.Data.Entity;
 
     using DAL.Contexts.Initializers;
-    using DAL.Entities.Account;
     using DAL.Entities.Competition;
 
     public class CompetitionContext : DbContext
@@ -45,9 +44,6 @@
             // Stage
             modelBuilder.Entity<StageEntity>()
                 .HasMany(s => s.TaskEntities);
-
-            modelBuilder.Entity<StageEntity>()
-                .HasMany(s => s.AccountEntities);
 
             // Task
             modelBuilder.Entity<TaskEntity>()

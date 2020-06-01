@@ -19,8 +19,8 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(a => a.PersonalDataEntity.AddressEntity)
-                .Include(a => a.CredentialsEntity.RoleEntity)
+                .Include(a => a.PersonalDataIdEntity.AddressEntity)
+                .Include(a => a.CredentialsIdEntity.RoleEntity)
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -29,8 +29,8 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(a => a.PersonalDataEntity.AddressEntity)
-                .Include(a => a.CredentialsEntity.RoleEntity)
+                .Include(a => a.PersonalDataIdEntity.AddressEntity)
+                .Include(a => a.CredentialsIdEntity.RoleEntity)
                 .AsEnumerable();
         }
     }
