@@ -99,6 +99,14 @@ export default function mainReducer(state = initialState, action) {
     case constants.UNREAD_NOTIFICATION_AMOUNT_ERROR:
       return { ...state, isFetching: false, error: action.error };
 
+    case constants.READ_NOTIFICATION:
+      return {
+        ...state,
+        unreadNotificationAmount: unreadNotificationAmount - 1,
+        isFetching: false,
+        error: "",
+      };
+
     default:
       return state;
   }
