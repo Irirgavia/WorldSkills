@@ -26,46 +26,6 @@
             this.accountUnitOfWork = new AccountUnitOfWork(connection);
         }
 
-        public void CreateParticipant(
-            string login,
-            string password,
-            string surname,
-            string name,
-            string patronymic,
-            DateTime birthday,
-            string photo,
-            string mail,
-            string telephone,
-            AddressDTO address)
-        {
-            var accountAddress = this.accountUnitOfWork.AddressRepository.GetAddressesByPlace(
-                address.Country,
-                address.City,
-                address.Street,
-                address.House,
-                address.Apartments).FirstOrDefault();
-
-            if (accountAddress == null)
-            {
-            }
-
-            var personalData = new PersonalDataEntity(
-                surname,
-                name,
-                patronymic,
-                birthday,
-                photo,
-                mail,
-                telephone,
-                accountAddress);
-
-            var role = this.accountUnitOfWork.RoleRepository.Get(r => r.Name == "Participant").FirstOrDefault();
-            var credentials = new CredentialsEntity(login, PasswordHasher.Hash(password), role.Id);
-
-            this.accountUnitOfWork.AccountRepository.Create(new AccountEntity(personalData, credentials));
-            this.accountUnitOfWork.SaveChanges();
-        }
-
         public void Dispose()
         {
             this.Dispose(true);
@@ -141,14 +101,14 @@
         public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(
             string skill,
             int? year,
-            StageTypeDTO stageType)
+            string stageType)
         {
             var competitions = this.GetCompetitionsBySkillAndYear(skill, year);
             var stages = new List<StageDTO>();
             foreach (var competition in competitions)
             {
                 foreach (var stage in competition.Stages)
-                    if (stage.StageType.Name == stageType.Name)
+                    if (stage.StageType.Name == stageType)
                         stages.Add(stage);
             }
 

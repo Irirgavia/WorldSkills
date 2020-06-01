@@ -6,11 +6,13 @@
 
     using BLL.DTO.Account;
     using BLL.DTO.Competition;
+    using BLL.DTO.NotificationSystem;
     using BLL.Services.Interfaces;
     using BLL.Utilities;
 
     using DAL.Entities.Account;
     using DAL.Entities.Competition;
+    using DAL.Entities.NotificationSystem;
     using DAL.UnitOfWorks;
     using DAL.UnitOfWorks.Interfaces;
 
@@ -32,7 +34,58 @@
             this.systemUnitOfWork = new DAL.UnitOfWorks.SystemUnitOfWork(notificationConnection);
         }
 
-        public void CreateAddress(
+        public void CreateAccount(
+            int roleId,
+            string login,
+            string password,
+            string surname,
+            string name,
+            string patronymic,
+            DateTime birthday,
+            string photo,
+            string mail,
+            string telephone,
+            AddressDTO address)
+        {
+            var accountAddress = this.accountUnitOfWork.AddressRepository.GetAddressesByPlace(
+                                     address.Country,
+                                     address.City,
+                                     address.Street,
+                                     address.House,
+                                     address.Apartments).FirstOrDefault() ?? this.accountUnitOfWork.AddressRepository.Create(
+                                     ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+
+            var personalData = new PersonalDataEntity(
+                surname,
+                name,
+                patronymic,
+                birthday,
+                photo,
+                mail,
+                telephone,
+                accountAddress.Id);
+
+            var role = this.accountUnitOfWork.RoleRepository.GetById(roleId);
+            var credentials = new CredentialsEntity(login, PasswordHasher.Hash(password), role.Id);
+
+            this.accountUnitOfWork.AccountRepository.Create(new AccountEntity(personalData, credentials));
+            this.accountUnitOfWork.SaveChanges();
+        }
+
+        public void CreateAccountAddress(
+            string country,
+            string city,
+            string street,
+            string house,
+            string apartment,
+            string notes)
+        {
+            this.accountUnitOfWork.AddressRepository.Create(
+                new AddressEntity(country, city, street, house, apartment, notes));
+            this.competitionUnitOfWork.SaveChanges();
+        }
+
+        public void CreateCompetitionAddress(
             string country,
             string city,
             string street,
@@ -45,10 +98,9 @@
             this.competitionUnitOfWork.SaveChanges();
         }
 
-        public void CreateAnswer(int participant, int taskId, string projectLink, string notes)
+        public void CreateAnswer(int accountId, int taskId, string projectLink, string notes)
         {
-            var answer = new AnswerEntity(participant, new ResultEntity(), taskId, projectLink, notes);
-
+            var answer = new AnswerEntity(accountId, new ResultEntity(), taskId, projectLink, notes);
             this.competitionUnitOfWork.AnswerRepository.Create(answer);
             this.competitionUnitOfWork.SaveChanges();
         }
@@ -60,8 +112,7 @@
                 s => s.Name == skill);
 
             this.competitionUnitOfWork.CompetitionRepository.Create(
-                new CompetitionEntity { DateTimeBegin = begin, DateTimeEnd = end, SkillEntityId = skillEf.Id });
-
+                new CompetitionEntity(skillEf.Id, begin, end, new List<StageEntity>()));
             this.competitionUnitOfWork.SaveChanges();
         }
 
@@ -71,13 +122,13 @@
             this.competitionUnitOfWork.SaveChanges();
         }
 
-        public void CreateStage(int competitionId, int stageTypeId, ICollection<AccountDTO> accounts)
+        public void CreateStage(int competitionId, int stageTypeId, ICollection<int> accounts)
         {
             var stage = new StageEntity(
                 competitionId,
                 stageTypeId,
                 new List<TaskEntity>(),
-                new List<int>());
+                accounts);
             this.competitionUnitOfWork.StageRepository.Create(stage);
             this.competitionUnitOfWork.SaveChanges();
         }
@@ -121,7 +172,13 @@
                     .FirstOrDefault());
         }
 
-        public AddressDTO GetAddressById(int id)
+        public AddressDTO GetAccountAddressById(int id)
+        {
+            return ObjectMapper<AddressEntity, AddressDTO>.Map(
+                this.accountUnitOfWork.AddressRepository.GetById(id));
+        }
+
+        public AddressDTO GetCompetitionAddressById(int id)
         {
             return ObjectMapper<AddressEntity, AddressDTO>.Map(
                 this.competitionUnitOfWork.AddressRepository.GetById(id));
@@ -143,6 +200,12 @@
                     apartments));
         }
 
+        public AnswerDTO GetAnswerById(int id)
+        {
+            return ObjectMapper<AnswerEntity, AnswerDTO>.Map(
+                this.competitionUnitOfWork.AnswerRepository.GetById(id));
+        }
+
         public CompetitionDTO GetCompetitionById(int id)
         {
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.Map(
@@ -161,6 +224,12 @@
                 this.accountUnitOfWork.PersonalDataRepository.GetById(id));
         }
 
+        public PrizeDTO GetPrizeById(int id)
+        {
+            return ObjectMapper<PrizeEntity, PrizeDTO>.Map(
+                this.competitionUnitOfWork.PrizeRepository.GetById(id));
+        }
+
         public RoleDTO GetRoleById(int id)
         {
             return ObjectMapper<RoleEntity, RoleDTO>.Map(this.accountUnitOfWork.RoleRepository.GetById(id));
@@ -170,6 +239,12 @@
         {
             return ObjectMapper<RoleEntity, RoleDTO>.Map(
                 this.accountUnitOfWork.RoleRepository.Get(r => r.Name == name).FirstOrDefault());
+        }
+
+        public ResultDTO GetResultById(int id)
+        {
+            return ObjectMapper<ResultEntity, ResultDTO>.Map(
+                this.competitionUnitOfWork.ResultRepository.GetById(id));
         }
 
         public SkillDTO GeTSkillById(int id)
@@ -188,11 +263,23 @@
             return ObjectMapper<StageEntity, StageDTO>.Map(this.competitionUnitOfWork.StageRepository.GetById(id));
         }
 
+        public IEnumerable<StageDTO> GetStagesByAccountId(int id)
+        {
+            return ObjectMapper<StageEntity, StageDTO>.MapList(
+                this.competitionUnitOfWork.StageRepository.Get(s => s.AccountIds.Contains(id)));
+        }
+
         public ICollection<StageDTO> GetStagesByCompetitionId(int id)
         {
             return ObjectMapper<StageEntity, StageDTO>.MapList(
                 this.competitionUnitOfWork.StageRepository.Get(
                     s => s.CompetitionEntityId == id)).ToList();
+        }
+
+        public StageTypeDTO GetStageTypeById(int id)
+        {
+            return ObjectMapper<StageTypeEntity, StageTypeDTO>.Map(
+                this.competitionUnitOfWork.StageTypeRepository.GetById(id));
         }
 
         public StageTypeDTO GetStageTypeByName(string name)
@@ -206,13 +293,37 @@
             return ObjectMapper<TaskEntity, TaskDTO>.Map(this.competitionUnitOfWork.TaskRepository.GetById(id));
         }
 
+        public MailDTO GetMailById(int id)
+        {
+            return ObjectMapper<MailEntity, MailDTO>.Map(
+                this.systemUnitOfWork.MailRepository.GetById(id));
+        }
+
+        public NewsDTO GetNewsById(int id)
+        {
+            return ObjectMapper<NewsEntity, NewsDTO>.Map(
+                this.systemUnitOfWork.NewsRepository.GetById(id));
+        }
+
+        public NotificationDTO GetNotificationById(int id)
+        {
+            return ObjectMapper<NotificationEntity, NotificationDTO>.Map(
+                this.systemUnitOfWork.NotificationRepository.GetById(id));
+        }
+
         public void UpdateAccount(AccountDTO account)
         {
             this.accountUnitOfWork.AccountRepository.Update(ObjectMapper<AccountDTO, AccountEntity>.Map(account));
             this.accountUnitOfWork.SaveChanges();
         }
 
-        public void UpdateAddress(AddressDTO address)
+        public void UpdateAccountAddress(AddressDTO address)
+        {
+            this.accountUnitOfWork.AddressRepository.Update(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
+            this.accountUnitOfWork.SaveChanges();
+        }
+
+        public void UpdateCompetitionAddress(AddressDTO address)
         {
             this.competitionUnitOfWork.AddressRepository.Update(ObjectMapper<AddressDTO, AddressEntity>.Map(address));
             this.competitionUnitOfWork.SaveChanges();

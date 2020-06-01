@@ -3,22 +3,21 @@
     using System;
     using System.Collections.Generic;
 
-    using BLL.DTO;
     using BLL.DTO.Account;
     using BLL.DTO.Competition;
 
     public interface IParticipantService : IDisposable
     {
-        void RegisterAccountOnCompetition(int competitionId, StageTypeDTO stageType, int accountId);
+        AnswerDTO GetAccountAnswers(int accountId);
+
+        IEnumerable<StageDTO> GetStages(int accountId);
+
+        void RegisterAccountOnCompetitionStage(int competitionId, string stageType, int accountId);
 
         void UpdateAccount(AccountDTO account);
 
-        void UpdateLoginAndPassword(AccountDTO account, string login, string password);
-
-        IEnumerable<StageDTO> GetStages(AccountDTO account);
-
-        AnswerDTO GetParticipantAnswer(AccountDTO account);
-
         void UpdateAnswer(AccountDTO account, int taskId, string notes);
+
+        void UpdateLoginAndPassword(int credentialsId, string login, string password);
     }
 }

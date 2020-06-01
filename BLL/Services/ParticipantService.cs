@@ -16,9 +16,9 @@
 
     public sealed class ParticipantService : IParticipantService
     {
-        private readonly ICompetitionUnitOfWork competitionUnitOfWork;
-
         private readonly IAccountUnitOfWork accountUnitOfWork;
+
+        private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 
         public ParticipantService(string connection)
         {
@@ -26,14 +26,30 @@
             this.accountUnitOfWork = new AccountUnitOfWork(connection);
         }
 
-        // TODO: function
-        public void RegisterAccountOnCompetition(int competitionId, StageTypeDTO stageType, int accountId)
+        public void Dispose()
         {
-            var competition = this.competitionUnitOfWork.CompetitionRepository.Get(c => c.Id == competitionId)
-                                  .FirstOrDefault();
-            var stage = competition.StageEntities.FirstOrDefault(s => s.StageTypeEntity.Name == stageType.Name);
-            var account = this.accountUnitOfWork.AccountRepository.Get(x => x.Id == accountId).FirstOrDefault();
-            //stage.AccountIds.Add(account);
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public AnswerDTO GetAccountAnswers(int accountId)
+        {
+            return ObjectMapper<AnswerEntity, AnswerDTO>.Map(
+                this.competitionUnitOfWork.AnswerRepository.Get(a => a.AccountEntityId == accountId).FirstOrDefault());
+        }
+
+        public IEnumerable<StageDTO> GetStages(int accountId)
+        {
+            return ObjectMapper<StageEntity, StageDTO>.MapList(
+                this.competitionUnitOfWork.StageRepository.Get(s => s.AccountIds.Contains(accountId)));
+        }
+
+        public void RegisterAccountOnCompetitionStage(int competitionId, string stageType, int accountId)
+        {
+            var stage = this.competitionUnitOfWork.StageRepository.Get(
+                                s => s.CompetitionEntityId == competitionId && s.StageTypeEntity.Name == stageType)
+                            .FirstOrDefault();
+            stage.AccountIds.Add(accountId);
             this.competitionUnitOfWork.SaveChanges();
         }
 
@@ -43,46 +59,23 @@
             this.accountUnitOfWork.SaveChanges();
         }
 
-        public void UpdateLoginAndPassword(AccountDTO account, string login, string password)
-        {
-            var credentials = this.accountUnitOfWork.CredentialsRepository.GetById(account.Credentials.Id);
-            credentials.Login = login;
-            credentials.Password = PasswordHasher.Hash(password);
-            this.accountUnitOfWork.CredentialsRepository.Update(credentials);
-            this.accountUnitOfWork.CredentialsRepository.Update(credentials);
-            this.accountUnitOfWork.SaveChanges();
-        }
-
-        // TODO: function
-        public IEnumerable<StageDTO> GetStages(AccountDTO account)
-        {
-            return null; /*ObjectMapper<StageEntity, StageDTO>.MapList(
-                this.competitionUnitOfWork.StageRepository.Get(
-                    s => s.AccountIds.Contains(ObjectMapper<AccountDTO, AccountEntityId>.Map(account))));*/
-        }
-
-        // TODO: function
-        public AnswerDTO GetParticipantAnswer(AccountDTO account)
-        {
-            return null; /*ObjectMapper<AnswerEntity, AnswerDTO>.Map(
-                this.competitionUnitOfWork.AnswerRepository.Get(a => a.AccountEntityId.Id == account.Id)
-                    .FirstOrDefault());*/
-        }
-
         public void UpdateAnswer(AccountDTO account, int taskId, string notes)
         {
-            var answer = this.competitionUnitOfWork.AnswerRepository.Get(a => a.AccountEntityId == account.Id)
-                             .FirstOrDefault();
+            var answer = this.competitionUnitOfWork.AnswerRepository.Get(
+                a => a.TaskEntityId == taskId && a.AccountEntityId == account.Id).FirstOrDefault();
 
             answer.Notes = notes;
             this.competitionUnitOfWork.AnswerRepository.Update(answer);
             this.competitionUnitOfWork.SaveChanges();
         }
 
-        public void Dispose()
+        public void UpdateLoginAndPassword(int credentialsId, string login, string password)
         {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
+            var credentials = this.accountUnitOfWork.CredentialsRepository.GetById(credentialsId);
+            credentials.Login = login;
+            credentials.Password = PasswordHasher.Hash(password);
+            this.accountUnitOfWork.CredentialsRepository.Update(credentials);
+            this.accountUnitOfWork.SaveChanges();
         }
 
         private void Dispose(bool disposing)
