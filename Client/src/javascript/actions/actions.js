@@ -39,6 +39,12 @@ export function errorReceiveData(err) {
   };
 }
 
+export function readNotificationAction() {
+  return {
+    type: constants.READ_NOTIFICATION,
+  };
+}
+
 //fetch("https://localhost:49263/api/results?skill=skill&stage=stage&year=year")
 export function getResultsByYear(skill, stage, year) {
   return (dispatch) => {
@@ -221,6 +227,21 @@ export function saveAnswer(data) {
   return saveDataPOSTRequest(queryTrailer, data);
 }
 
+export function saveCompetition(data) {
+  let queryTrailer = "/competition/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveStage(data) {
+  let queryTrailer = "/stage/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveTask(data) {
+  let queryTrailer = "/task/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
 /*export function savePersonalData(data) {
   return (dispatch) => {
     dispatch(requestData())
@@ -307,6 +328,52 @@ export function getAnswersToRate(judgeId) {
   };
 }
 
+export function getCompetitionsByAdmin(adminId) {
+  return (dispatch) => {
+    dispatch(requestData());
+    let queryTrailer = "/competitions/admin";
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ adminId: adminId }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch(receiveData(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
+export function getCompetitionsByParticipant(participantId) {
+  return (dispatch) => {
+    dispatch(requestData());
+    let queryTrailer = "/competitions/participant";
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ participantId: participantId }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch(receiveData(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
 export function getResultsByParticipant(participantId) {
   return (dispatch) => {
     dispatch(requestData());
@@ -378,6 +445,47 @@ export function getUnreadNotificationAmount(userId) {
   return (dispatch) => {
     dispatch(requestData());
     let queryTrailer = "/notifications/amount";
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dispatch(receiveData(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
+export function readNotification(notificationId, userId) {
+  return (dispatch) => {
+    dispatch(requestData());
+    let queryTrailer =
+      "/notifications/read?notificationId" +
+      notificationId +
+      "&userId" +
+      userId;
+    return fetch(ApiUrl + queryTrailer)
+      .then((response) => {
+        dispatch(readNotificationAction());
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
+export function getNotifications(userId) {
+  return (dispatch) => {
+    dispatch(requestData());
+    let queryTrailer = "/notifications";
     return fetch(ApiUrl + queryTrailer, {
       method: "POST",
       headers: {
