@@ -36,7 +36,7 @@ export class AdminStageChange extends React.Component {
     event.preventDefault();
     var data = {
       competitionId: this.props.competitionId,
-      Id: this.props.stage.Id,
+      id: this.props.stage.Id,
       stagetype: this.state.stagetype,
     };
     this.props.saveStage(data);

@@ -41,7 +41,7 @@ export class Notifications extends React.Component {
     const id = target.key;
     var notification = this.props.items.find(this.findElementInArrayById, id);
     if (!notification.IsRead) {
-      this.props.readNotification(notification.Id);
+      this.props.readNotification(notification.Id, this.props.userId);
       notification.IsRead = true;
     }
   }
@@ -94,8 +94,8 @@ let mapProps = (state) => {
 let mapDispatch = (dispatch) => {
   return {
     getNotifications: (userId) => dispatch(getNotifications(userId)),
-    readNotification: (notificationId) =>
-      dispatch(readNotification(notificationId)),
+    readNotification: (notificationId, userId) =>
+      dispatch(readNotification(notificationId, userId)),
   };
 };
 

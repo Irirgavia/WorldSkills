@@ -29,10 +29,4 @@ let mapProps = (state) => {
   };
 };
 
-let mapDispatch = (dispatch) => {
-  return {
-    getPersonalData: () => dispatch(getPersonalData()),
-  };
-};
-
-export default connect(mapProps, mapDispatch)(ParticipantPersonalData);
+export default connect(mapProps, null)(ParticipantPersonalData);

@@ -36,7 +36,7 @@ export class AdminTaskChange extends React.Component {
     var data = {
       competitionId: this.props.competitionId,
       stageId: this.props.stageId,
-      Id: this.props.task.Id,
+      id: this.props.task.Id,
       taskDateOfBegin: this.state.taskDateOfBegin,
       taskDateOfEnd: this.state.taskDateOfEnd,
       description: this.state.description,
