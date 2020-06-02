@@ -3,12 +3,14 @@
     using Models.ResponseModels.ForAdmin;
     using BLL.DTO.Competition;
     using System;
+    using System.Text;
 
     public class ObjectMapperDTOModelForAdmin
     {
         static string dateFormat = "dd.MM.yyyy HH:mm";
         public static CompetitionResponseModel ToCompetitionForAdminResponseModel(CompetitionDTO competitionDTO)
         {
+            StringBuilder stringBuilder = new StringBuilder();
             var competitionForAdminResponseModel = new CompetitionResponseModel()
             {
                 Id = competitionDTO.Id,
@@ -34,6 +36,11 @@
                     var dateOfEnd = taskDTO.DateTimeBegin + taskDTO.DurationTime;
                     task.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
                     task.IsActual = dateOfEnd < DateTime.Now;
+                    foreach(var address in taskDTO.Addresses)
+                    {
+                        stringBuilder.Append(address + "; ");
+                    }
+                    task.Addresses = stringBuilder.ToString();
                     stage.Tasks.Add(task);
                 }
                 competitionForAdminResponseModel.Stages.Add(stage);
