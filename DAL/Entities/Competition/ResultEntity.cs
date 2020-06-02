@@ -2,26 +2,25 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class ResultEntity : IIdentifier
     {
         public ResultEntity()
         {
-            this.PrizeEntityIds = new List<int>();
         }
 
         public ResultEntity(float mark = 0)
         {
-            this.PrizeEntityIds = new List<int>();
             this.Mark = mark;
         }
 
         public ResultEntity(
-            ICollection<int> prizeEntityIds,
+            int prizeEntityId,
             float mark, 
             string notes)
         {
-            this.PrizeEntityIds = prizeEntityIds;
+            this.PrizeEntityId = prizeEntityId;
             this.Mark = mark;
             this.Notes = notes;
         }
@@ -29,7 +28,11 @@
         [Key]
         public int Id { get; private set; }
 
-        public ICollection<int> PrizeEntityIds { get; set; }
+        [Required]
+        public int PrizeEntityId { get; set; }
+
+        [ForeignKey("PrizeEntityId")]
+        public PrizeEntity PrizeEntity { get; set; }
 
         [Required]
         [Range(0, float.MaxValue)]

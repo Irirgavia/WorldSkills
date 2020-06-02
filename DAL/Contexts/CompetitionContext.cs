@@ -3,6 +3,7 @@
     using System.Data.Entity;
 
     using DAL.Contexts.Initializers;
+    using DAL.Entities.Account;
     using DAL.Entities.Competition;
 
     public class CompetitionContext : DbContext
@@ -19,6 +20,8 @@
         }
 
         public DbSet<AnswerEntity> Answers { get; set; }
+
+        public DbSet<AddressEntity> Addresses { get; set; }
 
         public DbSet<CompetitionEntity> Competitions { get; set; }
 

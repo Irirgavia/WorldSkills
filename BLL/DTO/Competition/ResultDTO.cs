@@ -6,22 +6,21 @@
     {
         public ResultDTO()
         {
-            this.Prizes = new List<PrizeDTO>();
         }
 
         public ResultDTO(
-            ICollection<PrizeDTO> prizes,
+            int prize,
             float mark,
             string notes)
         {
             this.Mark = mark;
             this.Notes = notes;
-            this.Prizes = prizes;
+            this.Prize = prize;
         }
 
         public int Id { get; private set; }
 
-        public ICollection<PrizeDTO> Prizes { get; set; }
+        public int Prize { get; set; }
 
         public float Mark { get; set; }
 
