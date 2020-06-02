@@ -8,8 +8,6 @@
     {
         TEntity Create(TEntity item);
 
-        TEntity GetById(int id);
-
         IEnumerable<TEntity> GetAll();
 
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);

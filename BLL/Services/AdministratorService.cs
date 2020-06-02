@@ -65,7 +65,7 @@
                 telephone,
                 accountAddress.Id);
 
-            var role = this.accountUnitOfWork.RoleRepository.GetById(roleId);
+            var role = this.accountUnitOfWork.RoleRepository.Get(r => r.Id == roleId).FirstOrDefault();
             var credentials = new CredentialsEntity(login, PasswordHasher.Hash(password), role.Id);
 
             this.accountUnitOfWork.AccountRepository.Create(new AccountEntity(personalData, credentials));
@@ -162,7 +162,8 @@
 
         public AccountDTO GetAccountById(int id)
         {
-            return ObjectMapper<AccountEntity, AccountDTO>.Map(this.accountUnitOfWork.AccountRepository.GetById(id));
+            return ObjectMapper<AccountEntity, AccountDTO>.Map(
+                this.accountUnitOfWork.AccountRepository.Get(a => a.Id == id).FirstOrDefault());
         }
 
         public AccountDTO GetAccountByLogin(string login)
@@ -175,13 +176,13 @@
         public AddressDTO GetAccountAddressById(int id)
         {
             return ObjectMapper<AddressEntity, AddressDTO>.Map(
-                this.accountUnitOfWork.AddressRepository.GetById(id));
+                this.accountUnitOfWork.AddressRepository.Get(a => a.Id == id).FirstOrDefault());
         }
 
         public AddressDTO GetCompetitionAddressById(int id)
         {
             return ObjectMapper<AddressEntity, AddressDTO>.Map(
-                this.competitionUnitOfWork.AddressRepository.GetById(id));
+                this.competitionUnitOfWork.AddressRepository.Get(a => a.Id == id).FirstOrDefault());
         }
 
         public IEnumerable<AddressDTO> GetAddressesByPlace(
@@ -203,7 +204,7 @@
         public AnswerDTO GetAnswerById(int id)
         {
             return ObjectMapper<AnswerEntity, AnswerDTO>.Map(
-                this.competitionUnitOfWork.AnswerRepository.GetById(id));
+                this.competitionUnitOfWork.AnswerRepository.Get(a => a.Id == id).FirstOrDefault());
         }
 
         public CompetitionDTO GetCompetitionById(int id)
@@ -215,24 +216,24 @@
         public CredentialsDTO GetCredentialsById(int id)
         {
             return ObjectMapper<CredentialsEntity, CredentialsDTO>.Map(
-                this.accountUnitOfWork.CredentialsRepository.GetById(id));
+                this.accountUnitOfWork.CredentialsRepository.Get(c => c.Id == id).FirstOrDefault());
         }
 
         public PersonalDataDTO GetPersonalDataById(int id)
         {
             return ObjectMapper<PersonalDataEntity, PersonalDataDTO>.Map(
-                this.accountUnitOfWork.PersonalDataRepository.GetById(id));
+                this.accountUnitOfWork.PersonalDataRepository.Get(p => p.Id == id).FirstOrDefault());
         }
 
         public PrizeDTO GetPrizeById(int id)
         {
             return ObjectMapper<PrizeEntity, PrizeDTO>.Map(
-                this.competitionUnitOfWork.PrizeRepository.GetById(id));
+                this.competitionUnitOfWork.PrizeRepository.Get(p => p.Id == id).FirstOrDefault());
         }
 
         public RoleDTO GetRoleById(int id)
         {
-            return ObjectMapper<RoleEntity, RoleDTO>.Map(this.accountUnitOfWork.RoleRepository.GetById(id));
+            return ObjectMapper<RoleEntity, RoleDTO>.Map(this.accountUnitOfWork.RoleRepository.Get(r => r.Id == id).FirstOrDefault());
         }
 
         public RoleDTO GetRoleByName(string name)
@@ -244,12 +245,12 @@
         public ResultDTO GetResultById(int id)
         {
             return ObjectMapper<ResultEntity, ResultDTO>.Map(
-                this.competitionUnitOfWork.ResultRepository.GetById(id));
+                this.competitionUnitOfWork.ResultRepository.Get(r => r.Id == id).FirstOrDefault());
         }
 
         public SkillDTO GeTSkillById(int id)
         {
-            return ObjectMapper<SkillEntity, SkillDTO>.Map(this.competitionUnitOfWork.SkillRepository.GetById(id));
+            return ObjectMapper<SkillEntity, SkillDTO>.Map(this.competitionUnitOfWork.SkillRepository.Get(s => s.Id == id).FirstOrDefault());
         }
 
         public SkillDTO GetSkillByName(string skill)
@@ -260,7 +261,7 @@
 
         public StageDTO GetStageById(int id)
         {
-            return ObjectMapper<StageEntity, StageDTO>.Map(this.competitionUnitOfWork.StageRepository.GetById(id));
+            return ObjectMapper<StageEntity, StageDTO>.Map(this.competitionUnitOfWork.StageRepository.Get(s => s.Id == id).FirstOrDefault());
         }
 
         public IEnumerable<StageDTO> GetStagesByAccountId(int id)
@@ -279,7 +280,7 @@
         public StageTypeDTO GetStageTypeById(int id)
         {
             return ObjectMapper<StageTypeEntity, StageTypeDTO>.Map(
-                this.competitionUnitOfWork.StageTypeRepository.GetById(id));
+                this.competitionUnitOfWork.StageTypeRepository.Get(s => s.Id == id).FirstOrDefault());
         }
 
         public StageTypeDTO GetStageTypeByName(string name)
@@ -290,25 +291,25 @@
 
         public TaskDTO GetTaskById(int id)
         {
-            return ObjectMapper<TaskEntity, TaskDTO>.Map(this.competitionUnitOfWork.TaskRepository.GetById(id));
+            return ObjectMapper<TaskEntity, TaskDTO>.Map(this.competitionUnitOfWork.TaskRepository.Get(t => t.Id == id).FirstOrDefault());
         }
 
         public MailDTO GetMailById(int id)
         {
             return ObjectMapper<MailEntity, MailDTO>.Map(
-                this.systemUnitOfWork.MailRepository.GetById(id));
+                this.systemUnitOfWork.MailRepository.Get(m => m.Id == id).FirstOrDefault());
         }
 
         public NewsDTO GetNewsById(int id)
         {
             return ObjectMapper<NewsEntity, NewsDTO>.Map(
-                this.systemUnitOfWork.NewsRepository.GetById(id));
+                this.systemUnitOfWork.NewsRepository.Get(n => n.Id == id).FirstOrDefault());
         }
 
         public NotificationDTO GetNotificationById(int id)
         {
             return ObjectMapper<NotificationEntity, NotificationDTO>.Map(
-                this.systemUnitOfWork.NotificationRepository.GetById(id));
+                this.systemUnitOfWork.NotificationRepository.Get(n => n.Id == id).FirstOrDefault());
         }
 
         public void UpdateAccount(AccountDTO account)

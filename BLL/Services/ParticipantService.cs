@@ -71,7 +71,7 @@
 
         public void UpdateLoginAndPassword(int credentialsId, string login, string password)
         {
-            var credentials = this.accountUnitOfWork.CredentialsRepository.GetById(credentialsId);
+            var credentials = this.accountUnitOfWork.CredentialsRepository.Get(c => c.Id == credentialsId).FirstOrDefault();
             credentials.Login = login;
             credentials.Password = PasswordHasher.Hash(password);
             this.accountUnitOfWork.CredentialsRepository.Update(credentials);
