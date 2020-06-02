@@ -12,10 +12,10 @@ export class AdminTaskChange extends React.Component {
     this.finishEditing = this.finishEditing.bind(this);
     this.state = {
       finishEditingFlag: false,
-      taskDateOfBegin: "",
-      taskDateOfEnd: "",
-      description: "",
-      addresses: "",
+      taskDateOfBegin: this.props.task.TaskDateOfBegin,
+      taskDateOfEnd: this.props.task.TaskDateOfEnd,
+      description: this.props.task.Description,
+      addresses: this.props.task.Addresses,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -77,10 +77,9 @@ export class AdminTaskChange extends React.Component {
                 name="taskDateOfBegin"
                 onChange={this.handleInputChange}
                 maxLength="50"
+                value={this.state.taskDateOfBegin}
                 required
-              >
-                {this.props.task.TaskDateOfBegin}
-              </input>
+              />
             </p>
             <p>
               <label class="questionField" for="taskDateOfEnd">
@@ -93,10 +92,9 @@ export class AdminTaskChange extends React.Component {
                 name="taskDateOfEnd"
                 onChange={this.handleInputChange}
                 maxLength="50"
+                value={this.state.taskDateOfEnd}
                 required
-              >
-                {this.props.task.TaskDateOfEnd}
-              </input>
+              />
             </p>
             <p>
               <label class="questionField" for="description">
@@ -109,10 +107,9 @@ export class AdminTaskChange extends React.Component {
                 name="description"
                 onChange={this.handleInputChange}
                 maxLength="50"
+                value={this.state.description}
                 required
-              >
-                {this.props.task.Description}
-              </input>
+              />
             </p>
             <p>
               <label class="questionField" for="addresses">
@@ -125,10 +122,9 @@ export class AdminTaskChange extends React.Component {
                 name="addresses"
                 onChange={this.handleInputChange}
                 maxLength="50"
+                value={this.state.addresses}
                 required
-              >
-                {this.props.task.Addresses}
-              </input>
+              />
             </p>
             <button type="submit">Сохранить</button>
             <button onClick={this.finishEditing}>Вернуться</button>

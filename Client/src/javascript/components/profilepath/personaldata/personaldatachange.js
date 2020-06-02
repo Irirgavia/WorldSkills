@@ -9,16 +9,16 @@ export class PersonalDataChange extends React.Component {
     super(props);
     this.state = {
       finishEditingFlag: false,
-      surname: "",
-      name: "",
-      patronymic: "",
-      birthday: "",
-      mail: "",
-      telephone: "",
-      country: "",
-      city: "",
-      street: "",
-      house: "",
+      surname: this.props.items.Surname,
+      name: this.props.items.Name,
+      patronymic: this.props.items.Patronymic,
+      birthday: this.props.items.Birthday,
+      mail: this.props.items.Mail,
+      telephone: this.props.items.Telephone,
+      country: this.props.items.Country,
+      city: this.props.items.City,
+      street: this.props.items.Street,
+      house: this.props.items.House,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -95,10 +95,9 @@ export class PersonalDataChange extends React.Component {
               name="surname"
               onChange={this.handleInputChange}
               maxLength="50"
+              value={this.state.surname}
               required
-            >
-              {this.props.items.Surname}
-            </input>
+            />
           </p>
           <p>
             <label class="questionField" for="name">
@@ -111,10 +110,9 @@ export class PersonalDataChange extends React.Component {
               name="name"
               onChange={this.handleInputChange}
               maxLength="50"
+              value={this.state.name}
               required
-            >
-              {this.props.items.Name}
-            </input>
+            />
           </p>
           <p>
             <label class="questionField" for="patronymic">
@@ -126,10 +124,9 @@ export class PersonalDataChange extends React.Component {
               id="patronymic"
               name="patronymic"
               onChange={this.handleInputChange}
+              value={this.state.patronymic}
               maxLength="50"
-            >
-              {this.props.items.Patronymic}
-            </input>
+            />
           </p>
           <p>
             <label class="questionField" for="birthday">
@@ -142,9 +139,8 @@ export class PersonalDataChange extends React.Component {
               name="birthday"
               onChange={this.handleInputChange}
               pattern="[0-3][0-9].[0-1][0-9].(1|2)(0|1|9)[0-9][0-9]"
-            >
-              {this.props.items.Birthday}
-            </input>
+              value={this.state.birthday}
+            />
           </p>
           <p>
             <label class="questionField" for="mail">
@@ -157,9 +153,8 @@ export class PersonalDataChange extends React.Component {
               name="mail"
               onChange={this.handleInputChange}
               pattern=".*@[a-zA-Z_]+?\.[a-zA-Z_]{2,6}"
-            >
-              {this.props.items.Mail}
-            </input>
+              value={this.state.mail}
+            />
           </p>
           <p>
             <label class="questionField" for="telephone">
@@ -172,9 +167,8 @@ export class PersonalDataChange extends React.Component {
               name="telephone"
               onChange={this.handleInputChange}
               pattern="\+375[0-9]{9}"
-            >
-              {this.props.items.Telephone}
-            </input>
+              value={this.state.telephone}
+            />
           </p>
           <p>
             <label class="questionField">Адрес:</label>
@@ -190,9 +184,8 @@ export class PersonalDataChange extends React.Component {
               name="country"
               onChange={this.handleInputChange}
               maxLength="50"
-            >
-              {this.props.items.Country}
-            </input>
+              value={this.state.country}
+            />
           </p>
           <p>
             <label class="questionField" for="city">
@@ -205,9 +198,8 @@ export class PersonalDataChange extends React.Component {
               name="city"
               onChange={this.handleInputChange}
               maxLength="50"
-            >
-              {this.props.items.City}
-            </input>
+              value={this.state.city}
+            />
           </p>
           <p>
             <label class="questionField" for="street">
@@ -220,9 +212,8 @@ export class PersonalDataChange extends React.Component {
               name="street"
               onChange={this.handleInputChange}
               maxLength="50"
-            >
-              {this.props.items.Street}
-            </input>
+              value={this.state.street}
+            />
           </p>
           <p>
             <label class="questionField" for="house">
@@ -235,9 +226,8 @@ export class PersonalDataChange extends React.Component {
               name="house"
               onChange={this.handleInputChange}
               maxLength="50"
-            >
-              {this.props.items.House}
-            </input>
+              value={this.state.house}
+            />
           </p>
           <button type="submit">Сохранить</button>
           <button onClick={this.finishEditing.bind(this)}>Вернуться</button>

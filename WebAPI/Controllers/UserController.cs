@@ -18,6 +18,7 @@
         private static string wrongPasswordMessage = "WrongPassword";
         private static string successMessage = "Success";
 
+        [Route("api/user")]
         public IHttpActionResult Post([FromBody] UserRequestModel parameters)
         {
             var adminService = ServiceProvider.GetAdministratorService();
@@ -32,6 +33,7 @@
             //return Json(Test.TestDataForUserParticipant());
         }
 
+        [Route("api/user/save")]
         public IHttpActionResult Save([FromBody] AccountDataSaveRequestModel accountData)
         {
             var adminService = ServiceProvider.GetAdministratorService();

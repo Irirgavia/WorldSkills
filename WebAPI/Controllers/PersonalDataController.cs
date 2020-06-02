@@ -20,11 +20,12 @@
         public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            AccountDTO accountDTO = adminService.GetAccountById(userId.userId);
+            AccountDTO accountDTO = adminService.GetAccountById(userId.id);
             var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
             return Json(personalDataResponse);
         }
 
+        [Route("api/personaldata/update")]
         public IHttpActionResult Update([FromBody] PersonalDataSaveRequestModel parameters)
         {
             var adminService = ServiceProvider.GetAdministratorService();

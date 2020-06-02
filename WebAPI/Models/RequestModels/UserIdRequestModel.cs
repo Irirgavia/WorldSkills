@@ -2,6 +2,6 @@
 {
     public class UserIdRequestModel
     {
-        public int userId { get; set; }
+        public int id { get; set; }
     }
 }

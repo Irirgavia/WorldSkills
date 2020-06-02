@@ -16,9 +16,9 @@ export class AdminCompetititonsChange extends React.Component {
     this.state = {
       finishEditingFlag: false,
       changeCompetitionFlag: false,
-      skill: "",
-      dateOfBegin: "",
-      dateOfEnd: "",
+      skill: this.props.competition.Skill,
+      dateOfBegin: this.props.competition.DateOfBegin,
+      dateOfEnd: this.props.competition.DateOfEnd,
       competitionToChange: {},
     };
 
@@ -114,10 +114,9 @@ export class AdminCompetititonsChange extends React.Component {
                 name="skill"
                 maxLength="50"
                 onChange={this.handleInputChange}
+                value={this.state.skill}
                 required
-              >
-                {this.props.competition.Skill}
-              </input>
+              />
             </p>
             <p>
               <label class="questionField" for="dateOfBegin">
@@ -130,10 +129,9 @@ export class AdminCompetititonsChange extends React.Component {
                 name="dateOfBegin"
                 maxLength="50"
                 onChange={this.handleInputChange}
+                value={this.state.dateOfBegin}
                 required
-              >
-                {this.props.competition.DateOfBegin}
-              </input>
+              />
             </p>
             <p>
               <label class="questionField" for="dateOfEnd">
@@ -146,10 +144,9 @@ export class AdminCompetititonsChange extends React.Component {
                 name="dateOfEnd"
                 maxLength="50"
                 onChange={this.handleInputChange}
+                value={this.state.dateOfEnd}
                 required
-              >
-                {this.props.competition.DateOfEnd}
-              </input>
+              />
             </p>
             <button type="submit">Сохранить</button>
             <button onClick={this.finishEditing}>Вернуться</button>

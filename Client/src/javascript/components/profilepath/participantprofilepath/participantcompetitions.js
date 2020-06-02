@@ -105,7 +105,7 @@ export class ParticipantCompetititons extends React.Component {
                               class={"answer"}
                               onChange={this.handleInputChange}
                               key={task.Id}
-                            ></input>
+                            />
                           </td>
                           <td>
                             <button

@@ -10,6 +10,7 @@ namespace WebAPI.Controllers
 {
     public class StageController : ApiController
     {
+        [Route("api/stage/save")]
         public IHttpActionResult Save([FromBody] StageSaveRequestModel parameters)
         {
             return BadRequest();

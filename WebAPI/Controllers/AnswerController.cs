@@ -19,12 +19,12 @@
         /// </summary>
         /// <param name="judgeId"></param>
         /// <returns></returns>
-        [Route("/api/answer")]
+        [Route("api/answer")]
         public IHttpActionResult Receive([FromBody] UserIdRequestModel judgeId)
         {
             ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
             var adminService = ServiceProvider.GetAdministratorService();
-            var stages = adminService.GetStagesByAccountId(judgeId.userId);
+            var stages = adminService.GetStagesByAccountId(judgeId.id);
             foreach (var stage in stages)
             {
                 answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
@@ -32,6 +32,7 @@
             return Json(answerForJudgeModels);
         }
 
+        [Route("api/answer/save")]
         public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
             return BadRequest();

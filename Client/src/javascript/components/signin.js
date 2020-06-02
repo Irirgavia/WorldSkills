@@ -10,8 +10,8 @@ export class SignIn extends React.Component {
     super(props);
     this.logingIn = this.logingIn.bind(this);
     this.state = {
-      login: "",
-      password: "",
+      login: "login",
+      password: "password",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -51,9 +51,8 @@ export class SignIn extends React.Component {
               id="login"
               name="login"
               onChange={this.handleInputChange}
-            >
-              login
-            </input>
+              value={this.state.login}
+            />
           </p>
           <p>
             <label for="password">Пароль: </label>
@@ -62,9 +61,8 @@ export class SignIn extends React.Component {
               id="password"
               name="password"
               onChange={this.handleInputChange}
-            >
-              password
-            </input>
+              value={this.state.password}
+            />
           </p>
           <button type="submit">Войти</button>
           <Error error={this.props.error.message} />
