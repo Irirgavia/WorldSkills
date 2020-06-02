@@ -14,7 +14,7 @@
             var competitionForAdminResponseModel = new CompetitionResponseModel()
             {
                 Id = competitionDTO.Id,
-                Skill = competitionDTO.Id.ToString(),
+                Skill = competitionDTO.Skill.ToString(),
                 DateOfBegin = competitionDTO.DateTimeBegin.ToString(dateFormat),
                 DateOfEnd = competitionDTO.DateTimeEnd.ToString(dateFormat)
             };
