@@ -6,7 +6,7 @@
 
     public static class ServiceProvider
     {
-        private static ServiceModule serviceModule = new ServiceModule("AccountContext", "CompetitionContext", "NotificationContext");
+        private static ServiceModule serviceModule = new ServiceModule("AccountsDB", "CompetitionsDB", "SystemDB");
 
         private static IAdministratorService administratorService = null;
 
