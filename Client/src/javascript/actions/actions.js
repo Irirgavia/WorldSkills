@@ -126,7 +126,6 @@ function getDataGETRequest(queryTrailer) {
 function getDataByUserIdPOSTRequest(queryTrailer, id) {
   return (dispatch) => {
     dispatch(requestData());
-    let queryTrailer = "/personaldata/read";
     return fetch(ApiUrl + queryTrailer, {
       method: "POST",
       headers: {
@@ -178,12 +177,12 @@ export function getAnswersToRate(judgeId) {
 }
 
 export function getCompetitionsByAdmin(adminId) {
-  let queryTrailer = "/competitions/admin";
+  let queryTrailer = "/competition/admin";
   return getDataByUserIdPOSTRequest(queryTrailer, adminId);
 }
 
 export function getCompetitionsByParticipant(participantId) {
-  let queryTrailer = "/competitions/participant";
+  let queryTrailer = "/competition/participant";
   return getDataByUserIdPOSTRequest(queryTrailer, participantId);
 }
 

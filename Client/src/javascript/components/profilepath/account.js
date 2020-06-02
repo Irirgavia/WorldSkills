@@ -51,9 +51,8 @@ export class Account extends React.Component {
               id="newLogin"
               name="newLogin"
               onChange={this.handleInputChange}
-            >
-              {this.state.newLogin}
-            </input>
+              value={this.state.newLogin}
+            />
           </p>
           <p>
             <label for="oldPassword">Введите старый пароль: </label>
@@ -62,9 +61,8 @@ export class Account extends React.Component {
               id="oldPassword"
               name="oldPassword"
               onChange={this.handleInputChange}
-            >
-              {this.state.oldPassword}
-            </input>
+              value={this.state.oldPassword}
+            />
           </p>
           <p>
             <label for="newPassword">Введите новый пароль: </label>
@@ -73,9 +71,8 @@ export class Account extends React.Component {
               id="newPassword"
               name="newPassword"
               onChange={this.handleInputChange}
-            >
-              {this.state.newPassword}
-            </input>
+              value={this.state.newPassword}
+            />
           </p>
           <button type="submit">Сохранить</button>
           <Error error={this.props.error.message} />

@@ -15,7 +15,7 @@ export class AdminStageChange extends React.Component {
     this.state = {
       finishEditingFlag: false,
       changeStageFlag: false,
-      stagetype: "",
+      stagetype: this.props.stage.Type,
       stageToChange: {},
     };
 
@@ -110,10 +110,9 @@ export class AdminStageChange extends React.Component {
                 name="stagetype"
                 onChange={this.handleInputChange}
                 maxLength="50"
+                value={this.state.stagetype}
                 required
-              >
-                {this.props.stage.Type}
-              </input>
+              />
             </p>
             <button type="submit">Сохранить</button>
             <button onClick={this.finishEditing}>Вернуться</button>

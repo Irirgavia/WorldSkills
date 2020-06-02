@@ -83,7 +83,7 @@ export class JudgeAnswers extends React.Component {
                                   min="0"
                                   onChange={this.handleInputChange}
                                   key={answer.Id}
-                                ></input>
+                                />
                               </td>
                               <td>
                                 <button
