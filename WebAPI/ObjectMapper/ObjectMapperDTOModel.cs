@@ -133,10 +133,15 @@
             int day = int.Parse(splitDate[2]);
             int month = int.Parse(splitDate[1]);
             int year = int.Parse(splitDate[0]);
-            int hours = int.Parse(splitDate[3]);
-            int minutes = int.Parse(splitDate[4]);
-            DateTime dateTime = new DateTime(year, month, day, hours, minutes, 0);
-            return dateTime;
+            if (splitDate.Length == 3)
+            { return new DateTime(year, month, day); }
+            else
+            {
+                int hours = int.Parse(splitDate[3]);
+                int minutes = int.Parse(splitDate[4]);
+                DateTime dateTime = new DateTime(year, month, day, hours, minutes, 0);
+                return dateTime;
+            }
         }
     }
 }
