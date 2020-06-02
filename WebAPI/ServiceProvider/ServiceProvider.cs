@@ -6,7 +6,10 @@
 
     public static class ServiceProvider
     {
-        private static ServiceModule serviceModule = new ServiceModule("AccountsDB", "CompetitionsDB", "SystemDB");
+        private static ServiceModule serviceModule = new ServiceModule(
+            "AccountsDBconnection",
+            "CompetitionsDBconnection",
+            "SystemDBconnection");
 
         private static IAdministratorService administratorService = null;
 
