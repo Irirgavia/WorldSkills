@@ -100,31 +100,7 @@ export class AdminCompetititons extends React.Component {
                 {item.DateOfEnd}
               </p>
               {item.Stages.map((stage) => (
-                <div class="stage">
-                  <p class="stagetype">Этап: {stage.Type}</p>
-                  <table class="tasks" border="1">
-                    <thead>
-                      <tr>
-                        <th>Дата начала</th>
-                        <th>Дата конца</th>
-                        <th>Задание</th>
-                        <th>Адреса</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {stage.Tasks.map((task) => (
-                        <tr class={"task " + task.IsActual}>
-                          <td>{task.TaskDateOfBegin}</td>
-                          <td>{task.TaskDateOfEnd}</td>
-                          <td>
-                            <a href={task.Description}>Задание</a>
-                          </td>
-                          <td>{task.Addresses}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <Stage stage={stage} />
               ))}
               <button
                 class={"competitionButton"}
@@ -163,3 +139,51 @@ let mapDispatch = (dispatch) => {
 export default connect(mapProps, mapDispatch)(AdminCompetititons);
 /*                    <button class={"competitionButton"} key={index} ref={(button) => {this.CompetitionEditButtons[this.props.items.findIndex(item)] = button }} onClick={this.editCompetition.bind(this)}>Редактировать соревнование</button>
  */
+
+class Stage extends React.Component {
+  render() {
+    if (this.props.Tasks.length == 0) {
+      return (
+        <div class="stage">
+          <p class="stagetype">Этап: {stage.Type}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div class="stage">
+          <p class="stagetype">Этап: {stage.Type}</p>
+          <table class="tasks" border="1">
+            <thead>
+              <tr>
+                <th>Дата начала</th>
+                <th>Дата конца</th>
+                <th>Задание</th>
+                <th>Адреса</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stage.Tasks.map((task) => (
+                <Task task={task} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+  }
+}
+
+class Task extends React.Component {
+  render() {
+    return (
+      <tr class={"task " + this.props.task.IsActual}>
+        <td>{this.props.task.TaskDateOfBegin}</td>
+        <td>{this.props.task.TaskDateOfEnd}</td>
+        <td>
+          <a href={this.props.task.Description}>Задание</a>
+        </td>
+        <td>{this.props.task.Addresses}</td>
+      </tr>
+    );
+  }
+}
