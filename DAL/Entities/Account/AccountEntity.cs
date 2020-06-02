@@ -35,14 +35,14 @@
         public int PersonalDataEntityId { get; set; }
 
         [ForeignKey("PersonalDataEntityId")]
-        public PersonalDataEntity PersonalDataIdEntity { get; private set; }
+        public PersonalDataEntity PersonalDataIdEntity { get; set; }
 
         [Required]
         [Index(IsUnique = true)]
         public int CredentialsEntityId { get; private set; }
 
         [ForeignKey("CredentialsEntityId")]
-        public CredentialsEntity CredentialsIdEntity { get; private set; }
+        public CredentialsEntity CredentialsIdEntity { get; set; }
 
         [Required]
         public bool IsMailNotificationTurnOn { get; set; }

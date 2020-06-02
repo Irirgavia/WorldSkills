@@ -1,7 +1,5 @@
 ﻿namespace BLL.DTO.Competition
 {
-    using System.Collections.Generic;
-
     public class ResultDTO
     {
         public ResultDTO()
@@ -9,7 +7,7 @@
         }
 
         public ResultDTO(
-            int prize,
+            PrizeDTO prize,
             float mark,
             string notes)
         {
@@ -20,7 +18,7 @@
 
         public int Id { get; private set; }
 
-        public int Prize { get; set; }
+        public PrizeDTO Prize { get; set; }
 
         public float Mark { get; set; }
 
