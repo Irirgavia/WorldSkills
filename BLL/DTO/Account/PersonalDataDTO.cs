@@ -15,7 +15,8 @@
             DateTime birthday,
             string photo,
             string mail,
-            string telephone)
+            string telephone,
+            AddressDTO address)
         {
             this.Surname = surname;
             this.Name = name;
@@ -24,6 +25,7 @@
             this.Photo = photo;
             this.Mail = mail;
             this.Telephone = telephone;
+            this.Address = address;
         }
 
         public int Id { get; private set; }
