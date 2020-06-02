@@ -10,10 +10,14 @@
     using Models.RequestModels;
     using Models.ResponseModels;
     using ServiceProvider;
-    using BLL.DTO;
+    using BLL.DTO.Account;
 
     public class UserController : ApiController
     {
+        private static string loginExistsMessage = "LoginExists";
+        private static string wrongPasswordMessage = "WrongPassword";
+        private static string successMessage = "Success";
+
         public IHttpActionResult Post([FromBody] UserRequestModel parameters)
         {
             var adminService = ServiceProvider.GetAdministratorService();
@@ -26,6 +30,27 @@
 
             return Json(user);
             //return Json(Test.TestDataForUserParticipant());
+        }
+
+        public IHttpActionResult Save([FromBody] AccountDataSaveRequestModel accountData)
+        {
+            var adminService = ServiceProvider.GetAdministratorService();
+            var guestService = ServiceProvider.GetGuestService();
+            var serviceResponse = guestService.GetAccount(accountData.oldLogin, accountData.oldPassword);
+            var credentials = serviceResponse.account.Credentials;
+            if (credentials.Login != accountData.newLogin)
+            {
+                var existedAccount = adminService.GetAccountByLogin(accountData.newLogin);
+                if (existedAccount != null)
+                {
+                    return Json(loginExistsMessage);
+                }
+                else credentials.Login = accountData.newLogin;
+            }
+            if (!serviceResponse.isPasswordValid)
+                return Json(wrongPasswordMessage);
+            credentials.Password = accountData.newPassword;
+            return Json(successMessage);
         }
     }
 }
