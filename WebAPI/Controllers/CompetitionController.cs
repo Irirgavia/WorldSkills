@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 
     public class CompetitionController : ApiController
     {
-        [Route("api/competitions/admin")]
+        [Route("api/competition/admin")]
         public IHttpActionResult ReceiveByAdminId([FromBody] UserIdRequestModel adminId)
         {
             var service = ServiceProvider.GetGuestService();
@@ -28,11 +28,11 @@ namespace WebAPI.Controllers
             return Json(response);
         }
 
-        [Route("api/competitions/participant")]
+        [Route("api/competition/participant")]
         public IHttpActionResult ReceiveByParticipant([FromBody] UserIdRequestModel participantId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            var stages = adminService.GetStagesByAccountId(participantId.userId);
+            var stages = adminService.GetStagesByAccountId(participantId.id);
             ICollection<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel> response = new List<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel>();
             foreach (var stage in stages)
             {
@@ -41,6 +41,7 @@ namespace WebAPI.Controllers
             return Json(response);
         }
 
+        [Route("api/competition/save")]
         public IHttpActionResult Save([FromBody] CompetitionSaveRequestModel parameters)
         {
             var adminService = ServiceProvider.GetAdministratorService();

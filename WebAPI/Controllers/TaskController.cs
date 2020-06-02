@@ -10,6 +10,7 @@ namespace WebAPI.Controllers
 {
     public class TaskController : ApiController
     {
+        [Route("api/task/save")]
         public IHttpActionResult Save([FromBody] TaskSaveRequestModel parameters)
         {
             return BadRequest();

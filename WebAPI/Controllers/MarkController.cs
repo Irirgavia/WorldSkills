@@ -12,6 +12,7 @@ namespace WebAPI.Controllers
 
     public class MarkController : ApiController
     {
+        [Route("api/mark/save")]
         public IHttpActionResult Save([FromBody] MarkSaveRequestModel parameters)
         {
             var judgeService = ServiceProvider.GetJudgeService();
