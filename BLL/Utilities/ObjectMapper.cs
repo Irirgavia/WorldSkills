@@ -24,9 +24,8 @@
                 {
                     cfg.CreateMap<AccountDTO, AccountEntity>()
                        .ForMember(a => a.CredentialsIdEntity, p => p.MapFrom(b => b.Credentials))
-                       .ForPath(a => a.CredentialsIdEntity, p => p.MapFrom(b => b.Credentials.Id))
-                       .ForMember(a => a.PersonalDataIdEntity, p => p.MapFrom(b => b.PersonalData))
-                       .ForPath(a => a.PersonalDataEntityId, p => p.MapFrom(b => b.PersonalData.Id));
+                       .ForMember(a => a.PersonalDataIdEntity, p => p.MapFrom(b => b.PersonalData));
+
                     cfg.CreateMap<AccountEntity, AccountDTO>()
                        .ForMember(a => a.Credentials, p => p.MapFrom(b => b.CredentialsIdEntity))
                        .ForMember(a => a.PersonalData, p => p.MapFrom(b => b.PersonalDataIdEntity));
@@ -35,14 +34,13 @@
                     cfg.CreateMap<AddressEntity, AddressDTO>();
 
                     cfg.CreateMap<CredentialsDTO, CredentialsEntity>()
-                       .ForMember(a => a.RoleEntity, p => p.MapFrom(b => b.Role))
-                       .ForPath(a => a.RoleEntityId, p => p.MapFrom(b => b.Role.Id));
+                       .ForMember(a => a.RoleEntity, p => p.MapFrom(b => b.Role));
                     cfg.CreateMap<CredentialsEntity, CredentialsDTO>()
                        .ForMember(a => a.Role, p => p.MapFrom(b => b.RoleEntity));
 
                     cfg.CreateMap<PersonalDataDTO, PersonalDataEntity>()
-                       .ForMember(a => a.AddressEntity, p => p.MapFrom(b => b.Address))
-                       .ForPath(a => a.AddressEntityId, p => p.MapFrom(b => b.Address.Id));
+                       .ForMember(a => a.AddressEntity, p => p.MapFrom(b => b.Address));
+
                     cfg.CreateMap<PersonalDataEntity, PersonalDataDTO>()
                        .ForMember(a => a.Address, p => p.MapFrom(b => b.AddressEntity));
 
@@ -50,15 +48,12 @@
                     cfg.CreateMap<RoleEntity, RoleDTO>();
 
                     cfg.CreateMap<AnswerDTO, AnswerEntity>()
-                       .ForMember(a => a.TaskEntityId, p => p.MapFrom(b => b.TaskId))
                        .ForMember(a => a.ResultEntity, p => p.MapFrom(b => b.Result));
                     cfg.CreateMap<AnswerEntity, AnswerDTO>()
-                       .ForMember(a => a.TaskId, p => p.MapFrom(b => b.TaskEntityId))
                        .ForMember(a => a.Result, p => p.MapFrom(b => b.ResultEntity));
 
                     cfg.CreateMap<CompetitionDTO, CompetitionEntity>()
                        .ForMember(a => a.SkillEntity, p => p.MapFrom(b => b.Skill))
-                       .ForMember(a => a.SkillEntityId, p => p.MapFrom(b => b.Skill.Id))
                        .ForMember(a => a.StageEntities, p => p.MapFrom(b => b.Stages));
                     cfg.CreateMap<CompetitionEntity, CompetitionDTO>()
                        .ForMember(a => a.Skill, p => p.MapFrom(b => b.SkillEntity))
@@ -68,8 +63,7 @@
                     cfg.CreateMap<PrizeEntity, PrizeDTO>();
 
                     cfg.CreateMap<ResultDTO, ResultEntity>()
-                       .ForMember(a => a.PrizeEntity, p => p.MapFrom(b => b.Prize))
-                       .ForPath(a => a.PrizeEntityId, p => p.MapFrom(b => b.Prize.Id));
+                       .ForMember(a => a.PrizeEntity, p => p.MapFrom(b => b.Prize));
                     cfg.CreateMap<ResultEntity, ResultDTO>()
                        .ForMember(a => a.Prize, p => p.MapFrom(b => b.PrizeEntity));
 
@@ -77,12 +71,9 @@
                     cfg.CreateMap<SkillEntity, SkillDTO>();
 
                     cfg.CreateMap<StageDTO, StageEntity>()
-                       .ForMember(a => a.CompetitionEntityId, p => p.MapFrom(b => b.CompetitionId))
                        .ForMember(a => a.StageTypeEntity, p => p.MapFrom(b => b.StageType))
-                       .ForPath(a => a.StageTypeEntityId, p => p.MapFrom(b => b.StageType.Id))
                        .ForMember(a => a.TaskEntities, p => p.MapFrom(b => b.Tasks));
                     cfg.CreateMap<StageEntity, StageDTO>()
-                       .ForMember(a => a.CompetitionId, p => p.MapFrom(b => b.CompetitionEntityId))
                        .ForMember(a => a.StageType, p => p.MapFrom(b => b.StageTypeEntity))
                        .ForMember(a => a.Tasks, p => p.MapFrom(b => b.TaskEntities));
 
@@ -90,11 +81,10 @@
                     cfg.CreateMap<StageTypeEntity, StageTypeDTO>();
 
                     cfg.CreateMap<TaskDTO, TaskEntity>()
-                       .ForMember(a => a.StageEntityId, p => p.MapFrom(b => b.StageId))
                        .ForMember(a => a.AnswerEntities, p => p.MapFrom(b => b.Answers))
                        .ForMember(a => a.AddressEntities, p => p.MapFrom(b => b.Addresses));
+
                     cfg.CreateMap<TaskEntity, TaskDTO>()
-                       .ForMember(a => a.StageId, p => p.MapFrom(b => b.StageEntityId))
                        .ForMember(a => a.Answers, p => p.MapFrom(b => b.AnswerEntities))
                        .ForMember(a => a.Addresses, p => p.MapFrom(b => b.AddressEntities));
 

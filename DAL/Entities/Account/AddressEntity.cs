@@ -22,15 +22,15 @@
         public int Id { get; private set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(25)]
         public string Country { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(25)]
         public string City { get; set; }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(25)]
         public string Street { get; set; }
 
         [Required]

@@ -30,6 +30,10 @@
             string apartments,
             string notes);
 
+        void CreateAnswer(int accountId, int taskId, string projectLink, string notes);
+
+        void CreateCompetition(DateTime begin, DateTime end, string skill);
+
         void CreateCompetitionAddress(
             string country,
             string city,
@@ -38,9 +42,6 @@
             string apartment,
             string notes);
 
-        void CreateAnswer(int accountId, int taskId, string projectLink, string notes);
-
-        void CreateCompetition(DateTime begin, DateTime end, string skill);
 
         void CreateSkill(string skill);
 
@@ -55,14 +56,11 @@
             ICollection<AddressDTO> addresses,
             ICollection<AnswerDTO> answers);
 
+        AddressDTO GetAccountAddressById(int id);
+
         AccountDTO GetAccountById(int id);
 
         AccountDTO GetAccountByLogin(string login);
-
-
-        AddressDTO GetAccountAddressById(int id);
-
-        AddressDTO GetCompetitionAddressById(int id);
 
         IEnumerable<AddressDTO> GetAddressesByPlace(
             string country,
@@ -73,19 +71,27 @@
 
         AnswerDTO GetAnswerById(int id);
 
+        AddressDTO GetCompetitionAddressById(int id);
+
         CompetitionDTO GetCompetitionById(int id);
 
         CredentialsDTO GetCredentialsById(int id);
+
+        MailDTO GetMailById(int id);
+
+        NewsDTO GetNewsById(int id);
+
+        NotificationDTO GetNotificationById(int id);
 
         PersonalDataDTO GetPersonalDataById(int id);
 
         PrizeDTO GetPrizeById(int id);
 
+        ResultDTO GetResultById(int id);
+
         RoleDTO GetRoleById(int id);
 
         RoleDTO GetRoleByName(string name);
-
-        ResultDTO GetResultById(int id);
 
         SkillDTO GeTSkillById(int id);
 
@@ -103,24 +109,36 @@
 
         TaskDTO GetTaskById(int id);
 
-        MailDTO GetMailById(int id);
-
-        NewsDTO GetNewsById(int id);
-
-        NotificationDTO GetNotificationById(int id);
-
         void UpdateAccount(AccountDTO account);
 
         void UpdateAccountAddress(AddressDTO address);
 
-        void UpdateCompetitionAddress(AddressDTO address);
-
         void UpdateCompetition(CompetitionDTO competition);
+
+        void UpdateCompetitionAddress(AddressDTO address);
 
         void UpdateCredentials(CredentialsDTO credentials);
 
         void UpdatePersonalData(PersonalDataDTO personalData);
 
+        void UpdatePrize(PrizeDTO prize);
+
+        void UpdateResult(ResultDTO result);
+
         void UpdateRole(RoleDTO role);
+
+        void UpdateSkill(SkillDTO skill);
+
+        void UpdateStage(StageDTO stage);
+
+        void UpdateStageType(StageTypeDTO stageType);
+
+        void UpdateTask(TaskDTO task);
+
+        void UpdateMail(MailDTO mail);
+
+        void UpdateNews(NewsDTO news);
+
+        void UpdateNotification(NotificationDTO notification);
     }
 }

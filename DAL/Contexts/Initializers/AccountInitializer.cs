@@ -29,7 +29,7 @@
                     1));
             context.SaveChanges();
 
-            context.Credentials.Add(new CredentialsEntity("login", "password", 1));
+            context.Credentials.Add(new CredentialsEntity("login", "$MYHASH$V1$10000$NG68+dRcLxrzZXK4kKghmsG3K2EVfT/7hUqBugQVaql5fXMi", 1));
             context.SaveChanges();
 
             context.Accounts.Add(

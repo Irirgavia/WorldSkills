@@ -136,7 +136,6 @@
     <Compile Include="Utilities\MessageUtility.cs" />
     <Compile Include="Utilities\ObjectMapper.cs" />
     <Compile Include="Utilities\PasswordHasher.cs" />
-    <Compile Include="Utilities\ValidateUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

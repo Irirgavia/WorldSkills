@@ -22,5 +22,6 @@
         [Index(IsUnique = true)]
         [MaxLength(30)]
         public string Name { get; set; }
+
     }
 }
