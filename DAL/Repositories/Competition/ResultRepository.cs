@@ -20,7 +20,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(r => r.PrizeEntityIds)
+                .Include(s => s.PrizeEntity)
                 .AsEnumerable();
         }
 
@@ -28,7 +28,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(r => r.PrizeEntityIds)
+                .Include(s => s.PrizeEntity)
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -37,7 +37,6 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(r => r.PrizeEntityIds)
                 .Where(r => r.Mark >= begin && r.Mark <= end)
                 .AsEnumerable();
         }
@@ -46,8 +45,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
-                .Include(r => r.PrizeEntityIds)
-                .Where(r => r.PrizeEntityIds.Contains(prize.Id))
+                .Where(r => r.PrizeEntityId == prize.Id)
                 .AsEnumerable();
         }
     }
