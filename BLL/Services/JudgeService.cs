@@ -18,7 +18,7 @@
         public JudgeService(string competitionConnection, string accountConnection)
         {
             this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionConnection);
-            this.competitionUnitOfWork = new CompetitionUnitOfWork(accountConnection);
+            this.accountUnitOfWork = new AccountUnitOfWork(accountConnection);
         }
 
         public void RateAnswer(int answerId, float mark, string notes)

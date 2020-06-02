@@ -20,10 +20,10 @@
 
         private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 
-        public ParticipantService(string connection)
+        public ParticipantService(string accountUnitOfWork, string competitionUnitOfWork)
         {
-            this.competitionUnitOfWork = new CompetitionUnitOfWork(connection);
-            this.accountUnitOfWork = new AccountUnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionUnitOfWork);
+            this.accountUnitOfWork = new AccountUnitOfWork(accountUnitOfWork);
         }
 
         public void Dispose()
