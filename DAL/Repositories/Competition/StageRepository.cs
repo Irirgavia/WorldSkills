@@ -19,8 +19,9 @@
         {
             return this.DbSet
                 .AsNoTracking()
+                .Include(s => s.StageTypeEntity)
                 .Include(s => s.TaskEntities.Select(t => t.AddressEntities))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds)))
+                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntity)))
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -29,8 +30,9 @@
         {
             return this.DbSet
                 .AsNoTracking()
+                .Include(s => s.StageTypeEntity)
                 .Include(s => s.TaskEntities.Select(t => t.AddressEntities))
-                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds)))
+                .Include(s => s.TaskEntities.Select(t => t.AnswerEntities.Select(a => a.ResultEntity.PrizeEntity)))
                 .AsEnumerable();
         }
     }

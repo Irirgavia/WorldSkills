@@ -18,12 +18,12 @@
         public JudgeService(string competitionConnection, string accountConnection)
         {
             this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionConnection);
-            this.competitionUnitOfWork = new CompetitionUnitOfWork(accountConnection);
+            this.accountUnitOfWork = new AccountUnitOfWork(accountConnection);
         }
 
         public void RateAnswer(int answerId, float mark, string notes)
         {
-            var answer = this.competitionUnitOfWork.AnswerRepository.GetById(answerId);
+            var answer = this.competitionUnitOfWork.AnswerRepository.Get(a => a.Id == answerId).FirstOrDefault();
             answer.ResultEntity.Mark = mark;
             answer.ResultEntity.Notes = notes;
             this.competitionUnitOfWork.AnswerRepository.Update(answer);

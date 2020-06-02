@@ -20,7 +20,7 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.AddressEntities)
-                .Include(c => c.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds))
+                .Include(c => c.AnswerEntities.Select(a => a.ResultEntity.PrizeEntity))
                 .AsEnumerable();
         }
 
@@ -29,7 +29,7 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(c => c.AddressEntities)
-                .Include(c => c.AnswerEntities.Select(a => a.ResultEntity.PrizeEntityIds))
+                .Include(c => c.AnswerEntities.Select(a => a.ResultEntity.PrizeEntity))
                 .AsEnumerable()
                 .Where(predicate);
         }

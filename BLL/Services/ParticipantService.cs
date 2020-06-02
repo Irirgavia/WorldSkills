@@ -20,10 +20,10 @@
 
         private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 
-        public ParticipantService(string connection)
+        public ParticipantService(string accountUnitOfWork, string competitionUnitOfWork)
         {
-            this.competitionUnitOfWork = new CompetitionUnitOfWork(connection);
-            this.accountUnitOfWork = new AccountUnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionUnitOfWork);
+            this.accountUnitOfWork = new AccountUnitOfWork(accountUnitOfWork);
         }
 
         public void Dispose()
@@ -71,7 +71,7 @@
 
         public void UpdateLoginAndPassword(int credentialsId, string login, string password)
         {
-            var credentials = this.accountUnitOfWork.CredentialsRepository.GetById(credentialsId);
+            var credentials = this.accountUnitOfWork.CredentialsRepository.Get(c => c.Id == credentialsId).FirstOrDefault();
             credentials.Login = login;
             credentials.Password = PasswordHasher.Hash(password);
             this.accountUnitOfWork.CredentialsRepository.Update(credentials);

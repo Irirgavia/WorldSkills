@@ -20,10 +20,10 @@
 
         private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 
-        public GuestService(string connection)
+        public GuestService(string accountUnitOfWork, string competitionUnitOfWork)
         {
-            this.competitionUnitOfWork = new CompetitionUnitOfWork(connection);
-            this.accountUnitOfWork = new AccountUnitOfWork(connection);
+            this.competitionUnitOfWork = new CompetitionUnitOfWork(competitionUnitOfWork);
+            this.accountUnitOfWork = new AccountUnitOfWork(accountUnitOfWork);
         }
 
         public void Dispose()
@@ -37,6 +37,7 @@
             var accountDto = ObjectMapper<AccountEntity, AccountDTO>.Map(
                 this.accountUnitOfWork.AccountRepository.Get(a => a.CredentialsIdEntity.Login == login)
                     .FirstOrDefault());
+
             if (accountDto == null) return (account: null, isPasswordValid: false);
 
             if (!PasswordHasher.Verify(password, accountDto.Credentials.Password))

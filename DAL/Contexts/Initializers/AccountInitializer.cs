@@ -6,13 +6,13 @@
 
     using DAL.Entities.Account;
 
-    public class AccountInitializer : DropCreateDatabaseAlways<AccountContext>
+    public class AccountInitializer : DropCreateDatabaseIfModelChanges<AccountContext>
     {
         protected override void Seed(AccountContext context)
         {
-            context.Roles.Add(new RoleEntity("Administrator"));
-            context.Roles.Add(new RoleEntity("Judge"));
-            context.Roles.Add(new RoleEntity("Participant"));
+            context.Roles.Add(new RoleEntity("administrator"));
+            context.Roles.Add(new RoleEntity("judge"));
+            context.Roles.Add(new RoleEntity("participant"));
 
             context.Addresses.Add(new AddressEntity("country", "city", "street", "house", "notes", "apartment"));
             context.SaveChanges();

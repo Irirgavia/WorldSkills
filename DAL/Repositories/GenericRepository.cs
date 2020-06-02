@@ -32,11 +32,6 @@
             return this.DbSet.AsNoTracking().Where(predicate).ToList();
         }
 
-        public virtual TEntity GetById(int id)
-        {
-            return this.DbSet.Find(id);
-        }
-
         public TEntity Create(TEntity item)
         {
             return this.DbSet.Add(item);
