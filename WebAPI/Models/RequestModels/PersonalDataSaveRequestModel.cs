@@ -21,8 +21,6 @@ namespace WebAPI.Models.RequestModels
 
         public string telephone { get; set; }
 
-        public int addressId { get; set; }
-
         public string country { get; set; }
 
         public string city { get; set; }

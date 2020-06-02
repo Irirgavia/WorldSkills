@@ -44,7 +44,6 @@ export class PersonalDataChange extends React.Component {
       birthday: this.state.birthday,
       mail: this.state.mail,
       telephone: this.state.telephone,
-      addressId: this.props.addressId,
       country: this.state.country,
       city: this.state.city,
       street: this.state.street,
@@ -78,6 +77,10 @@ export class PersonalDataChange extends React.Component {
           <Redirect
             from="/trainer/personaldata/change"
             to="/trainer/personaldata"
+          />
+          <Redirect
+            from="/administrator/personaldata/change"
+            to="/administrator/personaldata"
           />
         </div>
       );
@@ -239,6 +242,7 @@ export class PersonalDataChange extends React.Component {
 
 let mapProps = (state) => {
   return {
+    userId: state.user.id,
     items: state.data,
     isSignedIn: state.isSignedIn,
     isFetching: state.isFetching,
