@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { saveCompetition } from "../../../actions/actions.js";
-import { AdminCompetititons } from "../admincompetition.js";
-import { AdminStageChange } from "./adminstagechange.js";
-import Error from "../../system/error.js";
-import Loading from "../../system/loading.js";
+import { saveCompetition } from "../../../../actions/actions.js";
+import AdminCompetititons from "../admincompetition.js";
+import AdminStageChange from "./adminstagechange.js";
+import Error from "../../../system/error.js";
+import Loading from "../../../system/loading.js";
 
 export class AdminCompetititonsChange extends React.Component {
   constructor(props) {
@@ -89,7 +89,6 @@ export class AdminCompetititonsChange extends React.Component {
     } else if (this.state.finishEditingFlag) {
       return (
         <div>
-          Сохранено.
           <AdminCompetititons />
         </div>
       );

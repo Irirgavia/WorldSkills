@@ -13,11 +13,13 @@ import Contacts from "./components/contacts.js";
 import SignIn from "./components/signin.js";
 import SignOut from "./components/signout.js";
 import PersonalData from "./components/profilepath/personaldata/personaldata.js";
+import PersonalDataChange from "./components/profilepath/personaldata/personaldatachange.js";
 import Notifications from "./components/profilepath/notifications.js";
 import JudgeAnswers from "./components/profilepath/judgeprofilepath/judgeanswers.js";
 import ParticipantCompetitions from "./components/profilepath/participantprofilepath/participantcompetitions.js";
 import ParticipantPersonalData from "./components/profilepath/participantprofilepath/participantpersonaldata.js";
 import ParticipantResults from "./components/profilepath/participantprofilepath/participantresults.js";
+import AdministratorCompetitions from "./components/profilepath/adminprofilepath/admincompetition.js";
 import TrainerResults from "./components/profilepath/trainerprofilepath/trainerresults.js";
 import NotFound from "./components/system/notfound.js";
 
@@ -39,22 +41,52 @@ export default class App extends React.Component {
             <Route path="/signin" component={SignIn} />
             <Route path="/signout" component={SignOut} />
             <Route path="/judge/answers" component={JudgeAnswers} />
-            <Route path="/judge/personaldata" component={PersonalData} />
+            <Route exact path="/judge/personaldata" component={PersonalData} />
+            <Route
+              path="/judge/personaldata/change"
+              component={PersonalDataChange}
+            />
             <Route path="/judge/notifications" component={Notifications} />
             <Route
               path="/participant/competitions"
               component={ParticipantCompetitions}
             />
             <Route
+              exact
               path="/participant/personaldata"
               component={ParticipantPersonalData}
+            />
+            <Route
+              path="/participant/personaldata/change"
+              component={PersonalDataChange}
             />
             <Route
               path="/participant/notifications"
               component={Notifications}
             />
             <Route path="/participant/results" component={ParticipantResults} />
-            <Route path="/trainer/personaldata" component={PersonalData} />
+            <Route
+              exact
+              path="/administrator/personaldata"
+              component={PersonalData}
+            />
+            <Route
+              path="/administrator/personaldata/change"
+              component={PersonalDataChange}
+            />
+            <Route
+              path="/administrator/competitions"
+              component={AdministratorCompetitions}
+            />
+            <Route
+              exact
+              path="/trainer/personaldata"
+              component={PersonalData}
+            />
+            <Route
+              path="/trainer/personaldata/change"
+              component={PersonalDataChange}
+            />
             <Route path="/trainer/notifications" component={Notifications} />
             <Route path="/trainer/results" component={TrainerResults} />
             <Route component={NotFound} />

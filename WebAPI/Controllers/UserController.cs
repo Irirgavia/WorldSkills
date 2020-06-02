@@ -16,6 +16,9 @@
     {
         public IHttpActionResult Post([FromBody] UserRequestModel parameters)
         {
+            var adminService = ServiceProvider.GetAdministratorService();
+            var stageType = adminService.GetStageTypeById(1);
+
             var guestService = ServiceProvider.GetGuestService();
             var serviceResponse = guestService.GetAccount(parameters.login, parameters.password);
             int unreadNotificationAmount = 0;

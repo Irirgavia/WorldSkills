@@ -1,23 +1,10 @@
-//import { CALL_API, Schemas } from '../middleware/api'
-/*import {USER_REQUEST, USER_SUCCESS, USER_FAILURE} from '../constants/constants.js'
-
-const fetchUser = login => ({
-    types: [ USER_REQUEST, USER_SUCCESS, USER_FAILURE ],
-    login
-})
-
-export const loadUser = (login, requiredFields = []) => (dispatch, getState) => {
-  const user = getState().entities.users[login]
-  if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
-    return null
-  }
-
-  return dispatch(fetchUser(login))
-}*/
-
 import * as constants from "../constants/constants.js";
 
 const ApiUrl = "http://localhost:49263/api";
+
+//ACTIONS CREATORS
+
+//DATA ACTIONS
 
 export function requestData() {
   return {
@@ -39,53 +26,7 @@ export function errorReceiveData(err) {
   };
 }
 
-export function readNotificationAction() {
-  return {
-    type: constants.READ_NOTIFICATION,
-  };
-}
-
-//fetch("https://localhost:49263/api/results?skill=skill&stage=stage&year=year")
-export function getResultsByYear(skill, stage, year) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer =
-      "/results?skill=" + skill + "&stage=" + stage + "&year=" + year;
-    return fetch(
-      ApiUrl +
-        queryTrailer /*"http://localhost:49263/api/results?skill=" + skill + '&stage=' + stage + '&year=' + year*/
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-//fetch("https://localhost:49263/api/schedule")
-export function getSchedule() {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/schedule";
-    return fetch(
-      ApiUrl + queryTrailer /*"http://localhost:49263/api/schedule"*/
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        console.log(ex);
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
+//USER ACTIONS
 
 export function requestUser() {
   return {
@@ -119,306 +60,13 @@ export function errorReceiveUser(err) {
   };
 }
 
-//fetch("https://localhost:49263/api/user")
-export function getUser(login, password) {
-  return (dispatch) => {
-    dispatch(requestUser());
-    let queryTrailer = "/user";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: login,
-        password: password,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.Status == "NotFound") {
-          console.log(data.Status + "NotFound");
-          dispatch(receiveUserNotFound());
-        } else if (data.Status == "WrongPassword") {
-          console.log(data.Status + "WrongPassword");
-          dispatch(receiveUserWrongPassword());
-        } else if (data.Status == "Success") {
-          console.log(data.Status + "Success");
-          dispatch(receiveUser(data));
-        }
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveUser(ex));
-      });
-  };
-}
-
 export function logoutUserAction() {
   return {
     type: constants.USER_LOGOUT,
   };
 }
 
-export function logOutUser() {
-  return (dispatch) => {
-    dispatch(logoutUserAction());
-  };
-}
-
-export function getPersonalData(userId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/personaldata";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: userId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-function saveDataPOSTRequest(queryTrailer, data) {
-  return (dispatch) => {
-    dispatch(requestData());
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-export function savePersonalData(data) {
-  let queryTrailer = "/personaldata/update";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-export function saveMark(data) {
-  let queryTrailer = "/mark/save";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-export function saveAnswer(data) {
-  let queryTrailer = "/answer/save";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-export function saveCompetition(data) {
-  let queryTrailer = "/competition/save";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-export function saveStage(data) {
-  let queryTrailer = "/stage/save";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-export function saveTask(data) {
-  let queryTrailer = "/task/save";
-  return saveDataPOSTRequest(queryTrailer, data);
-}
-
-/*export function savePersonalData(data) {
-  return (dispatch) => {
-    dispatch(requestData())
-      let queryTrailer = '/personaldata/update';
-    return fetch(ApiUrl + queryTrailer, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then((response) => {
-      return response.json()
-    }).then((data) => {
-      dispatch(receiveData(data))
-    }).catch((ex) => {
-      dispatch(errorReceiveData(ex))
-    });
-  }
-}
-
-export function saveMark(data) {
-  return (dispatch) => {
-    dispatch(requestData())
-      let queryTrailer = '/mark/save';
-    return fetch(ApiUrl + queryTrailer, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then((response) => {
-      return response.json()
-    }).then((data) => {
-      dispatch(receiveData(data))
-    }).catch((ex) => {
-      dispatch(errorReceiveData(ex))
-    });
-  }
-}
-
-export function saveAnswer(data) {
-  return (dispatch) => {
-    dispatch(requestData())
-      let queryTrailer = '/answer/save';
-    return fetch(ApiUrl + queryTrailer, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then((response) => {
-      return response.json()
-    }).then((data) => {
-      dispatch(receiveData(data))
-    }).catch((ex) => {
-      dispatch(errorReceiveData(ex))
-    });
-  }
-}*/
-
-export function getAnswersToRate(judgeId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/answer";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ judgeId: judgeId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-export function getCompetitionsByAdmin(adminId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/competitions/admin";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ adminId: adminId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-export function getCompetitionsByParticipant(participantId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/competitions/participant";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ participantId: participantId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-export function getResultsByParticipant(participantId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/results/participant";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ participantId: participantId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
-
-export function getResultsByTrainer(trainerId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/results/trainer";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ trainerId: trainerId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
-}
+//NOTIFICATION ACTIONS
 
 export function requestUnreadNotificationAmount() {
   return {
@@ -440,20 +88,31 @@ export function errorReceiveUnreadNotificationAmount(err) {
   };
 }
 
-//fetch("https://localhost:49263/api/results?skill=skill&stage=stage&year=year")
-export function getUnreadNotificationAmount(userId) {
+export function readNotificationAction() {
+  return {
+    type: constants.READ_NOTIFICATION,
+  };
+}
+
+//ACTIONS
+
+export function logOutUser() {
+  return (dispatch) => {
+    dispatch(logoutUserAction());
+  };
+}
+
+//REQUESTS
+
+//General
+
+function getDataGETRequest(queryTrailer) {
   return (dispatch) => {
     dispatch(requestData());
-    let queryTrailer = "/notifications/amount";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: userId }),
-    })
+    return fetch(ApiUrl + queryTrailer)
       .then((response) => {
-        return response.json();
+        if (response.ok) return response.json();
+        else dispatch(errorReceiveData(response.statusText));
       })
       .then((data) => {
         dispatch(receiveData(data));
@@ -463,6 +122,147 @@ export function getUnreadNotificationAmount(userId) {
       });
   };
 }
+
+function getDataByUserIdPOSTRequest(queryTrailer, id) {
+  return (dispatch) => {
+    dispatch(requestData());
+    let queryTrailer = "/personaldata/read";
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        else dispatch(errorReceiveData(response.statusText));
+      })
+      .then((data) => {
+        dispatch(receiveData(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
+function saveDataPOSTRequest(queryTrailer, data) {
+  return (dispatch) => {
+    dispatch(requestData());
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        else dispatch(errorReceiveData(response.statusText));
+      })
+      .then((data) => {
+        dispatch(receiveData(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveData(ex));
+      });
+  };
+}
+
+//GET DATA
+
+export function getAnswersToRate(judgeId) {
+  let queryTrailer = "/answer";
+  return getDataByUserIdPOSTRequest(queryTrailer, judgeId);
+}
+
+export function getCompetitionsByAdmin(adminId) {
+  let queryTrailer = "/competitions/admin";
+  return getDataByUserIdPOSTRequest(queryTrailer, adminId);
+}
+
+export function getCompetitionsByParticipant(participantId) {
+  let queryTrailer = "/competitions/participant";
+  return getDataByUserIdPOSTRequest(queryTrailer, participantId);
+}
+
+export function getNotifications(userId) {
+  let queryTrailer = "/notifications";
+  return getDataByUserIdPOSTRequest(queryTrailer, userId);
+}
+
+export function getUnreadNotificationAmount(userId) {
+  let queryTrailer = "/notifications/amount";
+  return getDataByUserIdPOSTRequest(queryTrailer, userId);
+}
+
+export function getPersonalData(userId) {
+  let queryTrailer = "/personaldata/read";
+  return getDataByUserIdPOSTRequest(queryTrailer, userId);
+}
+
+export function getResultsByParticipant(participantId) {
+  let queryTrailer = "/results/participant";
+  return getDataByUserIdPOSTRequest(queryTrailer, participantId);
+}
+
+export function getResultsByTrainer(trainerId) {
+  let queryTrailer = "/results/trainer";
+  return getDataByUserIdPOSTRequest(queryTrailer, trainerId);
+}
+
+//fetch("https://localhost:49263/api/results?skill={skill}&stage={stage}&year={year}")
+export function getResultsByYear(skill, stage, year) {
+  let queryTrailer =
+    "/results?skill=" + skill + "&stage=" + stage + "&year=" + year;
+  return getDataGETRequest(queryTrailer);
+}
+
+//fetch("https://localhost:49263/api/schedule")
+export function getSchedule() {
+  let queryTrailer = "/schedule";
+  return getDataGETRequest(queryTrailer);
+}
+
+//fetch("https://localhost:49263/api/user")
+export function getUser(login, password) {
+  return (dispatch) => {
+    dispatch(requestUser());
+    let queryTrailer = "/user";
+    return fetch(ApiUrl + queryTrailer, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        login: login,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        else dispatch(errorReceiveData(response.statusText));
+      })
+      .then((data) => {
+        if (data.Status == "NotFound") {
+          console.log(data.Status + "NotFound");
+          dispatch(receiveUserNotFound());
+        } else if (data.Status == "WrongPassword") {
+          console.log(data.Status + "WrongPassword");
+          dispatch(receiveUserWrongPassword());
+        } else if (data.Status == "Success") {
+          console.log(data.Status + "Success");
+          dispatch(receiveUser(data));
+        }
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveUser(ex));
+      });
+  };
+}
+
+//SAVE DATA
 
 export function readNotification(notificationId, userId) {
   return (dispatch) => {
@@ -474,7 +274,8 @@ export function readNotification(notificationId, userId) {
       userId;
     return fetch(ApiUrl + queryTrailer)
       .then((response) => {
-        dispatch(readNotificationAction());
+        if (response.ok) dispatch(readNotificationAction());
+        else dispatch(errorReceiveData(response.statusText));
       })
       .catch((ex) => {
         dispatch(errorReceiveData(ex));
@@ -482,27 +283,34 @@ export function readNotification(notificationId, userId) {
   };
 }
 
-export function getNotifications(userId) {
-  return (dispatch) => {
-    dispatch(requestData());
-    let queryTrailer = "/notifications";
-    return fetch(ApiUrl + queryTrailer, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: userId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
-      })
-      .catch((ex) => {
-        dispatch(errorReceiveData(ex));
-      });
-  };
+export function saveAnswer(data) {
+  let queryTrailer = "/answer/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveCompetition(data) {
+  let queryTrailer = "/competition/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveMark(data) {
+  let queryTrailer = "/mark/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function savePersonalData(data) {
+  let queryTrailer = "/personaldata/update";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveStage(data) {
+  let queryTrailer = "/stage/save";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function saveTask(data) {
+  let queryTrailer = "/task/save";
+  return saveDataPOSTRequest(queryTrailer, data);
 }
 
 /*
@@ -619,3 +427,20 @@ export const resetErrorMessage = () => ({
     type: RESET_ERROR_MESSAGE
 })
 */
+
+//import { CALL_API, Schemas } from '../middleware/api'
+/*import {USER_REQUEST, USER_SUCCESS, USER_FAILURE} from '../constants/constants.js'
+
+const fetchUser = login => ({
+    types: [ USER_REQUEST, USER_SUCCESS, USER_FAILURE ],
+    login
+})
+
+export const loadUser = (login, requiredFields = []) => (dispatch, getState) => {
+  const user = getState().entities.users[login]
+  if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
+    return null
+  }
+
+  return dispatch(fetchUser(login))
+}*/

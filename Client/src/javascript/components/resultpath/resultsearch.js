@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getResultsByYear } from "../../actions/actions.js";
 import Error from "../system/error.js";
 import Loading from "../system/loading.js";
+import NoResults from "../system/noresults.js";
 
 export class ResultsSearch extends React.Component {
   constructor(props) {
@@ -23,6 +24,8 @@ export class ResultsSearch extends React.Component {
       return <Error error={this.props.error.message} />;
     } else if (this.props.isFetching) {
       return <Loading />;
+    } else if (this.props.items.length == 0) {
+      return <NoResults mes={"Нет результатов"} />;
     } else {
       var params = new URLSearchParams(this.props.location.search);
       var skill = params.get("skill");

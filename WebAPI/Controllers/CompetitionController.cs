@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
     public class CompetitionController : ApiController
     {
         [Route("api/competitions/admin")]
-        public IHttpActionResult GetByAdmin([FromBody] int adminId)
+        public IHttpActionResult GetByAdmin([FromBody] MyClass myClass)
         {
             var service = ServiceProvider.GetGuestService();
             var competitions = service.GetAllCompetitions();
@@ -66,6 +66,11 @@ namespace WebAPI.Controllers
                 adminService.UpdateCompetition(competitionDTO);
             }
             return Ok();
+        }
+
+        public class MyClass
+        {
+            public int adminId { get; set; }
         }
     }
 }

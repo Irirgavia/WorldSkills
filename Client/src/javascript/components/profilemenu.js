@@ -25,7 +25,10 @@ export class ProfileMenu extends React.Component {
           </li>
         </ul>
       );
-    } else if (this.props.user.role == "participant") {
+    } else if (
+      this.props.user.role == "participant" ||
+      this.props.user.role == "Participant"
+    ) {
       return (
         <ul id="registration">
           <li id="profilemenu" class="down">
@@ -53,7 +56,10 @@ export class ProfileMenu extends React.Component {
           </li>
         </ul>
       );
-    } else if (this.props.user.role == "judge") {
+    } else if (
+      this.props.user.role == "judge" ||
+      this.props.user.role == "Judge"
+    ) {
       return (
         <ul id="registration">
           <li id="profilemenu" class="down">
@@ -81,7 +87,10 @@ export class ProfileMenu extends React.Component {
           </li>
         </ul>
       );
-    } else if (this.props.user.role == "trainer") {
+    } else if (
+      this.props.user.role == "trainer" ||
+      this.props.user.role == "Trainer"
+    ) {
       return (
         <ul id="registration">
           <li id="profilemenu" class="down">
@@ -106,7 +115,10 @@ export class ProfileMenu extends React.Component {
           </li>
         </ul>
       );
-    } else if (this.props.user.role == "administrator") {
+    } else if (
+      this.props.user.role == "administrator" ||
+      this.props.user.role == "Administrator"
+    ) {
       return (
         <ul id="registration">
           <li id="profilemenu" class="down">
@@ -114,6 +126,9 @@ export class ProfileMenu extends React.Component {
             <ul class="submenu">
               <li>
                 <Link to="/administrator/personaldata">Личные данные</Link>
+              </li>
+              <li>
+                <Link to="/administrator/competitions">Соревнования</Link>
               </li>
               <li>
                 <Link to="/signout">Выйти</Link>

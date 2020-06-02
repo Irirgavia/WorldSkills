@@ -6,7 +6,7 @@
 
     public static class ServiceProvider
     {
-        private static string connection = "CompetitionContext";
+        private static ServiceModule serviceModule = new ServiceModule("AccountContext", "CompetitionContext", "NotificationContext");
 
         private static IAdministratorService administratorService = null;
 
@@ -16,41 +16,35 @@
 
         private static IParticipantService participantService = null;
 
-        private static ITrainerService trainerService = null;
-
         public static IAdministratorService GetAdministratorService()
         {
             if (administratorService == null)
-                administratorService = new AdministratorService(connection);
+                administratorService = new AdministratorService(
+                    serviceModule.AccountConnectionString,
+                    serviceModule.CompetitionConnectionString,
+                    serviceModule.NotificationConnectionString);
             return administratorService;
         }
 
         public static IGuestService GetGuestService()
         {
             if (guestService == null)
-                guestService = new GuestService(connection);
+                guestService = new GuestService(serviceModule.AccountConnectionString,serviceModule.CompetitionConnectionString);
             return guestService;
         }
 
         public static IJudgeService GetJudgeService()
         {
             if (judgeService == null)
-                judgeService = new JudgeService(connection);
+                judgeService = new JudgeService(serviceModule.CompetitionConnectionString, serviceModule.AccountConnectionString);
             return judgeService;
         }
 
         public static IParticipantService GetParticipantService()
         {
             if (participantService == null)
-                participantService = new ParticipantService(connection);
+                participantService = new ParticipantService(serviceModule.AccountConnectionString, serviceModule.CompetitionConnectionString);
             return participantService;
-        }
-
-        public static ITrainerService GetTrainerService()
-        {
-            if (trainerService == null)
-                trainerService = new TrainerService(connection);
-            return trainerService;
         }
     }
 }

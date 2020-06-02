@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { saveTask } from "../../../actions/actions.js";
-import { AdminStageCompetititons } from "./admincompetitionchange.js";
-import Error from "../../system/error.js";
-import Loading from "../../system/loading.js";
+import { saveTask } from "../../../../actions/actions.js";
+import AdminStageChange from "./adminstagechange.js";
+import Error from "../../../system/error.js";
+import Loading from "../../../system/loading.js";
 
 export class AdminTaskChange extends React.Component {
   constructor(props) {
@@ -59,8 +59,7 @@ export class AdminTaskChange extends React.Component {
     } else if (this.state.finishEditingFlag) {
       return (
         <div>
-          Сохранено.
-          <AdminStageCompetititons />
+          <AdminStageChange />
         </div>
       );
     } else {
@@ -156,4 +155,4 @@ let mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapProps, mapDispatch)(AdminStageChange);
+export default connect(mapProps, mapDispatch)(AdminTaskChange);

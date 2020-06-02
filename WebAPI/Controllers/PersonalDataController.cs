@@ -6,6 +6,7 @@
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
+    using System.Web.Services.Protocols;
 
     using BLL.DTO.Account;
     using WebAPI.Models.RequestModels;
@@ -15,10 +16,11 @@
 
     public class PersonalDataController : ApiController
     {
-        public IHttpActionResult Get([FromBody] int userId)
+        [Route("api/personaldata/read")]
+        public IHttpActionResult Read([FromBody] MyClass myClass)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            AccountDTO accountDTO = adminService.GetAccountById(userId);
+            AccountDTO accountDTO = adminService.GetAccountById(myClass.userId);
             var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
             return Json(personalDataResponse);
         }
@@ -47,6 +49,11 @@
             adminService.UpdatePersonalData(personalDataDTO);
 
             return Ok();
+        }
+
+        public class MyClass
+        {
+            public int userId { get; set; }
         }
     }
 }

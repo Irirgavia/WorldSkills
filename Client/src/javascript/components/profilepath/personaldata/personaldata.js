@@ -41,6 +41,10 @@ export class PersonalData extends React.Component {
             from="/trainer/personaldata"
             to="/trainer/personaldata/change"
           />
+          <Redirect
+            from="/administrator/personaldata"
+            to="/administrator/personaldata/change"
+          />
         </div>
       );
     } else {

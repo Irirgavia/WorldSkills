@@ -7,6 +7,7 @@ import {
 import AdminCompetititonsChange from "./change/admincompetitionchange.js";
 import Error from "../../system/error.js";
 import Loading from "../../system/loading.js";
+import NoResults from "../../system/noresults.js";
 
 export class AdminCompetititons extends React.Component {
   constructor(props) {

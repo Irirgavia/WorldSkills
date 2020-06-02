@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { saveStage } from "../../../actions/actions.js";
-import { AdminCompetititonsChange } from "./admincompetitionchange.js";
-import Error from "../../system/error.js";
-import Loading from "../../system/loading.js";
+import { saveStage } from "../../../../actions/actions.js";
+import AdminCompetititonsChange from "./admincompetitionchange.js";
+import Error from "../../../system/error.js";
+import Loading from "../../../system/loading.js";
 
 export class AdminStageChange extends React.Component {
   constructor(props) {
@@ -84,7 +84,6 @@ export class AdminStageChange extends React.Component {
     } else if (this.state.finishEditingFlag) {
       return (
         <div>
-          Сохранено.
           <AdminCompetititonsChange />
         </div>
       );

@@ -18,7 +18,7 @@ export class PersonalDataChange extends React.Component {
       country: "",
       city: "",
       street: "",
-      house,
+      house: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -67,7 +67,6 @@ export class PersonalDataChange extends React.Component {
     } else if (this.state.finishEditingFlag) {
       return (
         <div>
-          Сохранено.
           <Redirect
             from="/judge/personaldata/change"
             to="/judge/personaldata"
