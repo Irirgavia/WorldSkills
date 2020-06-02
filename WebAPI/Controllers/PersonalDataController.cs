@@ -31,14 +31,11 @@
             var adminService = ServiceProvider.GetAdministratorService();
             AccountDTO accountDTO = adminService.GetAccountById(parameters.userId);
             var personalDataDTO = accountDTO.PersonalData;
-            var addressDTO = personalDataDTO.Address;
 
-            addressDTO.Country = parameters.country;
-            addressDTO.City = parameters.city;
-            addressDTO.Street = parameters.street;
-            addressDTO.House = parameters.house;
-
-            adminService.UpdateAccountAddress(addressDTO);
+            personalDataDTO.Address.Country = parameters.country;
+            personalDataDTO.Address.City = parameters.city;
+            personalDataDTO.Address.Street = parameters.street;
+            personalDataDTO.Address.House = parameters.house;
 
             personalDataDTO.Surname = parameters.surname;
             personalDataDTO.Name = parameters.name;
