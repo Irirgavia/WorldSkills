@@ -42,7 +42,6 @@
             string apartment,
             string notes);
 
-
         void CreateSkill(string skill);
 
         void CreateStage(int competitionId, int stageTypeId, ICollection<int> accounts);
@@ -69,6 +68,8 @@
             string house,
             string apartments);
 
+        IEnumerable<NewsDTO> GetAllNews();
+
         AnswerDTO GetAnswerById(int id);
 
         AddressDTO GetCompetitionAddressById(int id);
@@ -79,9 +80,17 @@
 
         MailDTO GetMailById(int id);
 
+        IEnumerable<NewsDTO> GetNewsByDataRange(DateTime begin, DateTime end);
+
+        IEnumerable<NewsDTO> GetNewsByFromAccountId(int id);
+
         NewsDTO GetNewsById(int id);
 
+        IEnumerable<NotificationDTO> GetNotificationByFromAccountId(int id);
+
         NotificationDTO GetNotificationById(int id);
+
+        IEnumerable<NotificationDTO> GetNotificationByToAccountId(int id);
 
         PersonalDataDTO GetPersonalDataById(int id);
 
@@ -119,6 +128,12 @@
 
         void UpdateCredentials(CredentialsDTO credentials);
 
+        void UpdateMail(MailDTO mail);
+
+        void UpdateNews(NewsDTO news);
+
+        void UpdateNotification(NotificationDTO notification);
+
         void UpdatePersonalData(PersonalDataDTO personalData);
 
         void UpdatePrize(PrizeDTO prize);
@@ -134,11 +149,5 @@
         void UpdateStageType(StageTypeDTO stageType);
 
         void UpdateTask(TaskDTO task);
-
-        void UpdateMail(MailDTO mail);
-
-        void UpdateNews(NewsDTO news);
-
-        void UpdateNotification(NotificationDTO notification);
     }
 }

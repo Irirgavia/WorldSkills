@@ -192,6 +192,11 @@
                     apartments));
         }
 
+        public IEnumerable<NewsDTO> GetAllNews()
+        {
+            return ObjectMapper<NewsEntity, NewsDTO>.MapList(this.systemUnitOfWork.NewsRepository.GetAll());
+        }
+
         public AnswerDTO GetAnswerById(int id)
         {
             return ObjectMapper<AnswerEntity, AnswerDTO>.Map(
@@ -222,16 +227,44 @@
                 this.systemUnitOfWork.MailRepository.Get(m => m.Id == id).FirstOrDefault());
         }
 
+        public IEnumerable<NewsDTO> GetNewsByDataRange(DateTime begin, DateTime end)
+        {
+            return ObjectMapper<NewsEntity, NewsDTO>.MapList(
+                this.systemUnitOfWork.NewsRepository.Get(
+                    n => n.PublicationDateTime >= begin && n.PublicationDateTime <= end));
+        }
+
+        public IEnumerable<NewsDTO> GetNewsByFromAccountId(int id)
+        {
+            return ObjectMapper<NewsEntity, NewsDTO>.MapList(
+                this.systemUnitOfWork.NewsRepository.Get(
+                    n => n.AccountIdFrom == id));
+        }
+
         public NewsDTO GetNewsById(int id)
         {
             return ObjectMapper<NewsEntity, NewsDTO>.Map(
                 this.systemUnitOfWork.NewsRepository.Get(n => n.Id == id).FirstOrDefault());
         }
 
+        public IEnumerable<NotificationDTO> GetNotificationByFromAccountId(int id)
+        {
+            return ObjectMapper<NotificationEntity, NotificationDTO>.MapList(
+                this.systemUnitOfWork.NotificationRepository.Get(
+                    n => n.MailEntity.AccountIdFrom == id));
+        }
+
         public NotificationDTO GetNotificationById(int id)
         {
             return ObjectMapper<NotificationEntity, NotificationDTO>.Map(
                 this.systemUnitOfWork.NotificationRepository.Get(n => n.Id == id).FirstOrDefault());
+        }
+
+        public IEnumerable<NotificationDTO> GetNotificationByToAccountId(int id)
+        {
+            return ObjectMapper<NotificationEntity, NotificationDTO>.MapList(
+                this.systemUnitOfWork.NotificationRepository.Get(
+                    n => n.MailEntity.AccountIdsTo.Contains(id)));
         }
 
         public PersonalDataDTO GetPersonalDataById(int id)
@@ -416,7 +449,10 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing) this.competitionUnitOfWork?.Dispose();
+            if (disposing)
+            {
+                this.competitionUnitOfWork?.Dispose();
+            }
         }
     }
 }

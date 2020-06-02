@@ -40,10 +40,17 @@
 
             if (accountDto == null) return (account: null, isPasswordValid: false);
 
-            if (!PasswordHasher.Verify(password, accountDto.Credentials.Password))
+            try
+            {
+                if (PasswordHasher.Verify(password, accountDto.Credentials.Password))
+                    return (account: accountDto, isPasswordValid: true);
+            }
+            catch (NotSupportedException ex)
+            {
                 return (account: accountDto, isPasswordValid: false);
+            }
 
-            return (account: accountDto, isPasswordValid: true);
+            return (account: accountDto, isPasswordValid: false);
         }
 
         public IEnumerable<CompetitionDTO> GetActualCompetitions()
@@ -83,10 +90,9 @@
             if (skill != null && year != null)
                 return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
                     this.competitionUnitOfWork.CompetitionRepository.Get(
-                        c => 
-                            c.SkillEntity.Name == skill 
-                         && (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) 
-                         && (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+                        c => c.SkillEntity.Name == skill
+                          && (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year)
+                          && (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
 
             if (skill != null)
                 return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
@@ -94,15 +100,11 @@
 
             return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
                 this.competitionUnitOfWork.CompetitionRepository.Get(
-                    c => 
-                        (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year) && 
-                        (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+                    c => (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year)
+                      && (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
         }
 
-        public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(
-            string skill,
-            int? year,
-            string stageType)
+        public IEnumerable<StageDTO> GetStagesBySkillAndYearAndTypeStage(string skill, int? year, string stageType)
         {
             var competitions = this.GetCompetitionsBySkillAndYear(skill, year);
             var stages = new List<StageDTO>();
