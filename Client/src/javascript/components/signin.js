@@ -42,23 +42,30 @@ export class SignIn extends React.Component {
     } else if (this.props.isFetching) {
       return <Loading />;
     } else {
-      console.log("form!");
       return (
         <form onSubmit={this.logingIn}>
-          <label for="login">Логин: </label>
-          <input
-            type="text"
-            id="login"
-            name="login"
-            onChange={this.handleInputChange}
-          />
-          <label for="password">Пароль: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={this.handleInputChange}
-          />
+          <p>
+            <label for="login">Логин: </label>
+            <input
+              type="text"
+              id="login"
+              name="login"
+              onChange={this.handleInputChange}
+            >
+              login
+            </input>
+          </p>
+          <p>
+            <label for="password">Пароль: </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={this.handleInputChange}
+            >
+              password
+            </input>
+          </p>
           <button type="submit">Войти</button>
           <Error error={this.props.error.message} />
         </form>

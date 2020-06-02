@@ -19,8 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44375</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -199,12 +198,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestModels\AccountDataSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\AnswerSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\CompetitionSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\MarkSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\PersonalDataSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\StageSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\TaskSaveRequestModel.cs" />
+    <Compile Include="Models\RequestModels\UserIdRequestModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\AnswerForAnswerResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForAdmin\CompetitionResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\CompetitionForAnswerResponseModel.cs" />

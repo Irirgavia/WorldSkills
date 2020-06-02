@@ -198,7 +198,7 @@ export function getUnreadNotificationAmount(userId) {
 }
 
 export function getPersonalData(userId) {
-  let queryTrailer = "/personaldata/read";
+  let queryTrailer = "/personaldata";
   return getDataByUserIdPOSTRequest(queryTrailer, userId);
 }
 
@@ -281,6 +281,11 @@ export function readNotification(notificationId, userId) {
         dispatch(errorReceiveData(ex));
       });
   };
+}
+
+export function saveAccountData(data) {
+  let queryTrailer = "/user/save";
+  return saveDataPOSTRequest(queryTrailer, data);
 }
 
 export function saveAnswer(data) {
