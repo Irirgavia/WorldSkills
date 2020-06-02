@@ -99,6 +99,62 @@ export class AdminCompetititonsChange extends React.Component {
           competitionId={this.props.competition.Id}
         />
       );
+    }
+    if (this.props.competition.Stages.length == 0) {
+      return (
+        <div class="competition">
+          <form onSubmit={this.sendCompetition}>
+            <p>
+              <label class="questionField" for="skill">
+                Профессия:
+              </label>
+              <input
+                type="text"
+                class="answerField"
+                id="skill"
+                name="skill"
+                maxLength="50"
+                onChange={this.handleInputChange}
+                value={this.state.skill}
+                required
+              />
+            </p>
+            <p>
+              <label class="questionField" for="dateOfBegin">
+                Дата начала:
+              </label>
+              <input
+                type="datetime-local"
+                class="answerField"
+                id="dateOfBegin"
+                name="dateOfBegin"
+                maxLength="50"
+                onChange={this.handleInputChange}
+                value={this.state.dateOfBegin}
+                required
+              />
+            </p>
+            <p>
+              <label class="questionField" for="dateOfEnd">
+                Дата окончания:
+              </label>
+              <input
+                type="datetime-local"
+                class="answerField"
+                id="dateOfEnd"
+                name="dateOfEnd"
+                maxLength="50"
+                onChange={this.handleInputChange}
+                value={this.state.dateOfEnd}
+                required
+              />
+            </p>
+            <button type="submit">Сохранить</button>
+            <button onClick={this.finishEditing}>Вернуться</button>
+          </form>
+          <button onClick={this.createStage}>Создать новый этап</button>
+        </div>
+      );
     } else {
       return (
         <div class="competition">
@@ -153,38 +209,7 @@ export class AdminCompetititonsChange extends React.Component {
           </form>
           <button onClick={this.createStage}>Создать новый этап</button>
           {this.props.competition.Stages.map((stage) => (
-            <div class="stage">
-              <p class="stagetype">Этап: {stage.Type}</p>
-              <table class="tasks" border="1">
-                <thead>
-                  <tr>
-                    <th>Дата начала</th>
-                    <th>Дата конца</th>
-                    <th>Задание</th>
-                    <th>Ответ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stage.Tasks.map((task) => (
-                    <tr class={"task " + task.IsActual}>
-                      <td>{task.TaskDateOfBegin}</td>
-                      <td>{task.TaskDateOfEnd}</td>
-                      <td>
-                        <a href={task.Description}>Задание</a>
-                      </td>
-                      <td>{task.Addresses}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button
-                class={"stageButton"}
-                key={stage.Id}
-                onClick={this.editStage}
-              >
-                Редактировать этап
-              </button>
-            </div>
+            <Stage stage={stage} editStage={this.editStage} />
           ))}
         </div>
       );
@@ -209,3 +234,58 @@ let mapDispatch = (dispatch) => {
 };
 
 export default connect(mapProps, mapDispatch)(AdminCompetititonsChange);
+
+class Stage extends React.Component {
+  render() {
+    if (this.props.stage.Tasks.length == 0) {
+      return (
+        <div class="stage">
+          <p class="stagetype">Этап: {this.props.stage.Type}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div class="stage">
+          <p class="stagetype">Этап: {this.props.stage.Type}</p>
+          <table class="tasks" border="1">
+            <thead>
+              <tr>
+                <th>Дата начала</th>
+                <th>Дата конца</th>
+                <th>Задание</th>
+                <th>Ответ</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.stage.Tasks.map((task) => (
+                <Task task={task} />
+              ))}
+            </tbody>
+          </table>
+          <button
+            class={"stageButton"}
+            key={this.props.stage.Id}
+            onClick={this.props.editStage}
+          >
+            Редактировать этап
+          </button>
+        </div>
+      );
+    }
+  }
+}
+
+class Task extends React.Component {
+  render() {
+    return (
+      <tr class={"task " + this.props.task.IsActual}>
+        <td>{this.props.task.TaskDateOfBegin}</td>
+        <td>{this.props.task.TaskDateOfEnd}</td>
+        <td>
+          <a href={this.props.task.Description}>Задание</a>
+        </td>
+        <td>{this.props.task.Addresses}</td>
+      </tr>
+    );
+  }
+}

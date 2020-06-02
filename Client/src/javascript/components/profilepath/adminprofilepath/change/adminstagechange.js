@@ -95,6 +95,31 @@ export class AdminStageChange extends React.Component {
           stageId={this.props.stage.Id}
         />
       );
+    } else if (this.props.stage.Tasks.length == 0) {
+      return (
+        <div class="stage">
+          <form onSubmit={this.sendStage}>
+            <p>
+              <label class="questionField" for="stagetype">
+                Этап:
+              </label>
+              <input
+                type="text"
+                class="answerField"
+                id="stagetype"
+                name="stagetype"
+                onChange={this.handleInputChange}
+                maxLength="50"
+                value={this.state.stagetype}
+                required
+              />
+            </p>
+            <button type="submit">Сохранить</button>
+            <button onClick={this.finishEditing}>Вернуться</button>
+          </form>
+          <button onClick={this.createTask}>Создать новое задание</button>
+        </div>
+      );
     } else {
       return (
         <div class="stage">
@@ -130,23 +155,7 @@ export class AdminStageChange extends React.Component {
             </thead>
             <tbody>
               {stage.Tasks.map((task) => (
-                <tr class={"task " + task.IsActual}>
-                  <td>{task.TaskDateOfBegin}</td>
-                  <td>{task.TaskDateOfEnd}</td>
-                  <td>
-                    <a href={task.Description}>Задание</a>
-                  </td>
-                  <td>{task.Addresses}</td>
-                  <td>
-                    <button
-                      class={"taskButton"}
-                      key={task.Id}
-                      onClick={this.editTask}
-                    >
-                      Редактировать задачу
-                    </button>
-                  </td>
-                </tr>
+                <Task task={task} editTask={this.editTask} />
               ))}
             </tbody>
           </table>
@@ -173,3 +182,27 @@ let mapDispatch = (dispatch) => {
 };
 
 export default connect(mapProps, mapDispatch)(AdminStageChange);
+
+class Task extends React.Component {
+  render() {
+    return (
+      <tr class={"task " + this.props.task.IsActual}>
+        <td>{this.props.task.TaskDateOfBegin}</td>
+        <td>{this.props.task.TaskDateOfEnd}</td>
+        <td>
+          <a href={this.props.task.Description}>Задание</a>
+        </td>
+        <td>{this.props.task.Addresses}</td>
+        <td>
+          <button
+            class={"taskButton"}
+            key={this.props.task.Id}
+            onClick={this.props.editTask}
+          >
+            Редактировать задачу
+          </button>
+        </td>
+      </tr>
+    );
+  }
+}
