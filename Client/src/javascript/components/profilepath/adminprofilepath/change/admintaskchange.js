@@ -71,7 +71,7 @@ export class AdminTaskChange extends React.Component {
                 Дата начала:
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 class="answerField"
                 id="taskDateOfBegin"
                 name="taskDateOfBegin"
@@ -83,10 +83,10 @@ export class AdminTaskChange extends React.Component {
             </p>
             <p>
               <label class="questionField" for="taskDateOfEnd">
-                Дата начала:
+                Дата конца:
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 class="answerField"
                 id="taskDateOfEnd"
                 name="taskDateOfEnd"
@@ -98,7 +98,7 @@ export class AdminTaskChange extends React.Component {
             </p>
             <p>
               <label class="questionField" for="description">
-                Дата начала:
+                Описание:
               </label>
               <input
                 type="text"
@@ -113,7 +113,7 @@ export class AdminTaskChange extends React.Component {
             </p>
             <p>
               <label class="questionField" for="addresses">
-                Дата начала:
+                Адрес:
               </label>
               <input
                 type="text"

@@ -14,7 +14,7 @@
 
     public class ObjectMapperDTOModel
     {
-        static string dateFormat = "dd.MM.yyyy HH:mm";
+        static string dateFormat = "yyyy-MM-ddThh:mm";
         public static ScheduleElementResponseModel ToModel(CompetitionDTO competitionDTO)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -127,11 +127,12 @@
 
         public static DateTime ParseToDateTime(string str)
         {
-            char[] delimiters = { '.', ' ', ':' };
+            //2017-06-01T08:30
+            char[] delimiters = { '-', 'T', ':' };
             string[] splitDate = str.Split(delimiters);
-            int day = int.Parse(splitDate[0]);
+            int day = int.Parse(splitDate[2]);
             int month = int.Parse(splitDate[1]);
-            int year = int.Parse(splitDate[2]);
+            int year = int.Parse(splitDate[0]);
             int hours = int.Parse(splitDate[3]);
             int minutes = int.Parse(splitDate[4]);
             DateTime dateTime = new DateTime(year, month, day, hours, minutes, 0);

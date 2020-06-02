@@ -6,7 +6,7 @@
 
     public class ObjectMapperDTOModelForParticipant
     {
-        static string dateFormat = "dd.MM.yyyy HH:mm";
+        static string dateFormat = "yyyy-MM-ddThh:mm";
         public static CompetitionForTaskResponseModel ToCompetitionForParticipantResponseModel(StageDTO stageDTO)
         {
             var competitionForParticipantResponseModel = new CompetitionForTaskResponseModel()

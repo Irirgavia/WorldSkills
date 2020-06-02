@@ -7,7 +7,7 @@
 
     public class ObjectMapperDTOModelForAdmin
     {
-        static string dateFormat = "dd.MM.yyyy HH:mm";
+        static string dateFormat = "yyyy-MM-ddThh:mm";
         public static CompetitionResponseModel ToCompetitionForAdminResponseModel(CompetitionDTO competitionDTO)
         {
             StringBuilder stringBuilder = new StringBuilder();

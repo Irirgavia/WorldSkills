@@ -123,7 +123,7 @@ export class AdminCompetititonsChange extends React.Component {
                 Дата начала:
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 class="answerField"
                 id="dateOfBegin"
                 name="dateOfBegin"
@@ -138,7 +138,7 @@ export class AdminCompetititonsChange extends React.Component {
                 Дата окончания:
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 class="answerField"
                 id="dateOfEnd"
                 name="dateOfEnd"
