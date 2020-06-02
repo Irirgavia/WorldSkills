@@ -16,11 +16,11 @@
 
     public class PersonalDataController : ApiController
     {
-        [Route("api/personaldata/read")]
-        public IHttpActionResult Read([FromBody] MyClass myClass)
+        [Route("api/personaldata")]
+        public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            AccountDTO accountDTO = adminService.GetAccountById(myClass.userId);
+            AccountDTO accountDTO = adminService.GetAccountById(userId.userId);
             var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
             return Json(personalDataResponse);
         }
@@ -49,11 +49,6 @@
             adminService.UpdatePersonalData(personalDataDTO);
 
             return Ok();
-        }
-
-        public class MyClass
-        {
-            public int userId { get; set; }
         }
     }
 }

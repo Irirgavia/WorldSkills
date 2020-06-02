@@ -15,15 +15,16 @@
     public class AnswerController : ApiController
     {
         /// <summary>
-        /// Get by judge what answer he should rate
+        /// Get by judge Id what answer he should rate
         /// </summary>
         /// <param name="judgeId"></param>
         /// <returns></returns>
-        public IHttpActionResult Get([FromBody] int judgeId)
+        [Route("/api/answer")]
+        public IHttpActionResult Receive([FromBody] UserIdRequestModel judgeId)
         {
             ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
             var adminService = ServiceProvider.GetAdministratorService();
-            var stages = adminService.GetStagesByAccountId(judgeId);
+            var stages = adminService.GetStagesByAccountId(judgeId.userId);
             foreach (var stage in stages)
             {
                 answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
