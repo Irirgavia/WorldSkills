@@ -80,7 +80,14 @@ export class AdminCompetititons extends React.Component {
     } else if (this.props.isFetching) {
       return <Loading />;
     } else if (this.props.items.length == 0) {
-      return <NoResults mes={"Нет созданных соревнований"} />;
+      return (
+        <div>
+          <NoResults mes={"Нет созданных соревнований"} />
+          <button onClick={this.createCompetition}>
+            Создать новое соревнование
+          </button>
+        </div>
+      );
     } else if (this.state.changeCompetitionFlag) {
       return (
         <AdminCompetititonsChange
@@ -94,22 +101,7 @@ export class AdminCompetititons extends React.Component {
             Создать новое соревнование
           </button>
           {this.props.items.map((item) => (
-            <div class="competition">
-              <p class="competitiondata">
-                Профессия: {item.Skill} Время проведения: {item.DateOfBegin}-
-                {item.DateOfEnd}
-              </p>
-              {item.Stages.map((stage) => (
-                <Stage stage={stage} />
-              ))}
-              <button
-                class={"competitionButton"}
-                key={item.Id}
-                onClick={this.editCompetition}
-              >
-                Редактировать соревнование
-              </button>
-            </div>
+            <Competition competition={item} />
           ))}
         </div>
       );
@@ -140,18 +132,61 @@ export default connect(mapProps, mapDispatch)(AdminCompetititons);
 /*                    <button class={"competitionButton"} key={index} ref={(button) => {this.CompetitionEditButtons[this.props.items.findIndex(item)] = button }} onClick={this.editCompetition.bind(this)}>Редактировать соревнование</button>
  */
 
+class Competition extends React.Component {
+  render() {
+    if (this.props.competition.Stages.length == 0) {
+      return (
+        <div class="competition">
+          <p class="competitiondata">
+            Профессия: {this.props.competition.Skill} Время проведения:{" "}
+            {this.props.competition.DateOfBegin}-
+            {this.props.competition.DateOfEnd}
+          </p>
+          <button
+            class={"competitionButton"}
+            key={this.props.competition.Id}
+            onClick={this.editCompetition}
+          >
+            Редактировать соревнование
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div class="competition">
+          <p class="competitiondata">
+            Профессия: {this.props.competition.Skill} Время проведения:{" "}
+            {this.props.competition.DateOfBegin}-
+            {this.props.competition.DateOfEnd}
+          </p>
+          {this.props.competition.Stages.map((stage) => (
+            <Stage stage={stage} />
+          ))}
+          <button
+            class={"competitionButton"}
+            key={this.props.competition.Id}
+            onClick={this.editCompetition}
+          >
+            Редактировать соревнование
+          </button>
+        </div>
+      );
+    }
+  }
+}
+
 class Stage extends React.Component {
   render() {
-    if (this.props.Tasks.length == 0) {
+    if (this.props.stage.Tasks.length == 0) {
       return (
         <div class="stage">
-          <p class="stagetype">Этап: {stage.Type}</p>
+          <p class="stagetype">Этап: {this.props.stage.Type}</p>
         </div>
       );
     } else {
       return (
         <div class="stage">
-          <p class="stagetype">Этап: {stage.Type}</p>
+          <p class="stagetype">Этап: {this.props.stage.Type}</p>
           <table class="tasks" border="1">
             <thead>
               <tr>
@@ -162,7 +197,7 @@ class Stage extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {stage.Tasks.map((task) => (
+              {this.props.stage.Tasks.map((task) => (
                 <Task task={task} />
               ))}
             </tbody>
