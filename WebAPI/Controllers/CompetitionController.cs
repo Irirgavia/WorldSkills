@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         [Route("api/competition/admin")]
         public IHttpActionResult ReceiveByAdminId([FromBody] UserIdRequestModel adminId)
         {
-            var service = ServiceProvider.GetGuestService();
+            var service = ServiceProvider.GetCompetitionService();
             try
             {
                 var competitions = service.GetAllCompetitions();
@@ -38,10 +38,10 @@ namespace WebAPI.Controllers
         [Route("api/competition/participant")]
         public IHttpActionResult ReceiveByParticipant([FromBody] UserIdRequestModel participantId)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                var stages = adminService.GetStagesByAccountId(participantId.id);
+                var stages = competitionService.GetStagesByAccountId(participantId.id);
                 ICollection<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel> response = new List<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel>();
                 foreach (var stage in stages)
                 {
@@ -58,27 +58,27 @@ namespace WebAPI.Controllers
         [Route("api/competition/save")]
         public IHttpActionResult Save([FromBody] CompetitionSaveRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             if (parameters.competitionId == -1)
-                adminService.CreateCompetition(
+                competitionService.CreateCompetition(
                     ObjectMapperDTOModel.ParseToDateTime(parameters.dateOfBegin),
                     ObjectMapperDTOModel.ParseToDateTime(parameters.dateOfEnd),
                     parameters.skill);
             else
             {
-                var competitionDTO=adminService.GetCompetitionById(parameters.competitionId);
+                var competitionDTO = competitionService.GetCompetitionById(parameters.competitionId);
                 competitionDTO.DateTimeBegin = ObjectMapperDTOModel.ParseToDateTime(parameters.dateOfBegin);
                 competitionDTO.DateTimeEnd = ObjectMapperDTOModel.ParseToDateTime(parameters.dateOfEnd);
                 if (competitionDTO.Skill.Name != parameters.skill)
                 {
-                    var skillDTO = adminService.GetSkillByName(parameters.skill);
+                    var skillDTO = competitionService.GetSkillByName(parameters.skill);
                     if (skillDTO == null)
                     {
-                        adminService.CreateSkill(parameters.skill);
+                        competitionService.CreateSkill(parameters.skill);
                     }
                     competitionDTO.Skill = skillDTO;
                 }
-                adminService.UpdateCompetition(competitionDTO);
+                competitionService.UpdateCompetition(competitionDTO);
             }
             return Ok();
         }

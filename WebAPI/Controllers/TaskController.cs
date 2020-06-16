@@ -18,22 +18,22 @@ namespace WebAPI.Controllers
         [Route("api/task/save")]
         public IHttpActionResult Save([FromBody] TaskSaveRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
-                DateTime begin = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfBegin);
-                DateTime end = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfEnd);
-                TimeSpan duration = end - begin;
+            var competitionService = ServiceProvider.GetCompetitionService();
+            DateTime begin = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfBegin);
+            DateTime end = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfEnd);
+            TimeSpan duration = end - begin;
             try
             {
                 if (parameters.id != -1)
                 {
-                    adminService.CreateTask(parameters.stageId, begin, duration, parameters.description, null, new List<AddressDTO>(), new List<AnswerDTO>());
+                    competitionService.CreateTask(parameters.stageId, begin, duration, parameters.description, null, new List<AddressDTO>(), new List<AnswerDTO>());
                 }
                 else
                 {
-                    var task = adminService.GetTaskById(parameters.id);
+                    var task = competitionService.GetTaskById(parameters.id);
                     if (task == null)
                     {
-                        adminService.CreateTask(parameters.stageId, begin, duration, parameters.description, null, new List<AddressDTO>(), new List<AnswerDTO>());
+                        competitionService.CreateTask(parameters.stageId, begin, duration, parameters.description, null, new List<AddressDTO>(), new List<AnswerDTO>());
                     }
                     else
                     {

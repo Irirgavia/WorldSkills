@@ -21,11 +21,8 @@
         [Route("api/user")]
         public IHttpActionResult Post([FromBody] UserRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
-            var stageType = adminService.GetStageTypeById(1);
-
-            var guestService = ServiceProvider.GetGuestService();
-            var serviceResponse = guestService.GetAccount(parameters.login, parameters.password);
+            var accountService = ServiceProvider.GetAccountService();
+            var serviceResponse = accountService.GetAccount(parameters.login, parameters.password);
             int unreadNotificationAmount = 0;
             var user = ObjectMapper.ObjectMapperDTOModel.AccountToModel(serviceResponse.account, serviceResponse.isPasswordValid, unreadNotificationAmount);
 
@@ -36,13 +33,12 @@
         [Route("api/user/save")]
         public IHttpActionResult Save([FromBody] AccountDataSaveRequestModel accountData)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
-            var guestService = ServiceProvider.GetGuestService();
-            var serviceResponse = guestService.GetAccount(accountData.oldLogin, accountData.oldPassword);
+            var accountService = ServiceProvider.GetAccountService();
+            var serviceResponse = accountService.GetAccount(accountData.oldLogin, accountData.oldPassword);
             var credentials = serviceResponse.account.Credentials;
             if (credentials.Login != accountData.newLogin)
             {
-                var existedAccount = adminService.GetAccountByLogin(accountData.newLogin);
+                var existedAccount = accountService.GetAccountByLogin(accountData.newLogin);
                 if (existedAccount != null)
                 {
                     return Json(loginExistsMessage);

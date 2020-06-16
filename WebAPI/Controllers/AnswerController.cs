@@ -23,10 +23,10 @@
         public IHttpActionResult Receive([FromBody] UserIdRequestModel judgeId)
         {
             ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                var stages = adminService.GetStagesByAccountId(judgeId.id);
+                var stages = competitionService.GetStagesByAccountId(judgeId.id);
                 foreach (var stage in stages)
                 {
                     answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
@@ -42,10 +42,10 @@
         [Route("api/answer/save")]
         public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                adminService.CreateAnswer(parameters.participantId, parameters.taskId, parameters.projectLink, null);
+                competitionService.CreateAnswer(parameters.participantId, parameters.taskId, parameters.projectLink, null);
                 return Ok();
             }
             catch (Exception ex)

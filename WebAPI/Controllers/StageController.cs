@@ -20,25 +20,25 @@ namespace WebAPI.Controllers
         [Route("api/stage/save")]
         public IHttpActionResult Save([FromBody] StageSaveRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                var stageType = adminService.GetStageTypeByName(parameters.stagetype);
+                var stageType = competitionService.GetStageTypeByName(parameters.stagetype);
                 if (parameters.id == -1)
                 {
-                    adminService.CreateStage(parameters.competitionId, stageType.Id, new List<int>());
+                    competitionService.CreateStage(parameters.competitionId, stageType.Id, new List<int>());
                 }
                 else
                 {
-                    var stage = adminService.GetStageById(parameters.id);
+                    var stage = competitionService.GetStageById(parameters.id);
                     if (stage == null)
                     {
-                        adminService.CreateStage(parameters.competitionId, stageType.Id, new List<int>());
+                        competitionService.CreateStage(parameters.competitionId, stageType.Id, new List<int>());
                     }
                     else
                     {
                         stage.StageType = stageType;
-                        adminService.UpdateStage(stage);
+                        competitionService.UpdateStage(stage);
                     }
                 }
                 return Ok();

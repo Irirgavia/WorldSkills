@@ -16,10 +16,10 @@ namespace WebAPI.Controllers
         [Route("api/notifications")]
         public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var systemService = ServiceProvider.GetSystemService();
             try
             {
-                var notifications = adminService.GetNotificationByToAccountId(userId.id);
+                var notifications = systemService.GetNotificationByToAccountId(userId.id);
                 ICollection<Models.ResponseModels.NotificationResponseModel> response = new List<Models.ResponseModels.NotificationResponseModel>();
                 foreach (var notificationDTO in notifications)
                 {
@@ -36,10 +36,10 @@ namespace WebAPI.Controllers
         [Route("api/notifications/amount")]
         public IHttpActionResult Amount([FromBody] UserIdRequestModel userId)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var systemService = ServiceProvider.GetSystemService();
             try
             {
-                var notifications = adminService.GetNotificationByToAccountId(userId.id);
+                var notifications = systemService.GetNotificationByToAccountId(userId.id);
                 var amountUnreadNotifications = notifications.Select(n => n.IsRead == false).Count();
                 return Json(amountUnreadNotifications);
             }
@@ -51,12 +51,12 @@ namespace WebAPI.Controllers
 
         public IHttpActionResult Read([FromUri] int notificationId, [FromUri] int userId)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
+            var systemService = ServiceProvider.GetSystemService();
             try
             {
-                var notification = adminService.GetNotificationById(notificationId);
+                var notification = systemService.GetNotificationById(notificationId);
                 notification.IsRead = true;
-                adminService.UpdateNotification(notification);
+                systemService.UpdateNotification(notification);
                 return Ok();
             }
             catch (Exception ex)

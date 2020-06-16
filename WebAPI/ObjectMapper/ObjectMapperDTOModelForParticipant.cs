@@ -37,9 +37,9 @@
             return competitionForParticipantResponseModel;
         }
 
-        public static IEnumerable<ResultForParticipantResponseModel> ToResultForParticipantResponseModel(StageDTO stageDTO, int userId, IAdministratorService adminService)
+        public static IEnumerable<ResultForParticipantResponseModel> ToResultForParticipantResponseModel(StageDTO stageDTO, int userId, ICompetitionService competitionService)
         {
-            string skill = adminService.GetCompetitionById(stageDTO.CompetitionId).Skill.Name;
+            string skill = competitionService.GetCompetitionById(stageDTO.CompetitionId).Skill.Name;
             ICollection<ResultForParticipantResponseModel> results = new List<ResultForParticipantResponseModel>();
             foreach (var task in stageDTO.Tasks)
             {

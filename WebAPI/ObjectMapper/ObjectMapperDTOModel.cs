@@ -157,7 +157,7 @@
             };
             return notificationResponseModel;
         }
-        public static ResultsElementResponseModel ToResultsElementResponseModel(CompetitionDTO competitionDTO, string stage, IAdministratorService administratorService)
+        public static ResultsElementResponseModel ToResultsElementResponseModel(CompetitionDTO competitionDTO, string stage, IAccountService accountService)
         {
             StringBuilder stringBuilder = new StringBuilder();
             var resultElement = new ResultsElementResponseModel()
@@ -182,7 +182,7 @@
                             {
                                 Mark = answer.Result.Mark
                             };
-                            var participant = administratorService.GetAccountById(answer.AccountId);
+                            var participant = accountService.GetAccountById(answer.AccountId);
                             string participantFullName = $"{participant.PersonalData.Surname} {participant.PersonalData.Name} {participant.PersonalData.Patronymic}";
                             result.Participant = participantFullName;
                             resultsStage.ResultRecords.Add(result);

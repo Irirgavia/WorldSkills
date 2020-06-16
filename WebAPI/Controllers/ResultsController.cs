@@ -21,16 +21,16 @@
             if (skill == "All" && stage == "All" && year == null)
                 return BadRequest();
             ICollection<ResultsElementResponseModel> resultsElements = new List<ResultsElementResponseModel>();
-            var guestService = ServiceProvider.GetGuestService();
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
+            var accountService = ServiceProvider.GetAccountService();
             if (skill == "All")
                 skill = null;
             try
             {
-                var competitions = guestService.GetCompetitionsBySkillAndYear(skill, year);
+                var competitions = competitionService.GetCompetitionsBySkillAndYear(skill, year);
                 foreach (var competition in competitions)
                 {
-                    resultsElements.Add(ObjectMapperDTOModel.ToResultsElementResponseModel(competition, stage, adminService));
+                    resultsElements.Add(ObjectMapperDTOModel.ToResultsElementResponseModel(competition, stage, accountService));
                 }
                 return Json(resultsElements);
             }
@@ -44,13 +44,13 @@
         public IHttpActionResult GetResultsByParticipant([FromBody] UserIdRequestModel userId)
         {
             List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel> resultsElements = new List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel>();
-            var adminService = ServiceProvider.GetAdministratorService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                var stages = adminService.GetStagesByAccountId(userId.id);
+                var stages = competitionService.GetStagesByAccountId(userId.id);
                 foreach (var stage in stages)
                 {
-                    resultsElements.AddRange(ObjectMapperDTOModelForParticipant.ToResultForParticipantResponseModel(stage, userId.id, adminService));
+                    resultsElements.AddRange(ObjectMapperDTOModelForParticipant.ToResultForParticipantResponseModel(stage, userId.id, competitionService));
                 }
                 return Json(resultsElements);
             }

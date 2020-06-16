@@ -13,11 +13,11 @@ namespace WebAPI.Controllers
     {
         public IHttpActionResult Get()
         {
-            var guestService = ServiceProvider.GetGuestService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             ICollection<string> skills = new List<string>();
             try
             {
-                var competitions = guestService.GetAllCompetitions();
+                var competitions = competitionService.GetAllCompetitions();
                 foreach (var competition in competitions)
                 {
                     var skill = competition.Skill.Name;

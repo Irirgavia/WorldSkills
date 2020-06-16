@@ -16,10 +16,10 @@
         public IHttpActionResult Get()
         {
             ICollection<ScheduleElementResponseModel> scheduleElements = new List<ScheduleElementResponseModel>();
-            var guestService = ServiceProvider.GetGuestService();
+            var competitionService = ServiceProvider.GetCompetitionService();
             try
             {
-                var competitions = guestService.GetActualCompetitions();
+                var competitions = competitionService.GetActualCompetitions();
                 foreach (var competition in competitions)
                 {
                     scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));

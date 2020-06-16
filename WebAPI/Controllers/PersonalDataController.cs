@@ -19,8 +19,8 @@
         [Route("api/personaldata")]
         public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
-            AccountDTO accountDTO = adminService.GetAccountById(userId.id);
+            var accountService = ServiceProvider.GetAccountService();
+            AccountDTO accountDTO = accountService.GetAccountById(userId.id);
             var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
             return Json(personalDataResponse);
         }
@@ -28,8 +28,8 @@
         [Route("api/personaldata/update")]
         public IHttpActionResult Update([FromBody] PersonalDataSaveRequestModel parameters)
         {
-            var adminService = ServiceProvider.GetAdministratorService();
-            AccountDTO accountDTO = adminService.GetAccountById(parameters.userId);
+            var accountService = ServiceProvider.GetAccountService();
+            AccountDTO accountDTO = accountService.GetAccountById(parameters.userId);
             var personalDataDTO = accountDTO.PersonalData;
 
             personalDataDTO.Address.Country = parameters.country;
@@ -44,7 +44,7 @@
             personalDataDTO.Mail = parameters.mail;
             personalDataDTO.Telephone = parameters.telephone;
 
-            adminService.UpdatePersonalData(personalDataDTO);
+            accountService.UpdatePersonalData(personalDataDTO);
 
             return Ok();
         }
