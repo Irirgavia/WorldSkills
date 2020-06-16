@@ -5,13 +5,14 @@
     using System.Linq;
 
     using BLL.DTO.Account;
+    using BLL.Services.Interfaces;
     using BLL.Utilities;
 
     using DAL.Entities.Account;
     using DAL.UnitOfWorks;
     using DAL.UnitOfWorks.Interfaces;
 
-    public class AccountService : IDisposable
+    public class AccountService : IAccountService
     {
         private readonly IAccountUnitOfWork accountUnitOfWork;
 

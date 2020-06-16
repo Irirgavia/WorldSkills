@@ -6,6 +6,7 @@
 
     using BLL.DTO.Account;
     using BLL.DTO.Competition;
+    using BLL.Services.Interfaces;
     using BLL.Utilities;
 
     using DAL;
@@ -14,7 +15,7 @@
     using DAL.UnitOfWorks;
     using DAL.UnitOfWorks.Interfaces;
 
-    public class CompetitionService : IDisposable
+    public class CompetitionService : ICompetitionService
     {
         private readonly ICompetitionUnitOfWork competitionUnitOfWork;
 

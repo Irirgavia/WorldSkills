@@ -147,6 +147,9 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompetitionService.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\ICompetitionService.cs" />
+    <Compile Include="Services\Interfaces\ISystemService.cs" />
     <Compile Include="Services\ServiceModule.cs" />
     <Compile Include="Services\SystemService.cs" />
     <Compile Include="Utilities\CsvParser\ClassMap\RegistrationFormMap.cs" />
@@ -166,8 +169,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

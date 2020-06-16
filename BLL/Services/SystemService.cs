@@ -5,13 +5,14 @@
     using System.Linq;
 
     using BLL.DTO.NotificationSystem;
+    using BLL.Services.Interfaces;
     using BLL.Utilities;
 
     using DAL.Entities.NotificationSystem;
     using DAL.UnitOfWorks;
     using DAL.UnitOfWorks.Interfaces;
 
-    public class SystemService : IDisposable
+    public class SystemService : ISystemService
     {
         private readonly ISystemUnitOfWork systemUnitOfWork;
 
