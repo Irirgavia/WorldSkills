@@ -10,7 +10,7 @@
         {
         }
 
-        public ResultEntity(float mark = 0)
+        public ResultEntity(int prizeEntityId, float mark = 0)
         {
             this.Mark = mark;
         }

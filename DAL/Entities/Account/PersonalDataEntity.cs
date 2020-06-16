@@ -71,7 +71,7 @@
         public string Photo { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Mail { get; set; }
 
         [Required]

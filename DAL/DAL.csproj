@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Contexts\AccountContext.cs" />
     <Compile Include="Contexts\CompetitionContext.cs" />
     <Compile Include="Contexts\Initializers\AccountInitializer.cs" />

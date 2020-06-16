@@ -2,6 +2,8 @@
 {
     using System;
 
+    using CsvHelper.Configuration.Attributes;
+
     public class PersonalDataDTO
     {
         public PersonalDataDTO()
