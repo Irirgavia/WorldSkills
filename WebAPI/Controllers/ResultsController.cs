@@ -8,34 +8,56 @@
     using System.Web.Http;
 
     using Models.ResponseModels;
+    using Models.RequestModels;
+    using ServiceProvider;
+    using WebAPI.ObjectMapper;
 
     public class ResultsController : ApiController
     {
         //"http://localhost:49263/api/results?skill=skill&stage=stage&year=2020"
         //[Route(("skill={skill}&stage={stage}&year={year:range(2000, 3000)}"))]
-        public IHttpActionResult Get([FromUri]string skill = null, [FromUri] string stage = null, [FromUri] int? year = null, [FromUri] bool isCSV = false)
+        public IHttpActionResult Get([FromUri]string skill = "All", [FromUri] string stage = "All", [FromUri] int? year = null, [FromUri] bool isCSV = false)
         {
-            if (skill == null && stage == null && year == null)
+            if (skill == "All" && stage == "All" && year == null)
                 return BadRequest();
             ICollection<ResultsElementResponseModel> resultsElements = new List<ResultsElementResponseModel>();
-
-            return BadRequest();
+            var guestService = ServiceProvider.GetGuestService();
+            var adminService = ServiceProvider.GetAdministratorService();
+            if (skill == "All")
+                skill = null;
+            try
+            {
+                var competitions = guestService.GetCompetitionsBySkillAndYear(skill, year);
+                foreach (var competition in competitions)
+                {
+                    resultsElements.Add(ObjectMapperDTOModel.ToResultsElementResponseModel(competition, stage, adminService));
+                }
+                return Json(resultsElements);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/results/participant")]
-        public IHttpActionResult GetResultsByParticipant([FromBody] int participantId)
+        public IHttpActionResult GetResultsByParticipant([FromBody] UserIdRequestModel userId)
         {
-            ICollection<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel> resultsElements = new List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel>();
-
-            return BadRequest();
-        }
-
-        [Route("api/results/trainer")]
-        public IHttpActionResult GetResultsByTrainer([FromBody] int trainerId)
-        {
-            ICollection<Models.ResponseModels.ForTrainer.ResultForTrainerResponseModel> resultsElements = new List<Models.ResponseModels.ForTrainer.ResultForTrainerResponseModel>();
-
-            return BadRequest();
+            List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel> resultsElements = new List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel>();
+            var adminService = ServiceProvider.GetAdministratorService();
+            try
+            {
+                var stages = adminService.GetStagesByAccountId(userId.id);
+                foreach (var stage in stages)
+                {
+                    resultsElements.AddRange(ObjectMapperDTOModelForParticipant.ToResultForParticipantResponseModel(stage, userId.id, adminService));
+                }
+                return Json(resultsElements);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

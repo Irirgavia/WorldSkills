@@ -11,6 +11,8 @@
     using BLL.Services.Interfaces;
     using Models.ResponseModels;
     using Models.RequestModels;
+    using BLL.DTO.NotificationSystem;
+    using BLL.Services;
 
     public class ObjectMapperDTOModel
     {
@@ -142,6 +144,54 @@
                 DateTime dateTime = new DateTime(year, month, day, hours, minutes, 0);
                 return dateTime;
             }
+        }
+
+        public static NotificationResponseModel ToModel(NotificationDTO notificationDTO)
+        {
+            var notificationResponseModel = new NotificationResponseModel()
+            {
+                Id = notificationDTO.Id,
+                IsRead = notificationDTO.IsRead,
+                Subject = notificationDTO.Mail.Subject,
+                Message = notificationDTO.Mail.Body
+            };
+            return notificationResponseModel;
+        }
+        public static ResultsElementResponseModel ToResultsElementResponseModel(CompetitionDTO competitionDTO, string stage, IAdministratorService administratorService)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            var resultElement = new ResultsElementResponseModel()
+            {
+                Skill = competitionDTO.Skill.Name,
+                DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
+                DateOfEnd = competitionDTO.DateTimeEnd.ToShortDateString()
+            };
+            foreach (var stageDTO in competitionDTO.Stages)
+            {
+                if ((stage != "All" && stageDTO.StageType.Name == stage) || stage == "All")
+                {
+                    var resultsStage = new ResultsStage()
+                    {
+                        Type = stageDTO.StageType.Name
+                    };
+                    foreach (var task in stageDTO.Tasks)
+                    {
+                        foreach (var answer in task.Answers)
+                        {
+                            var result = new ResultsResultRecords()
+                            {
+                                Mark = answer.Result.Mark
+                            };
+                            var participant = administratorService.GetAccountById(answer.AccountId);
+                            string participantFullName = $"{participant.PersonalData.Surname} {participant.PersonalData.Name} {participant.PersonalData.Patronymic}";
+                            result.Participant = participantFullName;
+                            resultsStage.ResultRecords.Add(result);
+                        }
+                    }
+                    resultElement.Stages.Add(resultsStage);
+                }
+            }
+            return resultElement;
         }
     }
 }

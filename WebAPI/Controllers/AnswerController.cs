@@ -24,18 +24,34 @@
         {
             ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
             var adminService = ServiceProvider.GetAdministratorService();
-            var stages = adminService.GetStagesByAccountId(judgeId.id);
-            foreach (var stage in stages)
+            try
             {
-                answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
+                var stages = adminService.GetStagesByAccountId(judgeId.id);
+                foreach (var stage in stages)
+                {
+                    answerForJudgeModels.Add(ObjectMapperDTOModelForJudge.ToAnswerForJudgeResponseModel(stage));
+                }
+                return Json(answerForJudgeModels);
             }
-            return Json(answerForJudgeModels);
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/answer/save")]
         public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
-            return BadRequest();
+            var adminService = ServiceProvider.GetAdministratorService();
+            try
+            {
+                adminService.CreateAnswer(parameters.participantId, parameters.taskId, parameters.projectLink, null);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

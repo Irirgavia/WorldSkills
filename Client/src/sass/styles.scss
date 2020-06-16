@@ -1,12 +1,26 @@
-@import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Libre+Baskerville);
+//@import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Libre+Baskerville);
 body {
   margin: 0;
-  background-image: url(https://html5book.ru/wp-content/uploads/2017/03/dulcineia-dias-195000.jpg);
+  /*background-image: url(https://html5book.ru/wp-content/uploads/2017/03/dulcineia-dias-195000.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  position: relative;
+  position: relative;*/
+  background-color: lighten($color: #48ad54, $amount: 0);
+  //font-family: DroidSerif-Regular;
+  font-size: 24px;
+  font-weight: 600;
+  tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: inherit;
+    }
+  }
 }
 
 body:before {
@@ -16,13 +30,26 @@ body:before {
   bottom: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.8));
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0),
+    rgba(255, 255, 255, 0.8)
+  );
 }
 
 footer {
   position: absolute;
   bottom: 50px;
   justify-content: center;
+}
+
+div.competition {
+  background-color: lighten($color: #139992bb, $amount: 0);
+}
+
+tr.task.false {
+  color: red($color: #9b1a1a);
+  font-style: italic;
 }
 
 nav.navbar {
@@ -117,39 +144,39 @@ nav a {
   margin-right: 10px;
 }
 
-table.sort{
-	border-spacing:0.1em;
-	margin-bottom:1em;
-	margin-top:1em
+table.sort {
+  border-spacing: 0.1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 /* ячейки таблицы */
-table.sort td{
-	border:1px solid #CCCCCC;
-	padding:0.3em 1em
+table.sort td {
+  border: 1px solid #cccccc;
+  padding: 0.3em 1em;
 }
 
 /* заголовки таблицы */
-table.sort thead td{
-	cursor:pointer;
-	cursor:hand;
-	font-weight:bold;
-	text-align:center;
-	vertical-align:middle
+table.sort thead td {
+  cursor: pointer;
+  cursor: hand;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* заголовок отсортированного столбца */
-table.sort thead td.curcol{
-	background-color:#999999;
-	color:#FFFFFF
+table.sort thead td.curcol {
+  background-color: #999999;
+  color: #ffffff;
 }
 
-#notificationspreview{
+#notificationspreview {
   background-color: #ddd;
   float: left;
   width: 150px;
 }
-#notificationsmessage{
+#notificationsmessage {
   background-color: #eee;
   height: 200px;
   margin-left: 170px;

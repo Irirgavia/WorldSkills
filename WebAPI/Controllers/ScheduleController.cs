@@ -17,12 +17,19 @@
         {
             ICollection<ScheduleElementResponseModel> scheduleElements = new List<ScheduleElementResponseModel>();
             var guestService = ServiceProvider.GetGuestService();
-            var competitions = guestService.GetActualCompetitions();
-            foreach(var competition in competitions)
+            try
             {
-                scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));
+                var competitions = guestService.GetActualCompetitions();
+                foreach (var competition in competitions)
+                {
+                    scheduleElements.Add(ObjectMapperDTOModel.ToModel(competition));
+                }
+                return Json(scheduleElements);
             }
-            return Json(scheduleElements /*Test.TestDataForSchedule()*/);
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

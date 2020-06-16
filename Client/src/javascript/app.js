@@ -1,26 +1,20 @@
 import "../sass/styles.scss";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ProfileMenu from "./components/profilemenu.js";
-import Main from "./components/main.js";
-import History from "./components/aboutpath/history.js";
-import Rules from "./components/aboutpath/rules.js";
-import About from "./components/about.js";
-import Schedule from "./components/schedule.js";
-import Results from "./components/results.js";
-import ResultSearch from "./components/resultpath/resultsearch.js";
-import Contacts from "./components/contacts.js";
-import SignIn from "./components/signin.js";
-import SignOut from "./components/signout.js";
-import PersonalData from "./components/profilepath/personaldata/personaldata.js";
-import PersonalDataChange from "./components/profilepath/personaldata/personaldatachange.js";
-import Notifications from "./components/profilepath/notifications.js";
-import JudgeAnswers from "./components/profilepath/judgeprofilepath/judgeanswers.js";
-import ParticipantCompetitions from "./components/profilepath/participantprofilepath/participantcompetitions.js";
-import ParticipantPersonalData from "./components/profilepath/participantprofilepath/participantpersonaldata.js";
-import ParticipantResults from "./components/profilepath/participantprofilepath/participantresults.js";
-import AdministratorCompetitions from "./components/profilepath/adminprofilepath/admincompetition.js";
-import TrainerResults from "./components/profilepath/trainerprofilepath/trainerresults.js";
+import ProfileMenu from "./containers/profilemenu.js";
+import Main from "./components/simplepages/main.js";
+import About from "./components/simplepages/about.js";
+import Schedule from "./containers/schedule.js";
+import Results from "./containers/results.js";
+import Contacts from "./components/simplepages/contacts.js";
+import SignIn from "./containers/signin.js";
+import SignOut from "./containers/signout.js";
+import PersonalData from "./containers/profile/personaldata.js";
+import Notifications from "./containers/profile/notifications.js";
+import JudgeAnswers from "./containers/profile/judge/judgeanswers.js";
+import ParticipantCompetitions from "./containers/profile/participant/participantcompetitions.js";
+import ParticipantResults from "./containers/profile/participant/participantresults.js";
+import AdministratorCompetitions from "./containers/profile/admin/admincompetition.js";
 import NotFound from "./components/system/notfound.js";
 
 export default class App extends React.Component {
@@ -31,21 +25,14 @@ export default class App extends React.Component {
           <ProfileMenu />
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route path="/about/history" component={History} />
-            <Route path="/about/rules" component={Rules} />
-            <Route exact path="/about" component={About} />
+            <Route path="/about" component={About} />
             <Route path="/schedule" component={Schedule} />
-            <Route exact path="/results" component={Results} />
-            <Route path="/results/search" component={ResultSearch} />
+            <Route path="/results" component={Results} />
             <Route path="/contacts" component={Contacts} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signout" component={SignOut} />
             <Route path="/judge/answers" component={JudgeAnswers} />
             <Route exact path="/judge/personaldata" component={PersonalData} />
-            <Route
-              path="/judge/personaldata/change"
-              component={PersonalDataChange}
-            />
             <Route path="/judge/notifications" component={Notifications} />
             <Route
               path="/participant/competitions"
@@ -54,11 +41,7 @@ export default class App extends React.Component {
             <Route
               exact
               path="/participant/personaldata"
-              component={ParticipantPersonalData}
-            />
-            <Route
-              path="/participant/personaldata/change"
-              component={PersonalDataChange}
+              component={PersonalData}
             />
             <Route
               path="/participant/notifications"
@@ -71,24 +54,9 @@ export default class App extends React.Component {
               component={PersonalData}
             />
             <Route
-              path="/administrator/personaldata/change"
-              component={PersonalDataChange}
-            />
-            <Route
               path="/administrator/competitions"
               component={AdministratorCompetitions}
             />
-            <Route
-              exact
-              path="/trainer/personaldata"
-              component={PersonalData}
-            />
-            <Route
-              path="/trainer/personaldata/change"
-              component={PersonalDataChange}
-            />
-            <Route path="/trainer/notifications" component={Notifications} />
-            <Route path="/trainer/results" component={TrainerResults} />
             <Route component={NotFound} />
           </Switch>
         </div>

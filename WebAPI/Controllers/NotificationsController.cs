@@ -17,23 +17,52 @@ namespace WebAPI.Controllers
         public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            
-            return Json("notificmess");
+            try
+            {
+                var notifications = adminService.GetNotificationByToAccountId(userId.id);
+                ICollection<Models.ResponseModels.NotificationResponseModel> response = new List<Models.ResponseModels.NotificationResponseModel>();
+                foreach (var notificationDTO in notifications)
+                {
+                    response.Add(ObjectMapperDTOModel.ToModel(notificationDTO));
+                }
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/notifications/amount")]
         public IHttpActionResult Amount([FromBody] UserIdRequestModel userId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            
-            return Json(30);
+            try
+            {
+                var notifications = adminService.GetNotificationByToAccountId(userId.id);
+                var amountUnreadNotifications = notifications.Select(n => n.IsRead == false).Count();
+                return Json(amountUnreadNotifications);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         public IHttpActionResult Read([FromUri] int notificationId, [FromUri] int userId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-
-            return Ok();
+            try
+            {
+                var notification = adminService.GetNotificationById(notificationId);
+                notification.IsRead = true;
+                adminService.UpdateNotification(notification);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿namespace WebAPI.ObjectMapper
 {
     using BLL.DTO.Competition;
+    using BLL.Services.Interfaces;
     using Models.ResponseModels.ForParticipant;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class ObjectMapperDTOModelForParticipant
     {
@@ -32,6 +35,25 @@
                 stage.Tasks.Add(task);
             }
             return competitionForParticipantResponseModel;
+        }
+
+        public static IEnumerable<ResultForParticipantResponseModel> ToResultForParticipantResponseModel(StageDTO stageDTO, int userId, IAdministratorService adminService)
+        {
+            string skill = adminService.GetCompetitionById(stageDTO.CompetitionId).Skill.Name;
+            ICollection<ResultForParticipantResponseModel> results = new List<ResultForParticipantResponseModel>();
+            foreach (var task in stageDTO.Tasks)
+            {
+                var resultForParticipantResponseModel = new ResultForParticipantResponseModel()
+                {
+                    Skill = skill,
+                    Stage = stageDTO.StageType.Name,
+                    Date = task.DateTimeBegin.ToString(dateFormat)
+                };
+                var answer = task.Answers.FirstOrDefault(a => a.AccountId == userId);
+                resultForParticipantResponseModel.Mark = answer.Result.Mark;
+                results.Add(resultForParticipantResponseModel);
+            }
+            return results;
         }
     }
 }

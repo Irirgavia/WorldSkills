@@ -7,6 +7,8 @@ const initialState = {
   unreadNotificationAmount: 0,
   isFetching: false,
   error: "",
+  stageTypes: [],
+  skillNames: [],
 };
 
 export default function mainReducer(state = initialState, action) {
@@ -106,6 +108,34 @@ export default function mainReducer(state = initialState, action) {
         isFetching: false,
         error: "",
       };
+
+    case constants.SKILL_NAMES_REQUEST:
+      return { ...state, isFetching: true, error: "", skillNames: [] };
+
+    case constants.SKILL_NAMES_SUCCESS:
+      return {
+        ...state,
+        skillNames: action.skillNames,
+        isFetching: false,
+        error: "",
+      };
+
+    case constants.SKILL_NAMES_ERROR:
+      return { ...state, isFetching: false, error: action.error };
+
+    case constants.STAGE_TYPES_REQUEST:
+      return { ...state, isFetching: true, error: "", skillNames: [] };
+
+    case constants.STAGE_TYPES_SUCCESS:
+      return {
+        ...state,
+        stageTypes: action.stageTypes,
+        isFetching: false,
+        error: "",
+      };
+
+    case constants.STAGE_TYPES_ERROR:
+      return { ...state, isFetching: false, error: action.error };
 
     default:
       return state;

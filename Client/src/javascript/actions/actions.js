@@ -94,6 +94,50 @@ export function readNotificationAction() {
   };
 }
 
+//SKILL NAMES ACTIONS
+
+export function requestSkillNames() {
+  return {
+    type: constants.SKILL_NAMES_REQUEST,
+  };
+}
+
+export function receiveSkillNames(data) {
+  return {
+    type: constants.SKILL_NAMES_SUCCESS,
+    skillNames: data,
+  };
+}
+
+export function errorReceiveSkillNames(err) {
+  return {
+    type: constants.SKILL_NAMES_ERROR,
+    error: err,
+  };
+}
+
+//STAGE TYPES ACTIONS
+
+export function requestStageTypes() {
+  return {
+    type: constants.STAGE_TYPES_REQUEST,
+  };
+}
+
+export function receiveStageTypes(data) {
+  return {
+    type: constants.STAGE_TYPES_SUCCESS,
+    stageTypes: data,
+  };
+}
+
+export function errorReceiveStageTypes(err) {
+  return {
+    type: constants.STAGE_TYPES_ERROR,
+    error: err,
+  };
+}
+
 //ACTIONS
 
 export function logOutUser() {
@@ -112,7 +156,7 @@ function getDataGETRequest(queryTrailer) {
     return fetch(ApiUrl + queryTrailer)
       .then((response) => {
         if (response.ok) return response.json();
-        else dispatch(errorReceiveData(response.statusText));
+        else throw new Error(response.statusText);
       })
       .then((data) => {
         dispatch(receiveData(data));
@@ -135,7 +179,7 @@ function getDataByUserIdPOSTRequest(queryTrailer, id) {
     })
       .then((response) => {
         if (response.ok) return response.json();
-        else dispatch(errorReceiveData(response.statusText));
+        else throw new Error(response.statusText);
       })
       .then((data) => {
         dispatch(receiveData(data));
@@ -158,7 +202,7 @@ function saveDataPOSTRequest(queryTrailer, data) {
     })
       .then((response) => {
         if (response.ok) return response.json();
-        else dispatch(errorReceiveData(response.statusText));
+        else throw new Error(response.statusText);
       })
       .then((data) => {
         dispatch(receiveData(data));
@@ -218,6 +262,19 @@ export function getResultsByYear(skill, stage, year) {
   return getDataGETRequest(queryTrailer);
 }
 
+export function getResultsCSV(skill, stage, year) {
+  let queryTrailer =
+    "/results?skill=" +
+    skill +
+    "&stage=" +
+    stage +
+    "&year=" +
+    year +
+    "&csv=" +
+    true;
+  return getDataGETRequest(queryTrailer);
+}
+
 //fetch("https://localhost:49263/api/schedule")
 export function getSchedule() {
   let queryTrailer = "/schedule";
@@ -226,9 +283,9 @@ export function getSchedule() {
 
 //fetch("https://localhost:49263/api/user")
 export function getUser(login, password) {
+  let queryTrailer = "/user";
   return (dispatch) => {
     dispatch(requestUser());
-    let queryTrailer = "/user";
     return fetch(ApiUrl + queryTrailer, {
       method: "POST",
       headers: {
@@ -241,7 +298,7 @@ export function getUser(login, password) {
     })
       .then((response) => {
         if (response.ok) return response.json();
-        else dispatch(errorReceiveData(response.statusText));
+        else throw new Error(response.statusText);
       })
       .then((data) => {
         if (data.Status == "NotFound") {
@@ -261,20 +318,53 @@ export function getUser(login, password) {
   };
 }
 
+export function getSkills() {
+  let queryTrailer = "/skills";
+  return (dispatch) => {
+    dispatch(requestSkillNames());
+    return fetch(ApiUrl + queryTrailer)
+      .then((response) => {
+        if (response.ok) return response.json();
+        else throw new Error(response.statusText);
+      })
+      .then((data) => {
+        dispatch(receiveSkillNames(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveSkillNames(ex));
+      });
+  };
+}
+
+export function getStages() {
+  let queryTrailer = "/stage";
+  return (dispatch) => {
+    dispatch(requestStageTypes());
+    return fetch(ApiUrl + queryTrailer)
+      .then((response) => {
+        if (response.ok) return response.json();
+        else throw new Error(response.statusText);
+      })
+      .then((data) => {
+        dispatch(receiveStageTypes(data));
+      })
+      .catch((ex) => {
+        dispatch(errorReceiveStageTypes(ex));
+      });
+  };
+}
+
 //SAVE DATA
 
 export function readNotification(notificationId, userId) {
+  let queryTrailer =
+    "/notifications/read?notificationId" + notificationId + "&userId" + userId;
   return (dispatch) => {
     dispatch(requestData());
-    let queryTrailer =
-      "/notifications/read?notificationId" +
-      notificationId +
-      "&userId" +
-      userId;
     return fetch(ApiUrl + queryTrailer)
       .then((response) => {
         if (response.ok) dispatch(readNotificationAction());
-        else dispatch(errorReceiveData(response.statusText));
+        else throw new Error(response.statusText);
       })
       .catch((ex) => {
         dispatch(errorReceiveData(ex));

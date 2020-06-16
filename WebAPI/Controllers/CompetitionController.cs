@@ -19,26 +19,40 @@ namespace WebAPI.Controllers
         public IHttpActionResult ReceiveByAdminId([FromBody] UserIdRequestModel adminId)
         {
             var service = ServiceProvider.GetGuestService();
-            var competitions = service.GetAllCompetitions();
-            ICollection<Models.ResponseModels.ForAdmin.CompetitionResponseModel> response = new List<Models.ResponseModels.ForAdmin.CompetitionResponseModel>();
-            foreach(var competition in competitions)
+            try
             {
-                response.Add(ObjectMapperDTOModelForAdmin.ToCompetitionForAdminResponseModel(competition));
+                var competitions = service.GetAllCompetitions();
+                ICollection<Models.ResponseModels.ForAdmin.CompetitionResponseModel> response = new List<Models.ResponseModels.ForAdmin.CompetitionResponseModel>();
+                foreach (var competition in competitions)
+                {
+                    response.Add(ObjectMapperDTOModelForAdmin.ToCompetitionForAdminResponseModel(competition));
+                }
+                return Json(response);
             }
-            return Json(response);
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/competition/participant")]
         public IHttpActionResult ReceiveByParticipant([FromBody] UserIdRequestModel participantId)
         {
             var adminService = ServiceProvider.GetAdministratorService();
-            var stages = adminService.GetStagesByAccountId(participantId.id);
-            ICollection<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel> response = new List<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel>();
-            foreach (var stage in stages)
+            try
             {
-                response.Add(ObjectMapperDTOModelForParticipant.ToCompetitionForParticipantResponseModel(stage));
+                var stages = adminService.GetStagesByAccountId(participantId.id);
+                ICollection<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel> response = new List<Models.ResponseModels.ForParticipant.CompetitionForTaskResponseModel>();
+                foreach (var stage in stages)
+                {
+                    response.Add(ObjectMapperDTOModelForParticipant.ToCompetitionForParticipantResponseModel(stage));
+                }
+                return Json(response);
             }
-            return Json(response);
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/competition/save")]

@@ -192,6 +192,7 @@
     <Compile Include="Controllers\PersonalDataController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\StageController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -215,11 +216,14 @@
     <Compile Include="Models\ResponseModels\ForParticipant\CompetitionForTaskResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForParticipant\StageForTaskResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForParticipant\TaskForTaskResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\NotificationResponseModel.cs" />
     <Compile Include="Models\ResponseModels\PersonalDataResponseModel.cs" />
     <Compile Include="Models\RequestModels\UserRequestModel.cs" />
     <Compile Include="Models\ResponseModels\ForParticipant\ResultForParticipantResponseModel.cs" />
     <Compile Include="Models\ResponseModels\For Trainer\ResultForTrainerResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ResultsElementResponseModel.cs" />
+    <Compile Include="Models\ResponseModels\ResultsResultRecords.cs" />
+    <Compile Include="Models\ResponseModels\ResultsStage.cs" />
     <Compile Include="Models\ResponseModels\ScheduleElementResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForAdmin\StageResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForAdmin\TaskResponseModel.cs" />
@@ -284,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -13,6 +13,6 @@ namespace WebAPI.Models.ResponseModels.ForParticipant
 
         public string Date { get; set; }
 
-        public int Mark { get; set; }
+        public float Mark { get; set; }
     }
 }

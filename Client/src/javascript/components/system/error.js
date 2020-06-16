@@ -10,6 +10,12 @@ export default class Error extends React.Component {
       case "User is not found.": {
         mes = "Пользователь с таким логином не найден.";
       }
+      case "Bad Request": {
+        mes = "Ошибка запроса.";
+      }
+      default: {
+        mes = this.props.error;
+      }
     }
     if (mes == "") return <div></div>;
     return <div id="error">Ошибка: {mes}</div>;

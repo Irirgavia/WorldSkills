@@ -1,13 +1,20 @@
 ﻿namespace WebAPI.Models.ResponseModels
 {
-    using System;
+    using System.Collections.Generic;
 
     public class ResultsElementResponseModel
     {
-        public string Date { get; set; }
-        
-        public string Participant { get; set; }
-        
-        public int Marks { get; set; }
+        public string Skill { get; set; }
+
+        public string DateOfBegin { get; set; }
+
+        public string DateOfEnd { get; set; }
+
+        public ICollection<ResultsStage> Stages { get; set; }
+
+        public ResultsElementResponseModel()
+        {
+            Stages = new List<ResultsStage>();
+        }
     }
 }
