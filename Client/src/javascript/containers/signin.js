@@ -32,9 +32,17 @@ export class SignIn extends React.Component {
     this.props.getUser(this.state.login, this.state.password);
   }
 
+  success() {
+    this.props.cookies.set("isSignedIn", "true", { path: "/" });
+    this.props.cookies.set("id", this.props.id, { path: "/" });
+    this.props.cookies.set("login", this.state.login, { path: "/" });
+    this.props.cookies.set("role", this.props.role, { path: "/" });
+  }
+
   render() {
     console.log(this.props.isFetching);
     if (this.props.isSignedIn) {
+      this.success();
       return <Redirect to="/" />;
     } else if (this.props.isFetching) {
       return <Loading />;
@@ -69,9 +77,12 @@ export class SignIn extends React.Component {
   }
 }
 
-let mapProps = (state) => {
+let mapProps = (state, ownProps) => {
   return {
+    cookies: ownProps.cookies,
     isFetching: state.isFetching,
+    id: state.user.id,
+    role: state.user.role,
     isSignedIn: state.isSignedIn,
     error: state.error,
   };

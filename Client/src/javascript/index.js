@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./app.js";
 import { Provider } from "react-redux";
 import configureStore from "./store/store.js";
+import { CookiesProvider } from "react-cookie";
 
 /*var store = createStore(mainReducer, applyMiddleware(thunk));
 function configureStore(initialState) {
@@ -14,8 +15,12 @@ function configureStore(initialState) {
 const store = configureStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <CookiesProvider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </CookiesProvider>,
   document.getElementById("main")
 );

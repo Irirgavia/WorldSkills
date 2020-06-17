@@ -82,12 +82,12 @@ export class Account extends React.Component {
   }
 }
 
-let mapProps = (state) => {
+let mapProps = (state, ownProps) => {
   return {
-    userId: state.user.id,
-    login: state.user.login,
+    userId: ownProps.cookies.id,
+    login: ownProps.cookies.login,
     isFetching: state.isFetching,
-    isSignedIn: state.isSignedIn,
+    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.data,
   };
 };

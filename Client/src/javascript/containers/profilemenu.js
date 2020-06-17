@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import AdminProfileMenu from "../components/profilemenu/adminprofilemenu.js";
 import ParticipantProfileMenu from "../components/profilemenu/participantprofilemenu.js";
 import GuestProfileMenu from "../components/profilemenu/guestprofilemenu.js";
@@ -50,11 +49,15 @@ export class ProfileMenu extends React.Component {
   }
 }
 
-let mapProps = (state) => {
+let mapProps = (state, ownProps) => {
   return {
-    user: state.user,
-    isSignedIn: state.isSignedIn,
-    unreadNotificationAmount: state.unreadNotificationAmount,
+    cookies: ownProps.cookies,
+    user: {
+      login: ownProps.cookies.login,
+      role: ownProps.cookies.role,
+    },
+    isSignedIn: ownProps.cookies.isSignedIn,
+    unreadNotificationAmount: ownProps.cookies.unreadNotificationAmount,
   };
 };
 

@@ -57,7 +57,7 @@ export class ParticipantCompetititons extends React.Component {
     this.setState({ competitions: competitions });
   }
 
-  copyCompetition(competition) {
+  copyCompetition(item) {
     let competitionState = {
       skill: item.Skill,
       dateOfBegin: item.DateOfBegin,
@@ -146,11 +146,11 @@ export class ParticipantCompetititons extends React.Component {
   }
 }
 
-let mapProps = (state) => {
+let mapProps = (state, ownProps) => {
   return {
-    participantId: state.user.id,
-    role: state.user.role,
-    isSignedIn: state.isSignedIn,
+    participantId: ownProps.cookies.id,
+    role: ownProps.cookies.role,
+    isSignedIn: ownProps.cookies.isSignedIn,
     items: state.data,
     isFetching: state.isFetching,
     error: state.error,

@@ -38,13 +38,13 @@ export class AdminAccount extends React.Component {
   }
 }
 
-let mapProps = (state) => {
+let mapProps = (state, ownProps) => {
   return {
-    userId: state.user.id,
-    role: state.user.role,
+    userId: ownProps.cookies.id,
+    role: ownProps.cookies.role,
     items: state.data,
     isFetching: state.isFetching,
-    isSignedIn: state.isSignedIn,
+    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.error,
   };
 };
