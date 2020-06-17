@@ -209,6 +209,7 @@
     <Compile Include="Models\RequestModels\TaskSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\UserIdRequestModel.cs" />
     <Compile Include="Models\RequestModels\PersonalDataSaveByAdminRequestModel.cs" />
+    <Compile Include="Models\ResponseModels\ForAdmin\PersonalDataByAdminResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\AnswerForAnswerResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForAdmin\CompetitionResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\CompetitionForAnswerResponseModel.cs" />
