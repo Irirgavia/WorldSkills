@@ -132,6 +132,7 @@
     <Compile Include="Repositories\Competition\TaskRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAddressRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICompetitionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
     <Compile Include="Repositories\NotificationSystem\NotificationRepository.cs" />

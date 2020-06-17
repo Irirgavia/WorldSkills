@@ -27,6 +27,8 @@
 
         AccountDTO GetAccountByLogin(string login);
 
+        IEnumerable<AccountDTO> GetAllAccounts();
+
         IEnumerable<AddressDTO> GetAddressesByPlace(
             string country,
             string city,

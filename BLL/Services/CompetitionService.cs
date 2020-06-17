@@ -235,6 +235,7 @@
         }
 
         public IEnumerable<StageTypeDTO> GetAllStageTypes()
+
         {
             return ObjectMapper<StageTypeEntity, StageTypeDTO>.MapList(
                 this.competitionUnitOfWork.StageTypeRepository.GetAll());
@@ -313,6 +314,12 @@
                 this.competitionUnitOfWork.CompetitionRepository.Get(
                     c => (c.DateTimeBegin.Year == year - 1 || c.DateTimeBegin.Year == year)
                       && (c.DateTimeEnd.Year == year + 1 || c.DateTimeEnd.Year == year)));
+        }
+
+        public IEnumerable<CompetitionDTO> GetCompetitionsForRegistration(string stageTypeName)
+        {
+            return ObjectMapper<CompetitionEntity, CompetitionDTO>.MapList(
+                this.competitionUnitOfWork.CompetitionRepository.GetCompetitionsForRegistration(stageTypeName));
         }
 
         public PrizeDTO GetPrizeById(int id)

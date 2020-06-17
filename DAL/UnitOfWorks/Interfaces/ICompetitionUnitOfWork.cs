@@ -9,7 +9,7 @@
 
         IGenericRepository<AnswerEntity> AnswerRepository { get; }
 
-        IGenericRepository<CompetitionEntity> CompetitionRepository { get; }
+        ICompetitionRepository CompetitionRepository { get; }
 
         IGenericRepository<PrizeEntity> PrizeRepository { get; }
 

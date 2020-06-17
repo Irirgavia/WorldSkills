@@ -140,6 +140,11 @@
                 this.accountUnitOfWork.AddressRepository.GetAddressesByPlace(country, city, street, house, apartments));
         }
 
+        public IEnumerable<AccountDTO> GetAllAccounts()
+        {
+            return ObjectMapper<AccountEntity, AccountDTO>.MapList(this.accountUnitOfWork.AccountRepository.GetAll());
+        }
+
         public CredentialsDTO GetCredentialsById(int id)
         {
             return ObjectMapper<CredentialsEntity, CredentialsDTO>.Map(

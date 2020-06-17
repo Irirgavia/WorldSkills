@@ -24,7 +24,7 @@
         public IGenericRepository<AnswerEntity> AnswerRepository => 
             new AnswerRepository(this.competitionContext);
 
-        public IGenericRepository<CompetitionEntity> CompetitionRepository =>
+        public ICompetitionRepository CompetitionRepository =>
             new CompetitionRepository(this.competitionContext);
 
         public IGenericRepository<PrizeEntity> PrizeRepository =>

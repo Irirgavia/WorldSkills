@@ -88,6 +88,8 @@
 
         IEnumerable<CompetitionDTO> GetCompetitionsBySkillAndYear(string skill, int? year);
 
+        IEnumerable<CompetitionDTO> GetCompetitionsForRegistration(string stageTypeName);
+
         PrizeDTO GetPrizeById(int id);
 
         ResultDTO GetResultById(int id);
