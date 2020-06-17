@@ -1,6 +1,6 @@
 import "../sass/styles.scss";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import ProfileMenu from "./containers/profilemenu.js";
 import Main from "./components/simplepages/main.js";
 import About from "./components/simplepages/about.js";
@@ -22,72 +22,70 @@ import { withCookies } from "react-cookie";
 export class App extends React.Component {
   render() {
     return (
-      <Router>
-        <div>
-          <ProfileMenu cookies={this.props.cookies} />
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/about" component={About} />
-            <Route path="/schedule" component={Schedule} />
-            <Route path="/results" component={Results} />
-            <Route path="/contacts" component={Contacts} />
-            <Route
-              path="/signin"
-              render={() => <SignIn cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/signout"
-              render={() => <SignOut cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/judge/answers"
-              render={() => <JudgeAnswers cookies={this.props.cookies} />}
-            />
-            <Route
-              exact
-              path="/judge/personaldata"
-              render={() => <PersonalData cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/judge/notifications"
-              render={() => <Notifications cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/participant/competitions"
-              render={() => (
-                <ParticipantCompetitions cookies={this.props.cookies} />
-              )}
-            />
-            <Route
-              exact
-              path="/participant/personaldata"
-              render={() => <PersonalData cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/participant/notifications"
-              render={() => <Notifications cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/participant/results"
-              render={() => <ParticipantResults cookies={this.props.cookies} />}
-            />
-            <Route
-              exact
-              path="/administrator/personaldata"
-              render={() => <PersonalData cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/administrator/competitions"
-              render={() => <AdminCompetitions cookies={this.props.cookies} />}
-            />
-            <Route
-              path="/administrator/accounts"
-              render={() => <AdminAccount cookies={this.props.cookies} />}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </Router>
+      <div>
+        {() => <ProfileMenu cookies={this.props.cookies} />}
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/about" component={About} />
+          <Route path="/schedule" component={Schedule} />
+          <Route path="/results" component={Results} />
+          <Route path="/contacts" component={Contacts} />
+          <Route
+            path="/signin"
+            render={() => <SignIn cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/signout"
+            render={() => <SignOut cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/judge/answers"
+            render={() => <JudgeAnswers cookies={this.props.cookies} />}
+          />
+          <Route
+            exact
+            path="/judge/personaldata"
+            render={() => <PersonalData cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/judge/notifications"
+            render={() => <Notifications cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/participant/competitions"
+            render={() => (
+              <ParticipantCompetitions cookies={this.props.cookies} />
+            )}
+          />
+          <Route
+            exact
+            path="/participant/personaldata"
+            render={() => <PersonalData cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/participant/notifications"
+            render={() => <Notifications cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/participant/results"
+            render={() => <ParticipantResults cookies={this.props.cookies} />}
+          />
+          <Route
+            exact
+            path="/administrator/personaldata"
+            render={() => <PersonalData cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/administrator/competitions"
+            render={() => <AdminCompetitions cookies={this.props.cookies} />}
+          />
+          <Route
+            path="/administrator/accounts"
+            render={() => <AdminAccount cookies={this.props.cookies} />}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     );
   }
 }
