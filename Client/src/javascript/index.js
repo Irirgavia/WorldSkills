@@ -22,5 +22,5 @@ ReactDOM.render(
       </Provider>
     </BrowserRouter>
   </CookiesProvider>,
-  document.getElementById("main")
+  document.getElementById("root")
 );

@@ -20,10 +20,29 @@ import NotFound from "./components/system/notfound.js";
 import { withCookies } from "react-cookie";
 
 export class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { cookies } = props;
+    this.state = {
+      login: cookies.get("login") || "",
+      id: cookies.get("id") || "0",
+      role: cookies.get("role") || "",
+      isSignedIn: cookies.get("isSignedIn") || false,
+      unreadNotificationAmount: cookies.get("unreadNotificationAmount") || "0",
+    };
+  }
+
   render() {
     return (
       <div>
-        <Route render={() => <ProfileMenu cookies={this.props.cookies} />} />
+        <ProfileMenu
+          id={this.state.id}
+          login={this.state.login}
+          role={this.state.role}
+          isSignedIn={this.state.isSignedIn}
+          unreadNotificationAmount={this.state.unreadNotificationAmount}
+        />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/about" component={About} />

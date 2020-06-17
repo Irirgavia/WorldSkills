@@ -13,11 +13,17 @@ export class PersonalData extends React.Component {
     this.editData = this.editData.bind(this);
     this.finishEditData = this.finishEditData.bind(this);
     this.saveData = this.saveData.bind(this);
-    this.state = { editFlag: false };
+
+    const { cookies } = props;
+    this.state = {
+      editFlag: false,
+      userId: cookies.get("id") || "0",
+      isSignedIn: cookies.get("isSignedIn") || false,
+    };
   }
 
   componentDidMount() {
-    this.props.getPersonalData(this.props.userId);
+    this.props.getPersonalData(this.state.userId);
   }
 
   editData() {
@@ -41,7 +47,7 @@ export class PersonalData extends React.Component {
     house
   ) {
     var data = {
-      userId: this.props.userId,
+      userId: this.state.userId,
       surname: surname,
       name: name,
       patronymic: patronymic,
@@ -57,7 +63,7 @@ export class PersonalData extends React.Component {
   }
 
   render() {
-    if (!this.props.isSignedIn) {
+    if (!this.state.isSignedIn) {
       return <Redirect to="/singin" />;
     } else if (this.props.error) {
       return <Error error={this.props.error.message} />;
@@ -82,10 +88,8 @@ export class PersonalData extends React.Component {
 let mapProps = (state, ownProps) => {
   return {
     cookies: ownProps.cookies,
-    userId: ownProps.cookies.id,
     items: state.data,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.error,
   };
 };
