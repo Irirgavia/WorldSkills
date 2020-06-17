@@ -50,9 +50,9 @@ export class JudgeAnswers extends React.Component {
 
 let mapProps = (state, ownProps) => {
   return {
-    judgeId: ownProps.cookies.id,
-    role: ownProps.cookies.role,
-    isSignedIn: ownProps.cookies.isSignedIn,
+    judgeId: ownProps.cookies.cookies.id,
+    role: ownProps.cookies.cookies.role,
+    isSignedIn: ownProps.cookies.cookies.isSignedIn,
     items: state.data,
     isFetching: state.isFetching,
     error: state.error,

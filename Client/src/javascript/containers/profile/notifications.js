@@ -44,10 +44,10 @@ export class Notifications extends React.Component {
 
 let mapProps = (state, ownProps) => {
   return {
-    userId: ownProps.cookies.id,
+    userId: ownProps.cookies.cookies.id,
     items: state.data,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.isSignedIn,
+    isSignedIn: ownProps.cookies.cookies.isSignedIn,
     error: state.error,
   };
 };
