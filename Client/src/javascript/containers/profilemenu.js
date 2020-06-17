@@ -49,4 +49,14 @@ export class ProfileMenu extends React.Component {
   }
 }
 
-export default connect(null, null)(ProfileMenu);
+let mapProps = (ownProps) => {
+  return {
+    cookies: ownProps.cookies,
+    id: ownProps.cookies.id,
+    role: ownProps.cookies.role,
+    isSignedIn: ownProps.cookies.isSignedIn,
+    unreadNotificationAmount: ownProps.cookies.unreadNotificationAmount,
+  };
+};
+
+export default connect(mapProps, null)(ProfileMenu);
