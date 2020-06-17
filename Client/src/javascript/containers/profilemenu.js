@@ -8,38 +8,47 @@ import JudgeProfileMenu from "../components/profilemenu/judgeprofilemenu.js";
 export class ProfileMenu extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: this.props.cookies.get("id"),
+      role: this.props.cookies.get("role"),
+      login: this.props.cookies.get("login"),
+      isSignedIn: this.props.cookies.get("isSignedIn"),
+      unreadNotificationAmount: this.props.cookies.get(
+        "unreadNotificationAmount"
+      ),
+    };
   }
 
   render() {
-    console.log("name:" + this.props.login);
-    console.log("isSignedIn:" + this.props.isSignedIn);
-    if (!this.props.isSignedIn) {
+    console.log("name:" + this.state.login);
+    console.log("isSignedIn:" + this.state.isSignedIn);
+    if (!this.state.isSignedIn) {
       return <GuestProfileMenu />;
     } else if (
-      this.props.role == "participant" ||
-      this.props.role == "Participant"
+      this.state.role == "participant" ||
+      this.state.role == "Participant"
     ) {
       return (
         <ParticipantProfileMenu
-          login={this.props.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.state.login}
+          unreadNotificationAmount={this.state.unreadNotificationAmount}
         />
       );
-    } else if (this.props.role == "judge" || this.props.role == "Judge") {
+    } else if (this.state.role == "judge" || this.state.role == "Judge") {
       return (
         <JudgeProfileMenu
-          login={this.props.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.state.login}
+          unreadNotificationAmount={this.state.unreadNotificationAmount}
         />
       );
     } else if (
-      this.props.role == "administrator" ||
-      this.props.role == "Administrator"
+      this.state.role == "administrator" ||
+      this.state.role == "Administrator"
     ) {
       return (
         <AdminProfileMenu
-          login={this.props.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.state.login}
+          unreadNotificationAmount={this.state.unreadNotificationAmount}
         />
       );
     }
@@ -47,20 +56,8 @@ export class ProfileMenu extends React.Component {
 }
 
 let mapProps = (ownProps) => {
-  if (ownProps.cookies.get("id") === undefined) {
-    return {
-      id: "0",
-      role: "",
-      isSignedIn: false,
-      unreadNotificationAmount: "0",
-    };
-  }
   return {
     cookies: ownProps.cookies,
-    id: ownProps.cookies.get("id"),
-    role: ownProps.cookies.get("role"),
-    isSignedIn: ownProps.cookies.get("isSignedIn"),
-    unreadNotificationAmount: ownProps.cookies.get("unreadNotificationAmount"),
   };
 };
 
