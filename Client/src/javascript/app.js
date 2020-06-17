@@ -14,7 +14,8 @@ import Notifications from "./containers/profile/notifications.js";
 import JudgeAnswers from "./containers/profile/judge/judgeanswers.js";
 import ParticipantCompetitions from "./containers/profile/participant/participantcompetitions.js";
 import ParticipantResults from "./containers/profile/participant/participantresults.js";
-import AdministratorCompetitions from "./containers/profile/admin/admincompetition.js";
+import AdminCompetitions from "./containers/profile/admin/admincompetition.js";
+import AdminAccount from "./containers/profile/admin/adminaccount.js";
 import NotFound from "./components/system/notfound.js";
 
 export default class App extends React.Component {
@@ -55,8 +56,9 @@ export default class App extends React.Component {
             />
             <Route
               path="/administrator/competitions"
-              component={AdministratorCompetitions}
+              component={AdminCompetitions}
             />
+            <Route path="/administrator/accounts" component={AdminAccount} />
             <Route component={NotFound} />
           </Switch>
         </div>

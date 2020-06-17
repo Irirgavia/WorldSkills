@@ -208,6 +208,7 @@
     <Compile Include="Models\RequestModels\StageSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\TaskSaveRequestModel.cs" />
     <Compile Include="Models\RequestModels\UserIdRequestModel.cs" />
+    <Compile Include="Models\RequestModels\PersonalDataSaveByAdminRequestModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\AnswerForAnswerResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForAdmin\CompetitionResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ForJudge\CompetitionForAnswerResponseModel.cs" />
@@ -220,7 +221,6 @@
     <Compile Include="Models\ResponseModels\PersonalDataResponseModel.cs" />
     <Compile Include="Models\RequestModels\UserRequestModel.cs" />
     <Compile Include="Models\ResponseModels\ForParticipant\ResultForParticipantResponseModel.cs" />
-    <Compile Include="Models\ResponseModels\For Trainer\ResultForTrainerResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ResultsElementResponseModel.cs" />
     <Compile Include="Models\ResponseModels\ResultsResultRecords.cs" />
     <Compile Include="Models\ResponseModels\ResultsStage.cs" />

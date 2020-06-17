@@ -250,11 +250,6 @@ export function getResultsByParticipant(participantId) {
   return getDataByUserIdPOSTRequest(queryTrailer, participantId);
 }
 
-export function getResultsByTrainer(trainerId) {
-  let queryTrailer = "/results/trainer";
-  return getDataByUserIdPOSTRequest(queryTrailer, trainerId);
-}
-
 //fetch("https://localhost:49263/api/results?skill={skill}&stage={stage}&year={year}")
 export function getResultsByYear(skill, stage, year) {
   let queryTrailer =
@@ -279,6 +274,11 @@ export function getResultsCSV(skill, stage, year) {
 export function getSchedule() {
   let queryTrailer = "/schedule";
   return getDataGETRequest(queryTrailer);
+}
+
+export function getAllUsers(adminId) {
+  let queryTrailer = "/personaldata/all";
+  return getDataByUserIdPOSTRequest(queryTrailer, adminId);
 }
 
 //fetch("https://localhost:49263/api/user")
@@ -394,6 +394,11 @@ export function saveMark(data) {
 
 export function savePersonalData(data) {
   let queryTrailer = "/personaldata/update";
+  return saveDataPOSTRequest(queryTrailer, data);
+}
+
+export function savePersonalDataByAdmin(data) {
+  let queryTrailer = "/personaldata/updatebyadmin";
   return saveDataPOSTRequest(queryTrailer, data);
 }
 

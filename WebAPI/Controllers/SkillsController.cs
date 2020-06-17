@@ -17,14 +17,10 @@ namespace WebAPI.Controllers
             ICollection<string> skills = new List<string>();
             try
             {
-                var competitions = competitionService.GetAllCompetitions();
-                foreach (var competition in competitions)
+                var skillsDTO = competitionService.GetAllSkills();
+                foreach (var skill in skillsDTO)
                 {
-                    var skill = competition.Skill.Name;
-                    if(!skills.Contains(skill))
-                    {
-                        skills.Add(skill);
-                    }
+                    skills.Add(skill.Name);
                 }
                 return Json(skills);
             }

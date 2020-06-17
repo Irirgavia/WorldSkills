@@ -29,7 +29,6 @@ export class PersonalData extends React.Component {
   }
 
   saveData(
-    userId,
     surname,
     name,
     patronymic,
@@ -42,7 +41,7 @@ export class PersonalData extends React.Component {
     house
   ) {
     var data = {
-      userId: userId,
+      userId: this.props.userId,
       surname: surname,
       name: name,
       patronymic: patronymic,
