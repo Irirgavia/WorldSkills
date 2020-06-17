@@ -34,6 +34,7 @@ export class Results extends React.Component {
       skill: skill,
       stage: stage,
       year: year,
+      firstLaunchFlag: false,
     });
     this.props.getResultsByYear(skill, stage, year);
   }

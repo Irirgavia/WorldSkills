@@ -37,6 +37,11 @@ export class SignIn extends React.Component {
     this.props.cookies.set("id", this.props.id, { path: "/" });
     this.props.cookies.set("login", this.state.login, { path: "/" });
     this.props.cookies.set("role", this.props.role, { path: "/" });
+    this.props.cookies.set(
+      "unreadNotificationAmount",
+      this.props.unreadNotificationAmount,
+      { path: "/" }
+    );
   }
 
   render() {
@@ -84,6 +89,7 @@ let mapProps = (state, ownProps) => {
     id: state.user.id,
     role: state.user.role,
     isSignedIn: state.isSignedIn,
+    unreadNotificationAmount: state.unreadNotificationAmount,
     error: state.error,
   };
 };

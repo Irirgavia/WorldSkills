@@ -11,54 +11,42 @@ export class ProfileMenu extends React.Component {
   }
 
   render() {
-    console.log("name:" + this.props.user.login);
-    console.log("isSignedIn:" + this.props.isSignedIn);
-    if (!this.props.isSignedIn) {
+    console.log("name:" + this.props.cookies.login);
+    console.log("isSignedIn:" + this.props.cookies.isSignedIn);
+    if (!this.props.cookies.isSignedIn) {
       return <GuestProfileMenu />;
     } else if (
-      this.props.user.role == "participant" ||
-      this.props.user.role == "Participant"
+      this.props.cookies.role == "participant" ||
+      this.props.cookies.role == "Participant"
     ) {
       return (
         <ParticipantProfileMenu
-          login={this.props.user.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.props.cookies.login}
+          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
         />
       );
     } else if (
-      this.props.user.role == "judge" ||
-      this.props.user.role == "Judge"
+      this.props.cookies.role == "judge" ||
+      this.props.cookies.role == "Judge"
     ) {
       return (
         <JudgeProfileMenu
-          login={this.props.user.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.props.cookies.login}
+          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
         />
       );
     } else if (
-      this.props.user.role == "administrator" ||
-      this.props.user.role == "Administrator"
+      this.props.cookies.role == "administrator" ||
+      this.props.cookies.role == "Administrator"
     ) {
       return (
         <AdminProfileMenu
-          login={this.props.user.login}
-          unreadNotificationAmount={this.props.unreadNotificationAmount}
+          login={this.props.cookies.login}
+          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
         />
       );
     }
   }
 }
 
-let mapProps = (state, ownProps) => {
-  return {
-    cookies: ownProps.cookies,
-    user: {
-      login: ownProps.cookies.login,
-      role: ownProps.cookies.role,
-    },
-    isSignedIn: ownProps.cookies.isSignedIn,
-    unreadNotificationAmount: ownProps.cookies.unreadNotificationAmount,
-  };
-};
-
-export default connect(mapProps, null)(ProfileMenu);
+export default connect(null, null)(ProfileMenu);
