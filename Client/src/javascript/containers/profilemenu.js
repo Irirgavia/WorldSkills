@@ -47,7 +47,7 @@ export class ProfileMenu extends React.Component {
 }
 
 let mapProps = (ownProps) => {
-  if (ownProps.cookies.cookies.id === undefined) {
+  if (ownProps.cookies.id === undefined) {
     return {
       id: "0",
       role: "",
