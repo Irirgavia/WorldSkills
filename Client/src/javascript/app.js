@@ -23,7 +23,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        {() => <ProfileMenu cookies={this.props.cookies} />}
+        <Route render={() => <ProfileMenu cookies={this.props.cookies} />} />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/about" component={About} />
