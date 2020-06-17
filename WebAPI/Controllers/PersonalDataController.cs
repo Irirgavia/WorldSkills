@@ -10,7 +10,7 @@
 
     using BLL.DTO.Account;
     using WebAPI.Models.RequestModels;
-    using WebAPI.Models.ResponseModels;
+    using WebAPI.Models.ResponseModels.ForAdmin;
     using WebAPI.ObjectMapper;
     using WebAPI.ServiceProvider;
 
@@ -87,9 +87,13 @@
         public IHttpActionResult ReceiveAllUsers([FromBody] UserIdRequestModel userId)
         {
             var accountService = ServiceProvider.GetAccountService();
-            AccountDTO accountDTO = accountService.getAllAccounts();
-            var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
-            return Json(personalDataResponse);
+            var accountsDTO = accountService.GetAllAccounts();
+            ICollection<PersonalDataByAdminResponseModel> response = new List<PersonalDataByAdminResponseModel>();
+            foreach(var account in accountsDTO)
+            {
+                response.Add(ObjectMapperDTOModelForAdmin.ToPersonalDataByAdminResponseModel(account));
+            }
+            return Json(response);
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using Models.ResponseModels.ForAdmin;
     using BLL.DTO.Competition;
+    using BLL.DTO.Account;
     using System;
     using System.Text;
 
@@ -36,7 +37,7 @@
                     var dateOfEnd = taskDTO.DateTimeBegin + taskDTO.DurationTime;
                     task.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
                     task.IsActual = dateOfEnd < DateTime.Now;
-                    foreach(var address in taskDTO.Addresses)
+                    foreach (var address in taskDTO.Addresses)
                     {
                         stringBuilder.Append(address + "; ");
                     }
@@ -46,6 +47,27 @@
                 competitionForAdminResponseModel.Stages.Add(stage);
             }
             return competitionForAdminResponseModel;
+        }
+
+        public static PersonalDataByAdminResponseModel ToPersonalDataByAdminResponseModel(AccountDTO accountDTO)
+        {
+            PersonalDataByAdminResponseModel personalData = new PersonalDataByAdminResponseModel()
+            {
+                Id = accountDTO.Id,
+                Role = accountDTO.Credentials.Role.Name,
+                Surname = accountDTO.PersonalData.Surname,
+                Name = accountDTO.PersonalData.Name,
+                Patronymic = accountDTO.PersonalData.Patronymic,
+                Birthday = accountDTO.PersonalData.Birthday.ToString(dateFormat),
+                Mail = accountDTO.PersonalData.Mail,
+                Telephone = accountDTO.PersonalData.Telephone,
+                Country = accountDTO.PersonalData.Address.Country,
+                City = accountDTO.PersonalData.Address.City,
+                Street = accountDTO.PersonalData.Address.Street,
+                House = accountDTO.PersonalData.Address.House,
+                Apartment = accountDTO.PersonalData.Address.Apartments
+            };
+            return personalData;
         }
     }
 }
