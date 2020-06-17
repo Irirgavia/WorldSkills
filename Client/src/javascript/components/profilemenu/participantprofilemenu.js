@@ -17,6 +17,9 @@ export default class ParticipantProfileMenu extends React.Component {
               <a href="/participant/personaldata">Личные данные</a>
             </li>
             <li>
+              <a href="/participant/account">Аккаунт</a>
+            </li>
+            <li>
               <a href="/participant/results">Результаты</a>
             </li>
             <li>

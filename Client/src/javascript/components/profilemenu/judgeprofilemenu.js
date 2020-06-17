@@ -17,6 +17,9 @@ export default class JudgeProfileMenu extends React.Component {
               <a href="/judge/personaldata">Личные данные</a>
             </li>
             <li>
+              <a href="/judge/account">Аккаунт</a>
+            </li>
+            <li>
               <a href="/judge/answers">Ответы</a>
             </li>
             <li>

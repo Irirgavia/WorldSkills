@@ -146,11 +146,8 @@ export class ParticipantCompetititons extends React.Component {
   }
 }
 
-let mapProps = (state, ownProps) => {
+let mapProps = (state) => {
   return {
-    participantId: ownProps.cookies.id,
-    role: ownProps.cookies.role,
-    isSignedIn: ownProps.cookies.isSignedIn,
     items: state.data,
     isFetching: state.isFetching,
     error: state.error,
