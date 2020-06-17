@@ -11,55 +11,49 @@ export class ProfileMenu extends React.Component {
   }
 
   render() {
-    console.log("name:" + this.props.cookies.login);
-    console.log("isSignedIn:" + this.props.cookies.isSignedIn);
-    if (!this.props.cookies.isSignedIn) {
+    console.log("name:" + this.props.login);
+    console.log("isSignedIn:" + this.props.isSignedIn);
+    if (!this.props.isSignedIn) {
       return <GuestProfileMenu />;
     } else if (
-      this.props.cookies.role == "participant" ||
-      this.props.cookies.role == "Participant"
+      this.props.role == "participant" ||
+      this.props.role == "Participant"
     ) {
       return (
         <ParticipantProfileMenu
-          login={this.props.cookies.login}
-          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
+          login={this.props.login}
+          unreadNotificationAmount={this.props.unreadNotificationAmount}
         />
       );
-    } else if (
-      this.props.cookies.role == "judge" ||
-      this.props.cookies.role == "Judge"
-    ) {
+    } else if (this.props.role == "judge" || this.props.role == "Judge") {
       return (
         <JudgeProfileMenu
-          login={this.props.cookies.login}
-          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
+          login={this.props.login}
+          unreadNotificationAmount={this.props.unreadNotificationAmount}
         />
       );
     } else if (
-      this.props.cookies.role == "administrator" ||
-      this.props.cookies.role == "Administrator"
+      this.props.role == "administrator" ||
+      this.props.role == "Administrator"
     ) {
       return (
         <AdminProfileMenu
-          login={this.props.cookies.login}
-          unreadNotificationAmount={this.props.cookies.unreadNotificationAmount}
+          login={this.props.login}
+          unreadNotificationAmount={this.props.unreadNotificationAmount}
         />
       );
     }
   }
 }
 
-let setCookie = (cookies) => {
-  cookies.set("isSignedIn", "false", { path: "/" });
-  cookies.set("id", "0", { path: "/" });
-  cookies.set("login", "", { path: "/" });
-  cookies.set("role", "", { path: "/" });
-  cookies.set("unreadNotificationAmount", "0", { path: "/" });
-};
-
 let mapProps = (ownProps) => {
   if (ownProps.id === undefined) {
-    setCookie(ownProps.cookies);
+    return {
+      id: "0",
+      role: "",
+      isSignedIn: false,
+      unreadNotificationAmount: "0",
+    };
   }
   return {
     cookies: ownProps.cookies,
