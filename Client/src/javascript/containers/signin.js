@@ -33,26 +33,26 @@ export class SignIn extends React.Component {
   }
 
   success() {
-    const { cookies } = this.props;
-    cookies.set("isSignedIn", "true", { path: "/" });
-    cookies.set("id", this.props.id, { path: "/" });
-    cookies.set("login", this.state.login, { path: "/" });
-    cookies.set("role", this.props.role, { path: "/" });
-    cookies.set(
+    this.props.setCookies("isSignedIn", true);
+    this.props.setCookies("id", this.props.id);
+    this.props.setCookies("login", this.state.login);
+    this.props.setCookies("role", this.props.role);
+    this.props.setCookies(
       "unreadNotificationAmount",
-      this.props.unreadNotificationAmount,
-      { path: "/" }
+      this.props.unreadNotificationAmount
     );
   }
 
   render() {
-    console.log(this.props.isFetching);
     if (this.props.isSignedIn) {
+      console.log("success");
       this.success();
       return <Redirect to="/" />;
     } else if (this.props.isFetching) {
+      console.log("load");
       return <Loading />;
     } else {
+      console.log("form");
       return (
         <form onSubmit={this.logingIn}>
           <p>
@@ -83,9 +83,8 @@ export class SignIn extends React.Component {
   }
 }
 
-let mapProps = (state, ownProps) => {
+let mapProps = (state) => {
   return {
-    cookies: ownProps.cookies,
     isFetching: state.isFetching,
     id: state.user.id,
     role: state.user.role,

@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import AdminProfileMenu from "../components/profilemenu/adminprofilemenu.js";
 import ParticipantProfileMenu from "../components/profilemenu/participantprofilemenu.js";
 import GuestProfileMenu from "../components/profilemenu/guestprofilemenu.js";
 import JudgeProfileMenu from "../components/profilemenu/judgeprofilemenu.js";
 
-export class ProfileMenu extends React.Component {
+export default class ProfileMenu extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -45,5 +44,3 @@ export class ProfileMenu extends React.Component {
     }
   }
 }
-
-export default connect(null, null)(ProfileMenu);

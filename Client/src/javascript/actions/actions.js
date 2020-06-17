@@ -19,6 +19,13 @@ export function receiveData(data) {
   };
 }
 
+export function saveDataSuccess(data) {
+  return {
+    type: constants.DATA_SAVE_SUCCESS,
+    data: data,
+  };
+}
+
 export function errorReceiveData(err) {
   return {
     type: constants.DATA_ERROR,
@@ -201,11 +208,8 @@ function saveDataPOSTRequest(queryTrailer, data) {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (response.ok) return response.json();
+        if (response.ok) dispatch(saveDataSuccess(data));
         else throw new Error(response.statusText);
-      })
-      .then((data) => {
-        dispatch(receiveData(data));
       })
       .catch((ex) => {
         dispatch(errorReceiveData(ex));

@@ -15,7 +15,9 @@ export default class PersonalDataView extends React.Component {
       <div class="personaldata">
         <p>
           <label class="questionField">Фамилия:</label>
-          <label class="answerField">{this.props.data.Surname}</label>
+          <label class="answerField">
+            {this.props.data.Surname || this.props.data.surname}
+          </label>
         </p>
         <p>
           <label class="questionField">Имя:</label>

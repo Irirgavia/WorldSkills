@@ -19,6 +19,9 @@ export default function mainReducer(state = initialState, action) {
     case constants.DATA_SUCCESS:
       return { ...state, data: action.data, isFetching: false, error: "" };
 
+    case constants.DATA_SAVE_SUCCESS:
+      return { ...state, data: action.data, isFetching: false, error: "" };
+
     case constants.DATA_ERROR:
       return { ...state, isFetching: false, error: action.error };
 

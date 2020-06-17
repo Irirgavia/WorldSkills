@@ -10,22 +10,13 @@ export class SignOut extends React.Component {
 
   componentDidMount() {
     this.props.logOutUser();
-    this.props.cookies.set("isSignedIn", "false", { path: "/" });
-    this.props.cookies.remove("id", { path: "/" });
-    this.props.cookies.remove("login", { path: "/" });
-    this.props.cookies.remove("role", { path: "/" });
   }
 
   render() {
+    this.props.clearAllCookies();
     return <Redirect to="/" />;
   }
 }
-
-let mapProps = (ownProps) => {
-  return {
-    cookies: ownProps.cookies,
-  };
-};
 
 let mapDispatch = (dispatch) => {
   return {
@@ -33,4 +24,4 @@ let mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapProps, mapDispatch)(SignOut);
+export default connect(null, mapDispatch)(SignOut);

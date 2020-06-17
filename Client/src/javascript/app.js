@@ -10,6 +10,7 @@ import Contacts from "./components/simplepages/contacts.js";
 import SignIn from "./containers/signin.js";
 import SignOut from "./containers/signout.js";
 import PersonalData from "./containers/profile/personaldata.js";
+import PersonalDataChange from "./containers/profile/personaldatachange.js";
 import Notifications from "./containers/profile/notifications.js";
 import JudgeAnswers from "./containers/profile/judge/judgeanswers.js";
 import ParticipantCompetitions from "./containers/profile/participant/participantcompetitions.js";
@@ -22,6 +23,8 @@ import { withCookies } from "react-cookie";
 export class App extends React.Component {
   constructor(props) {
     super(props);
+    this.setCookies = this.setCookies.bind(this);
+    this.clearAllCookies = this.clearAllCookies.bind(this);
 
     const { cookies } = props;
     this.state = {
@@ -31,6 +34,30 @@ export class App extends React.Component {
       isSignedIn: cookies.get("isSignedIn") || false,
       unreadNotificationAmount: cookies.get("unreadNotificationAmount") || "0",
     };
+  }
+
+  setCookies(nameCookie, value) {
+    const { cookies } = this.props;
+
+    cookies.set(nameCookie, value, { path: "/" });
+    this.setState({ [nameCookie]: value });
+  }
+
+  clearAllCookies() {
+    const { cookies } = this.props;
+
+    cookies.remove("isSignedIn", { path: "/" });
+    cookies.remove("id", { path: "/" });
+    cookies.remove("login", { path: "/" });
+    cookies.remove("role", { path: "/" });
+    cookies.remove("unreadNotificationAmount", { path: "/" });
+    this.setState({
+      login: "",
+      id: "0",
+      role: "",
+      isSignedIn: false,
+      unreadNotificationAmount: "0",
+    });
   }
 
   render() {
@@ -51,11 +78,11 @@ export class App extends React.Component {
           <Route path="/contacts" component={Contacts} />
           <Route
             path="/signin"
-            render={() => <SignIn cookies={this.props.cookies} />}
+            render={() => <SignIn setCookies={this.setCookies} />}
           />
           <Route
             path="/signout"
-            render={() => <SignOut cookies={this.props.cookies} />}
+            render={() => <SignOut clearAllCookies={this.clearAllCookies} />}
           />
           <Route
             path="/judge/answers"
@@ -64,7 +91,21 @@ export class App extends React.Component {
           <Route
             exact
             path="/judge/personaldata"
-            render={() => <PersonalData cookies={this.props.cookies} />}
+            render={() => (
+              <PersonalData
+                cookies={this.props.cookies}
+                returnURL={"/judge/personaldata/change"}
+              />
+            )}
+          />
+          <Route
+            path="/judge/personaldata/change"
+            render={() => (
+              <PersonalDataChange
+                cookies={this.props.cookies}
+                returnURL={"/judge/personaldata"}
+              />
+            )}
           />
           <Route
             path="/judge/notifications"
@@ -79,7 +120,21 @@ export class App extends React.Component {
           <Route
             exact
             path="/participant/personaldata"
-            render={() => <PersonalData cookies={this.props.cookies} />}
+            render={() => (
+              <PersonalData
+                cookies={this.props.cookies}
+                returnURL={"/participant/personaldata/change"}
+              />
+            )}
+          />
+          <Route
+            path="/participant/personaldata/change"
+            render={() => (
+              <PersonalDataChange
+                cookies={this.props.cookies}
+                returnURL={"/participant/personaldata"}
+              />
+            )}
           />
           <Route
             path="/participant/notifications"
@@ -92,7 +147,21 @@ export class App extends React.Component {
           <Route
             exact
             path="/administrator/personaldata"
-            render={() => <PersonalData cookies={this.props.cookies} />}
+            render={() => (
+              <PersonalData
+                cookies={this.props.cookies}
+                returnURL={"/administrator/personaldata/change"}
+              />
+            )}
+          />
+          <Route
+            path="/administrator/personaldata/change"
+            render={() => (
+              <PersonalDataChange
+                cookies={this.props.cookies}
+                returnURL={"/administrator/personaldata"}
+              />
+            )}
           />
           <Route
             path="/administrator/competitions"
