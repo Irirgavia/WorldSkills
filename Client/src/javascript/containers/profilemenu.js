@@ -9,14 +9,28 @@ export class ProfileMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.cookies.get("id"),
-      role: this.props.cookies.get("role"),
-      login: this.props.cookies.get("login"),
-      isSignedIn: this.props.cookies.get("isSignedIn"),
-      unreadNotificationAmount: this.props.cookies.get(
-        "unreadNotificationAmount"
-      ),
+      id: "0",
+      role: "",
+      login: "",
+      isSignedIn: false,
+      unreadNotificationAmount: "0",
     };
+  }
+
+  componentDidMount() {
+    const { cookies } = this.props;
+    let id = cookies.get("id");
+    let role = cookies.get("role");
+    let login = cookies.get("login");
+    let isSignedIn = cookies.get("isSignedIn");
+    let unreadNotificationAmount = cookies.get("unreadNotificationAmount");
+    this.setState({
+      id: id,
+      role: role,
+      login: login,
+      isSignedIn: isSignedIn,
+      unreadNotificationAmount: unreadNotificationAmount,
+    });
   }
 
   render() {
