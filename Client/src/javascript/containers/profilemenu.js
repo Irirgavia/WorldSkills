@@ -49,7 +49,19 @@ export class ProfileMenu extends React.Component {
   }
 }
 
+let setCookie = () => {
+  const { cookies } = this.props;
+  cookies.set("isSignedIn", "false", { path: "/" });
+  cookies.set("id", "0", { path: "/" });
+  cookies.set("login", "", { path: "/" });
+  cookies.set("role", "", { path: "/" });
+  cookies.set("unreadNotificationAmount", "0", { path: "/" });
+};
+
 let mapProps = (ownProps) => {
+  if (ownProps.id === undefined) {
+    setCookie();
+  }
   return {
     cookies: ownProps.cookies,
     id: ownProps.cookies.id,
