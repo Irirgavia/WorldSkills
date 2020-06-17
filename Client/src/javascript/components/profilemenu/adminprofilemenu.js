@@ -17,6 +17,9 @@ export default class AdminProfileMenu extends React.Component {
               <a href="/administrator/competitions">Соревнования</a>
             </li>
             <li>
+              <a href="/administrator/accounts">Пользователи</a>
+            </li>
+            <li>
               <a href="/signout">Выйти</a>
             </li>
           </ul>

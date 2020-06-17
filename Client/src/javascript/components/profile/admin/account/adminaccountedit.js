@@ -1,11 +1,11 @@
 import React from "react";
 
-export default class PersonalDataEditView extends React.Component {
+export default class AdminAccountEdit extends React.Component {
   constructor(props) {
     super(props);
-    this.finish = this.finish.bind(this);
-    this.save = this.save.bind(this);
+    this.saveData = this.saveData.bind(this);
     this.state = {
+      role: this.props.data.Role,
       surname: this.props.data.Surname,
       name: this.props.data.Name,
       patronymic: this.props.data.Patronymic,
@@ -16,6 +16,7 @@ export default class PersonalDataEditView extends React.Component {
       city: this.props.data.City,
       street: this.props.data.Street,
       house: this.props.data.House,
+      apartment: this.props.data.Apartment,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,13 +32,10 @@ export default class PersonalDataEditView extends React.Component {
     });
   }
 
-  finish() {
-    this.props.finishEditData();
-  }
-
-  save(event) {
-    event.preventDefault();
-    this.props.saveData(
+  saveData() {
+    this.props.saveUser(
+      this.props.data.Id,
+      this.state.role,
       this.state.surname,
       this.state.name,
       this.state.patronymic,
@@ -47,17 +45,29 @@ export default class PersonalDataEditView extends React.Component {
       this.state.country,
       this.state.city,
       this.state.street,
-      this.state.house
+      this.state.house,
+      this.state.apartment
     );
   }
 
   render() {
     return (
-      <form class="personaldata" onSubmit={this.save}>
-        <p>
-          <label class="questionField" for="surname">
-            Фамилия:
-          </label>
+      <tr>
+        <td>
+          <select
+            class="answerField"
+            id="role"
+            name="role"
+            onChange={this.handleInputChange}
+            maxLength="50"
+            value={this.state.role}
+          >
+            <option value="participant">Участник</option>
+            <option value="judge">Жюри</option>
+            <option value="administrator">Администратор</option>
+          </select>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -66,13 +76,9 @@ export default class PersonalDataEditView extends React.Component {
             onChange={this.handleInputChange}
             maxLength="50"
             value={this.state.surname}
-            required
           />
-        </p>
-        <p>
-          <label class="questionField" for="name">
-            Имя:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -83,11 +89,8 @@ export default class PersonalDataEditView extends React.Component {
             value={this.state.name}
             required
           />
-        </p>
-        <p>
-          <label class="questionField" for="patronymic">
-            Отчество:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -97,11 +100,8 @@ export default class PersonalDataEditView extends React.Component {
             value={this.state.patronymic}
             maxLength="50"
           />
-        </p>
-        <p>
-          <label class="questionField" for="birthday">
-            Дата рождения:
-          </label>
+        </td>
+        <td>
           <input
             type="date"
             class="answerField"
@@ -111,11 +111,8 @@ export default class PersonalDataEditView extends React.Component {
             pattern="[0-3][0-9].[0-1][0-9].(1|2)(0|1|9)[0-9][0-9]"
             value={this.state.birthday}
           />
-        </p>
-        <p>
-          <label class="questionField" for="mail">
-            Почта:
-          </label>
+        </td>
+        <td>
           <input
             type="email"
             class="answerField"
@@ -125,11 +122,8 @@ export default class PersonalDataEditView extends React.Component {
             pattern=".*@[a-zA-Z_]+?\.[a-zA-Z_]{2,6}"
             value={this.state.mail}
           />
-        </p>
-        <p>
-          <label class="questionField" for="telephone">
-            Телефон (в формате +375xxxxxxxxx):
-          </label>
+        </td>
+        <td>
           <input
             type="tel"
             class="answerField"
@@ -139,14 +133,8 @@ export default class PersonalDataEditView extends React.Component {
             pattern="\+375[0-9]{9}"
             value={this.state.telephone}
           />
-        </p>
-        <p>
-          <label class="questionField">Адрес:</label>
-        </p>
-        <p>
-          <label class="questionField" for="country">
-            Страна:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -156,11 +144,8 @@ export default class PersonalDataEditView extends React.Component {
             maxLength="50"
             value={this.state.country}
           />
-        </p>
-        <p>
-          <label class="questionField" for="city">
-            Город:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -170,11 +155,8 @@ export default class PersonalDataEditView extends React.Component {
             maxLength="50"
             value={this.state.city}
           />
-        </p>
-        <p>
-          <label class="questionField" for="street">
-            Улица:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -184,11 +166,8 @@ export default class PersonalDataEditView extends React.Component {
             maxLength="50"
             value={this.state.street}
           />
-        </p>
-        <p>
-          <label class="questionField" for="house">
-            Дом:
-          </label>
+        </td>
+        <td>
           <input
             type="text"
             class="answerField"
@@ -198,10 +177,22 @@ export default class PersonalDataEditView extends React.Component {
             maxLength="50"
             value={this.state.house}
           />
-        </p>
-        <button type="submit">Сохранить</button>
-        <button onClick={this.finish}>Вернуться</button>
-      </form>
+        </td>
+        <td>
+          <input
+            type="text"
+            class="answerField"
+            id="apartment"
+            name="apartment"
+            onChange={this.handleInputChange}
+            maxLength="10"
+            value={this.state.apartment}
+          />
+        </td>
+        <td>
+          <button onClick={this.saveData}>Сохранить</button>
+        </td>
+      </tr>
     );
   }
 }

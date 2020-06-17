@@ -48,5 +48,48 @@
 
             return Ok();
         }
+
+        [Route("api/personaldata/updatebyadmin")]
+        public IHttpActionResult UpdateByAdmin([FromBody] PersonalDataSaveByAdminRequestModel parameters)
+        {
+            var accountService = ServiceProvider.GetAccountService();
+            if (parameters.Id == -1)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                AccountDTO accountDTO = accountService.GetAccountById(parameters.Id);
+                var personalDataDTO = accountDTO.PersonalData;
+
+                personalDataDTO.Address.Country = parameters.Country;
+                personalDataDTO.Address.City = parameters.City;
+                personalDataDTO.Address.Street = parameters.Street;
+                personalDataDTO.Address.House = parameters.House;
+                personalDataDTO.Address.Apartments = parameters.Apartment;
+
+                personalDataDTO.Surname = parameters.Surname;
+                personalDataDTO.Name = parameters.Name;
+                personalDataDTO.Patronymic = parameters.Patronymic;
+                personalDataDTO.Birthday = ObjectMapperDTOModel.ParseToDateTime(parameters.Birthday);
+                personalDataDTO.Mail = parameters.Mail;
+                personalDataDTO.Telephone = parameters.Telephone;
+
+                accountDTO.Credentials.Role=accountService.GetRoleByName(parameters.Role);
+
+                accountService.UpdatePersonalData(personalDataDTO);
+
+                return Ok();
+            }
+        }
+
+        [Route("api/personaldata/all")]
+        public IHttpActionResult ReceiveAllUsers([FromBody] UserIdRequestModel userId)
+        {
+            var accountService = ServiceProvider.GetAccountService();
+            AccountDTO accountDTO = accountService.getAllAccounts();
+            var personalDataResponse = ObjectMapperDTOModel.ToPersonalDataResponseModel(accountDTO);
+            return Json(personalDataResponse);
+        }
     }
 }

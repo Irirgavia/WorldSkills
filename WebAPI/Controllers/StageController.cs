@@ -13,8 +13,21 @@ namespace WebAPI.Controllers
     {
         public IHttpActionResult Get()
         {
-
-            return Json(Test.TestDataForStages());
+            var competitionService = ServiceProvider.GetCompetitionService();
+            ICollection<string> stages = new List<string>();
+            try
+            {
+                var stagesDTO = competitionService.GetAllStageTypes();
+                foreach (var stage in stagesDTO)
+                {
+                    stages.Add(stage.Name);
+                }
+                return Json(stages);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [Route("api/stage/save")]
