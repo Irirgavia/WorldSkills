@@ -82,10 +82,10 @@ export class PersonalData extends React.Component {
 let mapProps = (state, ownProps) => {
   return {
     cookies: ownProps.cookies,
-    userId: ownProps.cookies.cookies.id,
+    userId: ownProps.cookies.id,
     items: state.data,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.cookies.isSignedIn,
+    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.error,
   };
 };

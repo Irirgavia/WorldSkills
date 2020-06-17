@@ -84,10 +84,10 @@ export class Account extends React.Component {
 
 let mapProps = (state, ownProps) => {
   return {
-    userId: ownProps.cookies.cookies.id,
-    login: ownProps.cookies.cookies.login,
+    userId: ownProps.cookies.id,
+    login: ownProps.cookies.login,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.cookies.isSignedIn,
+    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.data,
   };
 };

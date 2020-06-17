@@ -57,10 +57,10 @@ let mapProps = (ownProps) => {
   }
   return {
     cookies: ownProps.cookies,
-    id: ownProps.cookies.cookies.id,
-    role: ownProps.cookies.cookies.role,
-    isSignedIn: ownProps.cookies.cookies.isSignedIn,
-    unreadNotificationAmount: ownProps.cookies.cookies.unreadNotificationAmount,
+    id: ownProps.cookies.id,
+    role: ownProps.cookies.role,
+    isSignedIn: ownProps.cookies.isSignedIn,
+    unreadNotificationAmount: ownProps.cookies.unreadNotificationAmount,
   };
 };
 

@@ -40,11 +40,11 @@ export class AdminAccount extends React.Component {
 
 let mapProps = (state, ownProps) => {
   return {
-    userId: ownProps.cookies.cookies.id,
-    role: ownProps.cookies.cookies.role,
+    userId: ownProps.cookies.id,
+    role: ownProps.cookies.role,
     items: state.data,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.cookies.isSignedIn,
+    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.error,
   };
 };
