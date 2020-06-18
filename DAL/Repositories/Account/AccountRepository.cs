@@ -33,5 +33,17 @@
                 .Include(a => a.CredentialsIdEntity.RoleEntity)
                 .AsEnumerable();
         }
+
+        public override void Update(AccountEntity item)
+        {
+            var acc = this.DbSet
+                       .Include(a => a.PersonalDataIdEntity.AddressEntity)
+                       .Include(a => a.CredentialsIdEntity.RoleEntity)
+                       .AsEnumerable()
+                       .FirstOrDefault(a => a.Id == item.Id);
+
+            acc.IsMailNotificationTurnOn = item.IsMailNotificationTurnOn;
+            acc.StageIds = item.StageIds;
+        }
     }
 }

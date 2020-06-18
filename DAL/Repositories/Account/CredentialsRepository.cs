@@ -31,5 +31,17 @@
                 .Include(c => c.RoleEntity)
                 .AsEnumerable();
         }
+
+        public override void Update(CredentialsEntity item)
+        {
+            var credentials = this.DbSet
+                                  .Include(c => c.RoleEntity)
+                                  .AsEnumerable()
+                                  .FirstOrDefault(c => c.Id == item.Id);
+
+            credentials.Login = item.Login;
+            credentials.Password = item.Password;
+            credentials.RoleEntityId = item.RoleEntityId;
+        }
     }
 }

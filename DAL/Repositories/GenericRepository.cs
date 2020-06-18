@@ -37,7 +37,7 @@
             return this.DbSet.Add(item);
         }
 
-        public void Update(TEntity item)
+        public virtual void Update(TEntity item)
         {
             this.Context.Entry(item).State = EntityState.Modified;
         }

@@ -20,8 +20,6 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(a => a.ResultEntity)
-                //.Include(a => a.AccountEntityId.PersonalDataIdEntity.AddressEntity)
-                //.Include(a => a.AccountEntityId.CredentialsIdEntity.RoleEntity)
                 .AsEnumerable()
                 .Where(predicate);
         }
@@ -31,9 +29,23 @@
             return this.DbSet
                 .AsNoTracking()
                 .Include(a => a.ResultEntity)
-                //.Include(a => a.AccountEntityId.PersonalDataIdEntity.AddressEntity)
-                //.Include(a => a.AccountEntityId.CredentialsIdEntity.RoleEntity)
                 .AsEnumerable();
+        }
+
+        public override void Update(AnswerEntity item)
+        {
+            var answer = this.DbSet
+                .Include(a => a.ResultEntity)
+                .AsEnumerable()
+                .FirstOrDefault(a => a.Id == item.Id);
+
+            answer.ResultEntity.Mark = item.ResultEntity.Mark;
+            answer.ResultEntity.Notes = item.ResultEntity.Notes;
+            answer.ResultEntity.PrizeEntityId = item.ResultEntity.PrizeEntityId;
+            answer.Notes = item.Notes;
+            answer.ProjectLink = item.ProjectLink;
+            answer.TaskEntityId = item.TaskEntityId;
+            answer.AccountEntityId = item.AccountEntityId;
         }
     }
 }

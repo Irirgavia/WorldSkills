@@ -31,5 +31,28 @@
                 .AsEnumerable()
                 .Where(predicate);
         }
+
+        public override void Update(PersonalDataEntity item)
+        {
+            var personalData = this.DbSet
+                                   .Include(p => p.AddressEntity)
+                                   .AsEnumerable()
+                                   .FirstOrDefault(p => p.Id == item.Id);
+
+            personalData.AddressEntity.Apartment = item.AddressEntity.Apartment;
+            personalData.AddressEntity.City = item.AddressEntity.City;
+            personalData.AddressEntity.Country = item.AddressEntity.Country;
+            personalData.AddressEntity.House = item.AddressEntity.House;
+            personalData.AddressEntity.Notes = item.AddressEntity.Notes;
+            personalData.AddressEntity.Street = item.AddressEntity.Street;
+
+            personalData.Birthday = item.Birthday;
+            personalData.Mail = item.Mail;
+            personalData.Name = item.Name;
+            personalData.Patronymic = item.Patronymic;
+            personalData.Surname = item.Surname;
+            personalData.Photo = item.Photo;
+            personalData.Telephone = item.Telephone;
+        }
     }
 }

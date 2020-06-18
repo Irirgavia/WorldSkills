@@ -37,6 +37,7 @@
         {
             return this.DbSet
                 .AsNoTracking()
+                .Include(s => s.PrizeEntity)
                 .Where(r => r.Mark >= begin && r.Mark <= end)
                 .AsEnumerable();
         }
@@ -45,8 +46,21 @@
         {
             return this.DbSet
                 .AsNoTracking()
+                .Include(s => s.PrizeEntity)
                 .Where(r => r.PrizeEntityId == prize.Id)
                 .AsEnumerable();
+        }
+
+        public override void Update(ResultEntity item)
+        {
+            var result = this.DbSet
+                .Include(s => s.PrizeEntity)
+                .AsEnumerable()
+                .FirstOrDefault(r => r.Id == item.Id);
+
+            result.Mark = item.Mark;
+            result.Notes = item.Notes;
+            result.PrizeEntityId = item.PrizeEntityId;
         }
     }
 }
