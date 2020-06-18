@@ -11,6 +11,7 @@ import SignIn from "./containers/signin.js";
 import SignOut from "./containers/signout.js";
 import PersonalData from "./containers/profile/personaldata.js";
 import PersonalDataChange from "./containers/profile/personaldatachange.js";
+import Account from "./containers/profile/account.js";
 import Notifications from "./containers/profile/notifications.js";
 import JudgeAnswers from "./containers/profile/judge/judgeanswers.js";
 import ParticipantCompetitions from "./containers/profile/participant/participantcompetitions.js";
@@ -86,15 +87,22 @@ export class App extends React.Component {
           />
           <Route
             path="/judge/answers"
-            render={() => <JudgeAnswers cookies={this.props.cookies} />}
+            render={() => (
+              <JudgeAnswers
+                judgeId={this.state.id}
+                role={this.state.role}
+                isSignedIn={this.state.isSignedIn}
+              />
+            )}
           />
           <Route
             exact
             path="/judge/personaldata"
             render={() => (
               <PersonalData
-                cookies={this.props.cookies}
                 returnURL={"/judge/personaldata/change"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
@@ -102,19 +110,40 @@ export class App extends React.Component {
             path="/judge/personaldata/change"
             render={() => (
               <PersonalDataChange
-                cookies={this.props.cookies}
                 returnURL={"/judge/personaldata"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
           <Route
             path="/judge/notifications"
-            render={() => <Notifications cookies={this.props.cookies} />}
+            render={() => (
+              <Notifications
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+              />
+            )}
+          />
+          <Route
+            path="/judge/account"
+            render={() => (
+              <Account
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                login={this.state.login}
+                setCookies={this.setCookies}
+              />
+            )}
           />
           <Route
             path="/participant/competitions"
             render={() => (
-              <ParticipantCompetitions cookies={this.props.cookies} />
+              <ParticipantCompetitions
+                participantId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                role={this.state.role}
+              />
             )}
           />
           <Route
@@ -122,8 +151,9 @@ export class App extends React.Component {
             path="/participant/personaldata"
             render={() => (
               <PersonalData
-                cookies={this.props.cookies}
                 returnURL={"/participant/personaldata/change"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
@@ -131,26 +161,50 @@ export class App extends React.Component {
             path="/participant/personaldata/change"
             render={() => (
               <PersonalDataChange
-                cookies={this.props.cookies}
                 returnURL={"/participant/personaldata"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
           <Route
             path="/participant/notifications"
-            render={() => <Notifications cookies={this.props.cookies} />}
+            render={() => (
+              <Notifications
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+              />
+            )}
           />
           <Route
             path="/participant/results"
-            render={() => <ParticipantResults cookies={this.props.cookies} />}
+            render={() => (
+              <ParticipantResults
+                participantId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                role={this.state.role}
+              />
+            )}
+          />
+          <Route
+            path="/participant/account"
+            render={() => (
+              <Account
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                login={this.state.login}
+                setCookies={this.setCookies}
+              />
+            )}
           />
           <Route
             exact
             path="/administrator/personaldata"
             render={() => (
               <PersonalData
-                cookies={this.props.cookies}
                 returnURL={"/administrator/personaldata/change"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
@@ -158,18 +212,51 @@ export class App extends React.Component {
             path="/administrator/personaldata/change"
             render={() => (
               <PersonalDataChange
-                cookies={this.props.cookies}
                 returnURL={"/administrator/personaldata"}
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
               />
             )}
           />
           <Route
             path="/administrator/competitions"
-            render={() => <AdminCompetitions cookies={this.props.cookies} />}
+            render={() => (
+              <AdminCompetitions
+                adminId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                role={this.state.role}
+              />
+            )}
           />
           <Route
             path="/administrator/accounts"
-            render={() => <AdminAccount cookies={this.props.cookies} />}
+            render={() => (
+              <AdminAccount
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                role={this.state.role}
+              />
+            )}
+          />
+          <Route
+            path="/administrator/notifications"
+            render={() => (
+              <Notifications
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+              />
+            )}
+          />
+          <Route
+            path="/administrator/account"
+            render={() => (
+              <Account
+                userId={this.state.id}
+                isSignedIn={this.state.isSignedIn}
+                login={this.state.login}
+                setCookies={this.setCookies}
+              />
+            )}
           />
           <Route component={NotFound} />
         </Switch>

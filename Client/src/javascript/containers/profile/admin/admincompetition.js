@@ -131,11 +131,8 @@ export class AdminCompetititons extends React.Component {
   }
 }
 
-let mapProps = (state, ownProps) => {
+let mapProps = (state) => {
   return {
-    adminId: ownProps.cookies.id,
-    role: ownProps.cookies.role,
-    isSignedIn: ownProps.cookies.isSignedIn,
     items: state.data,
     isFetching: state.isFetching,
     error: state.error,

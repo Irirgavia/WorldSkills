@@ -35,6 +35,7 @@ export class Account extends React.Component {
       newPassword: this.state.newPassword,
     };
     this.props.saveAccountData(data);
+    this.props.setCookies("login", this.state.newLogin);
   }
 
   render() {
@@ -84,10 +85,7 @@ export class Account extends React.Component {
 
 let mapProps = (state, ownProps) => {
   return {
-    userId: ownProps.cookies.id,
-    login: ownProps.cookies.login,
     isFetching: state.isFetching,
-    isSignedIn: ownProps.cookies.isSignedIn,
     error: state.data,
   };
 };

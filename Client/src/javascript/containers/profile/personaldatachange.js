@@ -12,11 +12,8 @@ export class PersonalDataChange extends React.Component {
     this.finishEditData = this.finishEditData.bind(this);
     this.saveData = this.saveData.bind(this);
 
-    const { cookies } = props;
     this.state = {
       editFlag: true,
-      userId: cookies.get("id") || "0",
-      isSignedIn: cookies.get("isSignedIn") || false,
     };
   }
 
@@ -37,7 +34,7 @@ export class PersonalDataChange extends React.Component {
     house
   ) {
     var data = {
-      userId: this.state.userId,
+      userId: this.props.userId,
       surname: surname,
       name: name,
       patronymic: patronymic,
@@ -54,7 +51,7 @@ export class PersonalDataChange extends React.Component {
 
   render() {
     console.log(this.state.editFlag);
-    if (!this.state.isSignedIn) {
+    if (!this.props.isSignedIn) {
       console.log("Redirect");
       return <Redirect to="/singin" />;
     } else if (this.props.error) {
@@ -76,9 +73,8 @@ export class PersonalDataChange extends React.Component {
   }
 }
 
-let mapProps = (state, ownProps) => {
+let mapProps = (state) => {
   return {
-    cookies: ownProps.cookies,
     items: state.data,
     isFetching: state.isFetching,
     error: state.error,

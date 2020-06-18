@@ -11,7 +11,13 @@ export default class AdminProfileMenu extends React.Component {
           </span>
           <ul class="submenu">
             <li>
+              <a href="/administrator/notifications">Уведомления</a>
+            </li>
+            <li>
               <a href="/administrator/personaldata">Личные данные</a>
+            </li>
+            <li>
+              <a href="/administrator/account">Аккаунт</a>
             </li>
             <li>
               <a href="/administrator/competitions">Соревнования</a>
