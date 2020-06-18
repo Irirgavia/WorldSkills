@@ -31,7 +31,7 @@
 
         SkillDTO CreateSkill(string skillName);
 
-        StageDTO CreateStage(int competitionId, int stageTypeId, ICollection<int> accounts);
+        StageDTO CreateStage(int competitionId, int stageTypeId, IList<int> accounts);
 
         StageTypeDTO CreateStageType(string stageTypeName);
 

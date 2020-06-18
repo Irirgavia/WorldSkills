@@ -47,6 +47,6 @@
         [Required]
         public bool IsMailNotificationTurnOn { get; set; }
 
-        public ICollection<int> StageIds { get; set; }
+        public IList<int> StageIds { get; set; }
     }
 }

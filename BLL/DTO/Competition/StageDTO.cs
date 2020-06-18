@@ -1,6 +1,7 @@
 ﻿
 namespace BLL.DTO.Competition
 {
+    using System.Collections;
     using System.Collections.Generic;
 
     using BLL.DTO.Account;
@@ -16,8 +17,8 @@ namespace BLL.DTO.Competition
         public StageDTO(
             int competition,
             StageTypeDTO stageTypeDto,
-            ICollection<TaskDTO> tasks,
-            ICollection<int> accountIds)
+            IList<TaskDTO> tasks,
+            IList<int> accountIds)
         {
             this.CompetitionId = competition;
             this.StageType = stageTypeDto;
@@ -31,8 +32,8 @@ namespace BLL.DTO.Competition
 
         public StageTypeDTO StageType { get; set; }
 
-        public ICollection<TaskDTO> Tasks { get; set; }
-
-        public ICollection<int> AccountIds { get; set; }
+        public IList<TaskDTO> Tasks { get; set; }
+        
+        public IList<int> AccountIds { get; set; }
     }
 }

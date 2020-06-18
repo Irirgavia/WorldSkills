@@ -15,7 +15,7 @@
 
         public MailEntity(
             int accountIdFrom,
-            ICollection<int> accountIdsTo,
+            IList<int> accountIdsTo,
             DateTime dateTime,
             string subject,
             string body)
@@ -34,7 +34,7 @@
         public int AccountIdFrom { get; set; }
 
         [Required]
-        public ICollection<int> AccountIdsTo { get; set; }
+        public IList<int> AccountIdsTo { get; set; }
 
         [Required]
         public DateTime DateTime { get; set; }

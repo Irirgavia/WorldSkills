@@ -115,7 +115,7 @@
             return ObjectMapper<SkillEntity, SkillDTO>.Map(skill);
         }
 
-        public StageDTO CreateStage(int competitionId, int stageTypeId, ICollection<int> accounts)
+        public StageDTO CreateStage(int competitionId, int stageTypeId, IList<int> accounts)
         {
             StageEntity stage;
             try

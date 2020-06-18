@@ -16,7 +16,7 @@
             int skillEntityId,
             DateTime dateTimeBegin,
             DateTime dateTimeEnd,
-            ICollection<StageEntity> stageEntities)
+            IList<StageEntity> stageEntities)
         {
             this.SkillEntityId = skillEntityId;
             this.DateTimeBegin = dateTimeBegin;
@@ -39,6 +39,6 @@
         [Required]
         public DateTime DateTimeEnd { get; set; }
 
-        public ICollection<StageEntity> StageEntities { get; set; }
+        public IList<StageEntity> StageEntities { get; set; }
     }
 }

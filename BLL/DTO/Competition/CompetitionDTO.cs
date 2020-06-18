@@ -14,7 +14,7 @@
             SkillDTO skill,
             DateTime dateTimeBegin,
             DateTime dateTimeEnd,
-            ICollection<StageDTO> stages)
+            IList<StageDTO> stages)
         {
             this.Skill = skill;
             this.DateTimeBegin = dateTimeBegin;
@@ -30,6 +30,6 @@
 
         public DateTime DateTimeEnd { get; set; }
 
-        public ICollection<StageDTO> Stages { get; set; }
+        public IList<StageDTO> Stages { get; set; }
     }
 }

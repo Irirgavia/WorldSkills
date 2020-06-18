@@ -20,8 +20,8 @@
             TimeSpan durationTime,
             string description,
             string requirement,
-            ICollection<AddressEntity> addressEntities,
-            ICollection<AnswerEntity> answerEntities)
+            IList<AddressEntity> addressEntities,
+            IList<AnswerEntity> answerEntities)
         {
             this.StageEntityId = stageEntityId;
             this.DateTimeBegin = dateTimeBegin;
@@ -50,8 +50,8 @@
         [Required]
         public string Requirement { get; set; }
 
-        public ICollection<AddressEntity> AddressEntities { get; set; }
+        public IList<AddressEntity> AddressEntities { get; set; }
 
-        public ICollection<AnswerEntity> AnswerEntities { get; set; }
+        public IList<AnswerEntity> AnswerEntities { get; set; }
     }
 }

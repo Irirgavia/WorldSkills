@@ -15,8 +15,8 @@
         public StageEntity(
             int competitionEntityId,
             int stageTypeEntityId,
-            ICollection<TaskEntity> taskEntities,
-            ICollection<int> accountIds)
+            IList<TaskEntity> taskEntities,
+            IList<int> accountIds)
         {
             this.CompetitionEntityId = competitionEntityId;
             this.StageTypeEntityId = stageTypeEntityId;
@@ -37,8 +37,8 @@
         [ForeignKey("StageTypeEntityId")]
         public StageTypeEntity StageTypeEntity { get; set; }
 
-        public ICollection<TaskEntity> TaskEntities { get; set; }
+        public IList<TaskEntity> TaskEntities { get; set; }
 
-        public ICollection<int> AccountIds { get; set; }
+        public IList<int> AccountIds { get; set; }
     }
 }

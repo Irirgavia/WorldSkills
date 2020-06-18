@@ -19,8 +19,8 @@
             TimeSpan durationTime,
             string description,
             string requirement,
-            ICollection<AddressDTO> addresses,
-            ICollection<AnswerDTO> answers)
+            IList<AddressDTO> addresses,
+            IList<AnswerDTO> answers)
         {
             this.StageId = stage;
             this.DateTimeBegin = dateTimeBegin;
@@ -43,8 +43,8 @@
 
         public string Requirement { get; set; }
 
-        public ICollection<AddressDTO> Addresses { get; set; }
+        public IList<AddressDTO> Addresses { get; set; }
 
-        public ICollection<AnswerDTO> Answers { get; }
+        public IList<AnswerDTO> Answers { get; }
     }
 }

@@ -14,7 +14,7 @@
 
         public MailDTO(
             AccountDTO from,
-            ICollection<AccountDTO> to,
+            IList<AccountDTO> to,
             DateTime dateTime,
             string subject,
             string body)
@@ -30,7 +30,7 @@
 
         public AccountDTO From { get; set; }
 
-        public ICollection<AccountDTO> To { get; set; }
+        public IList<AccountDTO> To { get; set; }
 
         public DateTime DateTime { get; set; }
 
