@@ -25,13 +25,13 @@
 
         public string House { get; set; }
 
-        public string Apartments { get; set; }
+        public string Apartment { get; set; }
 
         public string Notes { get; set; }
 
         public override string ToString()
         {
-            return $"{this.Country}, {this.City}, {this.Street}, {this.House}, {this.Apartments}";
+            return $"{this.Country}, {this.City}, {this.Street}, {this.House}, {this.Apartment}";
         }
     }
 }

@@ -94,7 +94,7 @@
                     personalDataDTO.Address.City = parameters.City;
                     personalDataDTO.Address.Street = parameters.Street;
                     personalDataDTO.Address.House = parameters.House;
-                    personalDataDTO.Address.Apartments = parameters.Apartment;
+                    personalDataDTO.Address.Apartment = parameters.Apartment;
 
                     personalDataDTO.Surname = parameters.Surname;
                     personalDataDTO.Name = parameters.Name;

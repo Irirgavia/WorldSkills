@@ -65,7 +65,7 @@
                 City = accountDTO.PersonalData.Address.City,
                 Street = accountDTO.PersonalData.Address.Street,
                 House = accountDTO.PersonalData.Address.House,
-                Apartment = accountDTO.PersonalData.Address.Apartments
+                Apartment = accountDTO.PersonalData.Address.Apartment
             };
             return personalData;
         }
