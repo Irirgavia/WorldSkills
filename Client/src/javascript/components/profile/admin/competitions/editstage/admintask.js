@@ -10,10 +10,22 @@ export default class AdminTask extends React.Component {
     this.props.editTask(this.props.task);
   }
 
+  toDateFormat(sourceString) {
+    var stringDate =
+      sourceString.slice(8, 10) +
+      "." +
+      sourceString.slice(5, 7) +
+      "." +
+      sourceString.slice(0, 4) +
+      " " +
+      sourceString.slice(11);
+    return stringDate;
+  }
+
   render() {
     <tr class="task">
-      <td>{this.props.task.TaskDateOfBegin}</td>
-      <td>{this.props.task.TaskDateOfEnd}</td>
+      <td>{this.toDateFormat(this.props.task.TaskDateOfBegin)}</td>
+      <td>{this.toDateFormat(this.props.task.TaskDateOfEnd)}</td>
       <td>
         <a href={this.props.task.Description}>Задание</a>
       </td>

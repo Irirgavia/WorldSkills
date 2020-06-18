@@ -1,56 +1,54 @@
 ﻿namespace WebAPI.ObjectMapper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Web;
-
-    using BLL.DTO.Competition;
     using BLL.DTO.Account;
+    using BLL.DTO.Competition;
+    using BLL.DTO.NotificationSystem;
     using BLL.Services.Interfaces;
     using Models.ResponseModels;
-    using Models.RequestModels;
-    using BLL.DTO.NotificationSystem;
-    using BLL.Services;
+    using System;
+    using System.Text;
 
     public class ObjectMapperDTOModel
     {
-        static string dateFormat = "yyyy-MM-ddThh:mm";
+        static string dateFormatForDateTime = "yyyy-MM-ddThh:mm";
+
         public static ScheduleElementResponseModel ToModel(CompetitionDTO competitionDTO)
         {
             StringBuilder stringBuilder = new StringBuilder();
             var scheduleElement = new ScheduleElementResponseModel()
-            {
-                Skill = competitionDTO.Skill.Name,
-                DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
-                DateOfEnd = competitionDTO.DateTimeEnd.ToShortDateString()
-            };
-            foreach(var stage in competitionDTO.Stages)
+                                      {
+                                          Skill = competitionDTO.Skill.Name,
+                                          DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
+                                          DateOfEnd = competitionDTO.DateTimeEnd.ToShortDateString()
+                                      };
+            foreach (var stage in competitionDTO.Stages)
             {
                 var competitionStage = new ScheduleElementResponseModel.CompetitionStage()
-                {
-                    Type = stage.StageType.Name
-                };
-                foreach(var task in stage.Tasks)
+                                           {
+                                               Type = stage.StageType.Name
+                                           };
+                foreach (var task in stage.Tasks)
                 {
                     var stageTask = new ScheduleElementResponseModel.CompetitionStage.StageTask()
-                    {
-                        TaskDateOfBegin = task.DateTimeBegin.ToString(dateFormat)
-                    };
+                                        {
+                                            TaskDateOfBegin = task.DateTimeBegin.ToString(dateFormatForDateTime)
+                                        };
                     var dateOfEnd = task.DateTimeBegin + task.DurationTime;
-                    stageTask.TaskDateOfEnd = dateOfEnd.ToString(dateFormat);
+                    stageTask.TaskDateOfEnd = dateOfEnd.ToString(dateFormatForDateTime);
                     stageTask.IsActual = dateOfEnd < DateTime.Now;
                     foreach (var address in task.Addresses)
                     {
                         stringBuilder.Append(address);
                         stringBuilder.Append("; ");
                     }
+
                     stageTask.Addresses = stringBuilder.ToString();
                     competitionStage.Tasks.Add(stageTask);
                 }
+
                 scheduleElement.Stages.Add(competitionStage);
             }
+
             return scheduleElement;
         }
 
@@ -73,57 +71,62 @@
         public static PersonalDataResponseModel ToPersonalDataResponseModel(AccountDTO accountDTO)
         {
             PersonalDataResponseModel personalData = new PersonalDataResponseModel()
-            {
-                Surname = accountDTO.PersonalData.Surname,
-                Name = accountDTO.PersonalData.Name,
-                Patronymic = accountDTO.PersonalData.Patronymic,
-                Birthday = accountDTO.PersonalData.Birthday.ToString(dateFormat),
-                Mail = accountDTO.PersonalData.Mail,
-                Telephone = accountDTO.PersonalData.Telephone,
-                AddressId = accountDTO.PersonalData.Address.Id,
-                Country = accountDTO.PersonalData.Address.Country,
-                City = accountDTO.PersonalData.Address.City,
-                Street = accountDTO.PersonalData.Address.Street,
-                House = accountDTO.PersonalData.Address.House,
-            };
+                                                         {
+                                                             Surname = accountDTO.PersonalData.Surname,
+                                                             Name = accountDTO.PersonalData.Name,
+                                                             Patronymic = accountDTO.PersonalData.Patronymic,
+                                                             Birthday =
+                                                                 accountDTO.PersonalData.Birthday.ToString(
+                                                                     dateFormatForDateTime),
+                                                             Mail = accountDTO.PersonalData.Mail,
+                                                             Telephone = accountDTO.PersonalData.Telephone,
+                                                             AddressId = accountDTO.PersonalData.Address.Id,
+                                                             Country = accountDTO.PersonalData.Address.Country,
+                                                             City = accountDTO.PersonalData.Address.City,
+                                                             Street = accountDTO.PersonalData.Address.Street,
+                                                             House = accountDTO.PersonalData.Address.House,
+                                                         };
             return personalData;
         }
 
-        public static UserResponseModel AccountToModel(AccountDTO accountDTO, bool isPasswordValid, int unreadNotificationAmount)
+        public static UserResponseModel AccountToModel(
+            AccountDTO accountDTO,
+            bool isPasswordValid,
+            int unreadNotificationAmount)
         {
             if (accountDTO == null)
             {
                 return new UserResponseModel()
-                {
-                    Id = -1,
-                    Login = "",
-                    Role = "",
-                    Status = "NotFound", 
-                    UnreadNotificationAmount = 0
-                };
+                           {
+                               Id = -1,
+                               Login = "",
+                               Role = "",
+                               Status = "NotFound",
+                               UnreadNotificationAmount = 0
+                           };
             }
 
             if (isPasswordValid)
             {
                 return new UserResponseModel()
-                {
-                    Id = accountDTO.Id,
-                    Login = accountDTO.Credentials.Login,
-                    Role = accountDTO.Credentials.Role.Name,
-                    Status = "Success",
-                    UnreadNotificationAmount = unreadNotificationAmount
-                };
+                           {
+                               Id = accountDTO.Id,
+                               Login = accountDTO.Credentials.Login,
+                               Role = accountDTO.Credentials.Role.Name,
+                               Status = "Success",
+                               UnreadNotificationAmount = unreadNotificationAmount
+                           };
             }
             else
             {
                 return new UserResponseModel()
-                {
-                    Id = -1,
-                    Login = "",
-                    Role = "",
-                    Status = "WrongPassword",
-                    UnreadNotificationAmount = 0
-                };
+                           {
+                               Id = -1,
+                               Login = "",
+                               Role = "",
+                               Status = "WrongPassword",
+                               UnreadNotificationAmount = 0
+                           };
             }
         }
 
@@ -136,7 +139,9 @@
             int month = int.Parse(splitDate[1]);
             int year = int.Parse(splitDate[0]);
             if (splitDate.Length == 3)
-            { return new DateTime(year, month, day); }
+            {
+                return new DateTime(year, month, day);
+            }
             else
             {
                 int hours = int.Parse(splitDate[3]);
@@ -149,48 +154,49 @@
         public static NotificationResponseModel ToModel(NotificationDTO notificationDTO)
         {
             var notificationResponseModel = new NotificationResponseModel()
-            {
-                Id = notificationDTO.Id,
-                IsRead = notificationDTO.IsRead,
-                Subject = notificationDTO.Mail.Subject,
-                Message = notificationDTO.Mail.Body
-            };
+                                                {
+                                                    Id = notificationDTO.Id,
+                                                    IsRead = notificationDTO.IsRead,
+                                                    Subject = notificationDTO.Mail.Subject,
+                                                    Message = notificationDTO.Mail.Body
+                                                };
             return notificationResponseModel;
         }
-        public static ResultsElementResponseModel ToResultsElementResponseModel(CompetitionDTO competitionDTO, string stage, IAccountService accountService)
+
+        public static ResultsElementResponseModel ToResultsElementResponseModel(
+            CompetitionDTO competitionDTO,
+            string stage,
+            IAccountService accountService)
         {
             StringBuilder stringBuilder = new StringBuilder();
             var resultElement = new ResultsElementResponseModel()
-            {
-                Skill = competitionDTO.Skill.Name,
-                DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
-                DateOfEnd = competitionDTO.DateTimeEnd.ToShortDateString()
-            };
+                                    {
+                                        Skill = competitionDTO.Skill.Name,
+                                        DateOfBegin = competitionDTO.DateTimeBegin.ToShortDateString(),
+                                        DateOfEnd = competitionDTO.DateTimeEnd.ToShortDateString()
+                                    };
             foreach (var stageDTO in competitionDTO.Stages)
             {
                 if ((stage != "All" && stageDTO.StageType.Name == stage) || stage == "All")
                 {
-                    var resultsStage = new ResultsStage()
-                    {
-                        Type = stageDTO.StageType.Name
-                    };
+                    var resultsStage = new ResultsStage() { Type = stageDTO.StageType.Name };
                     foreach (var task in stageDTO.Tasks)
                     {
                         foreach (var answer in task.Answers)
                         {
-                            var result = new ResultsResultRecords()
-                            {
-                                Mark = answer.Result.Mark
-                            };
+                            var result = new ResultsResultRecords() { Mark = answer.Result.Mark };
                             var participant = accountService.GetAccountById(answer.AccountId);
-                            string participantFullName = $"{participant.PersonalData.Surname} {participant.PersonalData.Name} {participant.PersonalData.Patronymic}";
+                            string participantFullName =
+                                $"{participant.PersonalData.Surname} {participant.PersonalData.Name} {participant.PersonalData.Patronymic}";
                             result.Participant = participantFullName;
                             resultsStage.ResultRecords.Add(result);
                         }
                     }
+
                     resultElement.Stages.Add(resultsStage);
                 }
             }
+
             return resultElement;
         }
     }

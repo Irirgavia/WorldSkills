@@ -51,6 +51,10 @@ export default class PersonalDataEditView extends React.Component {
     );
   }
 
+  toDateFormat(sourceString) {
+    return sourceString.slice(0, 10);
+  }
+
   render() {
     return (
       <form class="personaldata" onSubmit={this.save}>
@@ -109,7 +113,7 @@ export default class PersonalDataEditView extends React.Component {
             name="birthday"
             onChange={this.handleInputChange}
             pattern="[0-3][0-9].[0-1][0-9].(1|2)(0|1|9)[0-9][0-9]"
-            value={this.state.birthday}
+            value={this.toDateFormat(this.state.birthday)}
           />
         </p>
         <p>

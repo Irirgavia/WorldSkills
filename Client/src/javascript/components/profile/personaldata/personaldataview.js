@@ -10,6 +10,16 @@ export default class PersonalDataView extends React.Component {
     this.props.editData();
   }
 
+  toDateFormat(sourceString) {
+    var stringDate =
+      sourceString.slice(8, 10) +
+      "." +
+      sourceString.slice(5, 7) +
+      "." +
+      sourceString.slice(0, 4);
+    return stringDate;
+  }
+
   render() {
     return (
       <div class="personaldata">
@@ -29,7 +39,9 @@ export default class PersonalDataView extends React.Component {
         </p>
         <p>
           <label class="questionField">Дата рождения:</label>
-          <label class="answerField">{this.props.data.Birthday}</label>
+          <label class="answerField">
+            {this.toDateFormat(this.props.data.Birthday)}
+          </label>
         </p>
         <p>
           <label class="questionField">Почта:</label>
