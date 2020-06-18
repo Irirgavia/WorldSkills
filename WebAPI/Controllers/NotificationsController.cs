@@ -16,6 +16,10 @@ namespace WebAPI.Controllers
         [Route("api/notifications")]
         public IHttpActionResult Receive([FromBody] UserIdRequestModel userId)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var systemService = ServiceProvider.GetSystemService();
             try
             {
@@ -36,6 +40,10 @@ namespace WebAPI.Controllers
         [Route("api/notifications/amount")]
         public IHttpActionResult Amount([FromBody] UserIdRequestModel userId)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var systemService = ServiceProvider.GetSystemService();
             try
             {
@@ -51,6 +59,10 @@ namespace WebAPI.Controllers
 
         public IHttpActionResult Read([FromUri] int notificationId, [FromUri] int userId)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var systemService = ServiceProvider.GetSystemService();
             try
             {

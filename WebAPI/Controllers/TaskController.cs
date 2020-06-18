@@ -18,6 +18,10 @@ namespace WebAPI.Controllers
         [Route("api/task/save")]
         public IHttpActionResult Save([FromBody] TaskSaveRequestModel parameters)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var competitionService = ServiceProvider.GetCompetitionService();
             DateTime begin = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfBegin);
             DateTime end = ObjectMapperDTOModel.ParseToDateTime(parameters.taskDateOfEnd);

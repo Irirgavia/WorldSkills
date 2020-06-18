@@ -51,6 +51,7 @@ export class Account extends React.Component {
               type="text"
               id="newLogin"
               name="newLogin"
+              maxLength="30"
               onChange={this.handleInputChange}
               value={this.state.newLogin}
             />

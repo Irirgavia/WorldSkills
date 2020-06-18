@@ -43,6 +43,10 @@
         [Route("api/results/participant")]
         public IHttpActionResult GetResultsByParticipant([FromBody] UserIdRequestModel userId)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel> resultsElements = new List<Models.ResponseModels.ForParticipant.ResultForParticipantResponseModel>();
             var competitionService = ServiceProvider.GetCompetitionService();
             try

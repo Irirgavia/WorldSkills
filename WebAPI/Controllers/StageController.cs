@@ -33,6 +33,10 @@ namespace WebAPI.Controllers
         [Route("api/stage/save")]
         public IHttpActionResult Save([FromBody] StageSaveRequestModel parameters)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var competitionService = ServiceProvider.GetCompetitionService();
             try
             {

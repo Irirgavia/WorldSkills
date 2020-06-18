@@ -22,6 +22,10 @@
         [Route("api/answer")]
         public IHttpActionResult Receive([FromBody] UserIdRequestModel judgeId)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             ICollection<CompetitionForAnswerResponseModel> answerForJudgeModels = new List<CompetitionForAnswerResponseModel>();
             var competitionService = ServiceProvider.GetCompetitionService();
             try
@@ -42,6 +46,10 @@
         [Route("api/answer/save")]
         public IHttpActionResult Save([FromBody] AnswerSaveRequestModel parameters)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
             var competitionService = ServiceProvider.GetCompetitionService();
             try
             {

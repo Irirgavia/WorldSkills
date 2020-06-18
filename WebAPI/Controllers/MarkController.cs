@@ -15,12 +15,24 @@ namespace WebAPI.Controllers
         [Route("api/mark/save")]
         public IHttpActionResult Save([FromBody] MarkSaveRequestModel parameters)
         {
-            var competitionService = ServiceProvider.GetCompetitionService();
-            var answer = competitionService.GetAnswerById(parameters.answerId);
-            var result = answer.Result;
-            result.Mark = parameters.mark;
-            competitionService.UpdateResult(result);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            try
+            {
+                var competitionService = ServiceProvider.GetCompetitionService();
+                var answer = competitionService.GetAnswerById(parameters.answerId);
+                var result = answer.Result;
+                result.Mark = parameters.mark;
+                competitionService.UpdateResult(result);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }
