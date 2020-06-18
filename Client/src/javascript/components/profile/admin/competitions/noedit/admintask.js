@@ -11,16 +11,20 @@ export default class AdminTask extends React.Component {
       " " +
       sourceString.slice(11);
     return stringDate;
+    //return sourceString;
   }
 
   render() {
-    <tr class="task">
-      <td>{this.toDateFormat(this.props.task.TaskDateOfBegin)}</td>
-      <td>{this.toDateFormat(this.props.task.TaskDateOfEnd)}</td>
-      <td>
-        <a href={this.props.task.Description}>Задание</a>
-      </td>
-      <td>{this.props.task.Addresses}</td>
-    </tr>;
+    console.log("task");
+    return (
+      <tr class="task">
+        <td>{this.toDateFormat(this.props.task.TaskDateOfBegin)}</td>
+        <td>{this.toDateFormat(this.props.task.TaskDateOfEnd)}</td>
+        <td>
+          <a href={this.props.task.Description}>Задание</a>
+        </td>
+        <td>{this.props.task.Addresses}</td>
+      </tr>
+    );
   }
 }

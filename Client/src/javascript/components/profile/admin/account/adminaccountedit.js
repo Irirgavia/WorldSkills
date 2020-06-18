@@ -50,6 +50,11 @@ export default class AdminAccountEdit extends React.Component {
     );
   }
 
+  toDateFormat(sourceString) {
+    var stringDate = sourceString.slice(0, 10);
+    return stringDate;
+  }
+
   render() {
     return (
       <tr>
@@ -109,7 +114,7 @@ export default class AdminAccountEdit extends React.Component {
             name="birthday"
             onChange={this.handleInputChange}
             pattern="[0-3][0-9].[0-1][0-9].(1|2)(0|1|9)[0-9][0-9]"
-            value={this.state.birthday}
+            value={this.toDateFormat(this.state.birthday)}
           />
         </td>
         <td>

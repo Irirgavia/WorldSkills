@@ -13,14 +13,23 @@ export class AdminAccount extends React.Component {
   constructor(props) {
     super(props);
     this.saveData = this.saveData.bind(this);
+    this.state = {
+      saveDataFlag: false,
+    };
   }
 
   componentDidMount() {
     this.props.getAllUsers(this.props.userId);
   }
 
+  update() {
+    this.props.getAllUsers(this.props.userId);
+    this.setState({ saveDataFlag: false });
+  }
+
   saveData(user) {
     this.props.savePersonalDataByAdmin(user);
+    this.setState({ saveDataFlag: true });
   }
 
   render() {
@@ -30,6 +39,9 @@ export class AdminAccount extends React.Component {
       return <Error error={this.props.error.message} />;
     } else if (this.props.isFetching) {
       return <Loading />;
+    } else if (this.state.saveDataFlag) {
+      this.update();
+      return null;
     } else {
       return (
         <AdminAccountView users={this.props.items} saveData={this.saveData} />

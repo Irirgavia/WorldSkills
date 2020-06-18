@@ -49,6 +49,7 @@ export default class PersonalDataEditView extends React.Component {
       this.state.street,
       this.state.house
     );
+    this.finish();
   }
 
   toDateFormat(sourceString) {

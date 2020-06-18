@@ -11,13 +11,15 @@ export default class PersonalDataView extends React.Component {
   }
 
   toDateFormat(sourceString) {
+    /*console.log(this.props.data.Birthday);
     var stringDate =
       sourceString.slice(8, 10) +
       "." +
       sourceString.slice(5, 7) +
       "." +
       sourceString.slice(0, 4);
-    return stringDate;
+    return stringDate;*/
+    return sourceString;
   }
 
   render() {

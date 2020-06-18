@@ -23,18 +23,20 @@ export default class AdminTask extends React.Component {
   }
 
   render() {
-    <tr class="task">
-      <td>{this.toDateFormat(this.props.task.TaskDateOfBegin)}</td>
-      <td>{this.toDateFormat(this.props.task.TaskDateOfEnd)}</td>
-      <td>
-        <a href={this.props.task.Description}>Задание</a>
-      </td>
-      <td>{this.props.task.Addresses}</td>
-      <td>
-        <button class={"taskButton"} onClick={this.editTask}>
-          Редактировать задачу
-        </button>
-      </td>
-    </tr>;
+    return (
+      <tr class="task">
+        <td>{this.toDateFormat(this.props.task.TaskDateOfBegin)}</td>
+        <td>{this.toDateFormat(this.props.task.TaskDateOfEnd)}</td>
+        <td>
+          <a href={this.props.task.Description}>Задание</a>
+        </td>
+        <td>{this.props.task.Addresses}</td>
+        <td>
+          <button class={"taskButton"} onClick={this.editTask}>
+            Редактировать задачу
+          </button>
+        </td>
+      </tr>
+    );
   }
 }

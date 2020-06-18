@@ -78,6 +78,8 @@ export default class AdminStageEditView extends React.Component {
   }
 
   render() {
+    console.log("editstage/AdminStageEditView");
+    console.log(this.props);
     if (this.state.changeTaskFlag) {
       return (
         <AdminTaskEditView
@@ -145,7 +147,7 @@ export default class AdminStageEditView extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {stage.Tasks.map((task) => (
+              {this.props.stage.Tasks.map((task) => (
                 <AdminTask task={task} editTask={this.editTask} />
               ))}
             </tbody>

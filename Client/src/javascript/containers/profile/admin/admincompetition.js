@@ -21,6 +21,7 @@ export class AdminCompetititons extends React.Component {
     this.saveCompetition = this.saveCompetition.bind(this);
     this.state = {
       changeCompetitionFlag: false,
+      saveDataFlag: false,
       competitionToChange: {},
     };
   }
@@ -41,6 +42,7 @@ export class AdminCompetititons extends React.Component {
       changeCompetitionFlag: false,
       competitionToChange: {},
     });
+    this.props.getCompetitionsByAdmin(this.props.adminId);
   }
 
   createCompetition() {
@@ -65,6 +67,7 @@ export class AdminCompetititons extends React.Component {
       dateOfEnd: dateOfEnd,
     };
     this.props.saveCompetition(data);
+    this.setState({ saveDataFlag: true });
   }
 
   saveStage(stageId, stageType) {
@@ -74,6 +77,7 @@ export class AdminCompetititons extends React.Component {
       stageType: stageType,
     };
     this.props.saveStage(data);
+    this.setState({ saveDataFlag: true });
   }
 
   saveTask(taskId, taskDateOfBegin, taskDateOfEnd, description, addresses) {
@@ -85,6 +89,12 @@ export class AdminCompetititons extends React.Component {
       addresses: addresses,
     };
     this.props.saveTask(data);
+    this.setState({ saveDataFlag: true });
+  }
+
+  update() {
+    this.props.getCompetitionsByAdmin(this.props.adminId);
+    this.setState({ saveDataFlag: false });
   }
 
   render() {
@@ -94,6 +104,9 @@ export class AdminCompetititons extends React.Component {
       return <Error error={this.props.error.message} />;
     } else if (this.props.isFetching) {
       return <Loading />;
+    } else if (this.state.saveDataFlag) {
+      this.update();
+      return null;
     } else if (this.state.changeCompetitionFlag) {
       return (
         <AdminCompetititonsEditView

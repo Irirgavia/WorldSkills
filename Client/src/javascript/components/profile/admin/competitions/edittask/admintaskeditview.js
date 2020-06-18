@@ -26,6 +26,7 @@ export default class AdminTaskEditView extends React.Component {
   }
 
   sendTask(event) {
+    console.log(this.props);
     event.preventDefault();
     this.props.saveTask(
       this.props.task.Id,
@@ -41,71 +42,74 @@ export default class AdminTaskEditView extends React.Component {
   }
 
   render() {
-    <div class="tasks">
-      <form onSubmit={this.sendTask}>
-        <p>
-          <label class="questionField" for="taskDateOfBegin">
-            Дата начала:
-          </label>
-          <input
-            type="datetime-local"
-            class="answerField"
-            id="taskDateOfBegin"
-            name="taskDateOfBegin"
-            onChange={this.handleInputChange}
-            maxLength="50"
-            value={this.state.taskDateOfBegin}
-            required
-          />
-        </p>
-        <p>
-          <label class="questionField" for="taskDateOfEnd">
-            Дата конца:
-          </label>
-          <input
-            type="datetime-local"
-            class="answerField"
-            id="taskDateOfEnd"
-            name="taskDateOfEnd"
-            onChange={this.handleInputChange}
-            maxLength="50"
-            value={this.state.taskDateOfEnd}
-            required
-          />
-        </p>
-        <p>
-          <label class="questionField" for="description">
-            Описание:
-          </label>
-          <input
-            type="text"
-            class="answerField"
-            id="description"
-            name="description"
-            onChange={this.handleInputChange}
-            maxLength="50"
-            value={this.state.description}
-            required
-          />
-        </p>
-        <p>
-          <label class="questionField" for="addresses">
-            Адрес:
-          </label>
-          <input
-            type="text"
-            class="answerField"
-            id="addresses"
-            name="addresses"
-            onChange={this.handleInputChange}
-            maxLength="50"
-            value={this.state.addresses}
-            required
-          />
-        </p>
-        <button type="submit">Сохранить</button>
-        <button onClick={this.finishEditTask}>Вернуться</button>
-      </form>
-    </div>;
+    console.log(this.props);
+    return (
+      <div class="tasks">
+        <form onSubmit={this.sendTask}>
+          <p>
+            <label class="questionField" for="taskDateOfBegin">
+              Дата начала:
+            </label>
+            <input
+              type="datetime-local"
+              class="answerField"
+              id="taskDateOfBegin"
+              name="taskDateOfBegin"
+              onChange={this.handleInputChange}
+              maxLength="50"
+              value={this.state.taskDateOfBegin}
+              required
+            />
+          </p>
+          <p>
+            <label class="questionField" for="taskDateOfEnd">
+              Дата конца:
+            </label>
+            <input
+              type="datetime-local"
+              class="answerField"
+              id="taskDateOfEnd"
+              name="taskDateOfEnd"
+              onChange={this.handleInputChange}
+              maxLength="50"
+              value={this.state.taskDateOfEnd}
+              required
+            />
+          </p>
+          <p>
+            <label class="questionField" for="description">
+              Описание:
+            </label>
+            <input
+              type="text"
+              class="answerField"
+              id="description"
+              name="description"
+              onChange={this.handleInputChange}
+              maxLength="50"
+              value={this.state.description}
+              required
+            />
+          </p>
+          <p>
+            <label class="questionField" for="addresses">
+              Адрес:
+            </label>
+            <input
+              type="text"
+              class="answerField"
+              id="addresses"
+              name="addresses"
+              onChange={this.handleInputChange}
+              maxLength="50"
+              value={this.state.addresses}
+              required
+            />
+          </p>
+          <button type="submit">Сохранить</button>
+          <button onClick={this.finishEditTask}>Вернуться</button>
+        </form>
+      </div>
+    );
   }
 }

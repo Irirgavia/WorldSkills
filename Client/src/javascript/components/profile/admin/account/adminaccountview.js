@@ -12,11 +12,19 @@ export default class AdminAccountView extends React.Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
     var usersCopy = this.props.users.slice();
     this.setState({ users: usersCopy });
   }
 
   editUser(user) {
+    console.log("editUser");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
     this.setState({ selectedUser: user });
   }
 
@@ -35,6 +43,10 @@ export default class AdminAccountView extends React.Component {
     house,
     apartment
   ) {
+    console.log("saveData");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
     var users = this.state.users.slice();
     var user = users.find(this.findElementInArrayById, userId);
     user.Role = role;
@@ -58,6 +70,10 @@ export default class AdminAccountView extends React.Component {
   }
 
   createUser() {
+    console.log("createUser");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
     var users = this.state.users.slice();
     var user = {
       Id: -1,
@@ -76,6 +92,10 @@ export default class AdminAccountView extends React.Component {
     };
     users.push(user);
     this.setState({ users: users, selectedUser: user });
+    console.log("createUser");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
   }
 
   choose(user) {
@@ -87,6 +107,10 @@ export default class AdminAccountView extends React.Component {
   }
 
   render() {
+    console.log("render");
+    console.log(this.props.users);
+    console.log(this.state.users);
+    console.log(this.state.selectedUser);
     return (
       <div>
         <table>

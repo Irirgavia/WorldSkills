@@ -12,6 +12,7 @@ export default class AdminStage extends React.Component {
   }
 
   render() {
+    console.log("editcompetition/AdminStage");
     if (this.props.stage.Tasks.length == 0) {
       return (
         <div class="stage">
